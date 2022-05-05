@@ -1,8 +1,55 @@
 import type { NextPage } from 'next';
+import Router, { useRouter } from 'next/router';
+import { useState } from 'react';
+const Userfront = require('@userfront/react');
 import Head from 'next/head';
 import Image from 'next/image';
+import styles from '../styles/Login.module.scss';
+
 
 const Login: NextPage = () => {
+  const [invalid, setInvalid] = useState(false);
+
+  const router = useRouter();
+
+  const checkIfLoggedIn = (async () => {
+    const res = await fetch('http://localhost:4000/users/login', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await res.json();
+    if (data) {
+      router.push('/');
+    }
+  })();
+
+  const handleSubmit = async (data: any) => {
+    const email = data.email;
+    const password = data.password;
+    console.log(email.value, password.value);
+
+    const response = await fetch('http://localhost:4000/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    });
+    const json = await response.json();
+
+    if (json.user) {
+      localStorage.setItem('token', json.token);
+      router.push('/');
+    } else {
+      setInvalid(true);
+    }
+  };
   return (
     <>
       <Head>
@@ -11,17 +58,25 @@ const Login: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className={styles.main}>
         <h1>Login</h1>
-        <form action="POST">
-          <label htmlFor="email">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(e.target);
+          }}
+          method="POST"
+          className={styles.form}
+        >
+          <label htmlFor="email" className={styles.label}>
             Email
-            <input type="email" id="email" />
+            <input type="email" id="email" className={styles.input} />
           </label>
-          <label htmlFor="password">
+          <label htmlFor="password" className={styles.label}>
             Password
-            <input type="password" id="password" />
+            <input type="password" id="password" className={styles.input} />
           </label>
+          {invalid && <p className={styles.error}>Invalid email or password</p>}
           <button type="submit">Login</button>
         </form>
       </main>
