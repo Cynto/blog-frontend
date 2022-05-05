@@ -4,6 +4,19 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage = () => {
+  const checkIfLoggedIn = (async () => {
+    const res = await fetch('http://localhost:4000/user', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await res.json();
+    if (data) {
+      console.log(data)
+    }
+  })();
   return (
     <div className={styles.container}>
       <Head>
