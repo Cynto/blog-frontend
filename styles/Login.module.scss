@@ -1,0 +1,49 @@
+$mainColor: #5d0c89cd;
+
+.main {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  width: 100vw;
+  height: 100vh;
+  .form {
+    display: grid;
+    box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    min-width: 40vw;
+    .label {
+      font-size: 1.1rem;
+
+      .input {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+        margin-bottom: 1rem;
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        &:focus {
+          outline: none;
+          border-color: $mainColor;
+        }
+      }
+    }
+    button {
+      background-color: $mainColor;
+      color: #fff;
+      border: none;
+      border-radius: 2px;
+      padding: 0.8rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: darken($mainColor, 10%);
+    }
+    .error {
+      color: red;
+      margin-top: 0;
+    }
+  }
+}
