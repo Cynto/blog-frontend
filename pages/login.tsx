@@ -1,11 +1,9 @@
 import type { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
 import { useState } from 'react';
-const Userfront = require('@userfront/react');
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Login.module.scss';
-
 
 const Login: NextPage = () => {
   const [invalid, setInvalid] = useState(false);
@@ -13,7 +11,7 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   const checkIfLoggedIn = (async () => {
-    const res = await fetch('http://localhost:4000/users/login', {
+    const res = await fetch('http://localhost:4000/user', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
