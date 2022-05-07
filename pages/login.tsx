@@ -10,18 +10,23 @@ const Login: NextPage = () => {
 
   const router = useRouter();
 
-  const checkIfLoggedIn = (async () => {
-    const res = await fetch('http://localhost:4000/user', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-    const data = await res.json();
-    if (data) {
-    }
-  })();
+  const ISSERVER = typeof window === 'undefined';
+
+  if (!ISSERVER) {
+    const checkIfLoggedIn = (async () => {
+      const res = await fetch('http://localhost:4000/user', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      const data = await res.json();
+      if (data) {
+        router.push('/');
+      }
+    })();
+  }
 
   const handleSubmit = async (data: any) => {
     const email = data.email;

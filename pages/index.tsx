@@ -1,22 +1,29 @@
 import type { NextPage } from 'next';
+import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage = () => {
-  const checkIfLoggedIn = (async () => {
-    const res = await fetch('http://localhost:4000/user', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-    const data = await res.json();
-    if (data) {
-      console.log(data)
-    }
-  })();
+  const router = useRouter();
+  const ISSERVER = typeof window === 'undefined';
+
+  if (!ISSERVER) {
+    const checkIfLoggedIn = (async () => {
+      const res = await fetch('http://localhost:4000/user', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      const data = await res.json();
+      if (data) {
+      } else {
+        router.push('/login');
+      }
+    })();
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -25,7 +32,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}></main>
+      <main className={styles.main}>
+        <h1 className={styles.title}>Hi </h1>
+        <a href="/posts">View list of posts</a>
+        <a href="/posts/create">Create Blog Post</a>
+      </main>
 
       <footer className={styles.footer}></footer>
     </div>
