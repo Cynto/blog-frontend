@@ -8,12 +8,13 @@ $breakpoint-desktop: 1260px;
   align-content: center;
   width: 100vw;
   height: 100vh;
-  span {
+  > span {
     z-index: 0;
     filter: blur(4px);
   }
   .form {
     z-index: 1;
+    filter: blur(0px);
     display: grid;
     box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.5);
     padding: 40px;
