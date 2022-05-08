@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
+import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
@@ -34,8 +35,12 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Hi </h1>
-        <a href="/posts">View list of posts</a>
-        <a href="/posts/create">Create Blog Post</a>
+        <Link href="/posts">
+          <a>View list of posts</a>
+        </Link>
+        <Link href="/posts/create">
+          <a>Create Blog Post</a>
+        </Link>
       </main>
 
       <footer className={styles.footer}></footer>
