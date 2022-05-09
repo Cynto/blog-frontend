@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Login.module.scss';
@@ -11,22 +11,6 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   const ISSERVER = typeof window === 'undefined';
-
-  if (!ISSERVER) {
-    const checkIfLoggedIn = (async () => {
-      const res = await fetch('http://localhost:4000/user', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      const data = await res.json();
-      if (data) {
-        router.push('/');
-      }
-    })();
-  }
 
   const handleSubmit = async (data: any) => {
     const email = data.email;
@@ -52,6 +36,23 @@ const Login: NextPage = () => {
       setInvalid(true);
     }
   };
+  useEffect(() => {
+    if (!ISSERVER) {
+      const checkIfLoggedIn = (async () => {
+        const res = await fetch('http://localhost:4000/user', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        const data = await res.json();
+        if (!data) {
+          router.push('/login');
+        }
+      })();
+    }
+  }, []);
   return (
     <>
       <Head>
