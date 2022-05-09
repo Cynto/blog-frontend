@@ -40,8 +40,7 @@ const Create: NextPage = () => {
     const json = await response.json();
 
     if (json.post) {
-      localStorage.setItem('token', json.token);
-      router.push('/');
+      router.push('/posts');
     } else {
       setInvalid(true);
     }
