@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../../styles/CreatePost.module.scss';
@@ -15,25 +15,11 @@ const Create: NextPage = () => {
 
   const ISSERVER = typeof window === 'undefined';
 
-  if (!ISSERVER) {
-    const checkIfLoggedIn = (async () => {
-      const res = await fetch('http://localhost:4000/user', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      const data = await res.json();
-      if (!data) {
-        router.push('/login');
-      }
-    })();
-  }
-
   const handleSubmit = async (data: any) => {
     const title = data.title;
     const image = data.image || '';
+    const tags = data.tags;
+    console.log(tags.value.split(', '));
 
     console.log(title.value, image.value, content);
     console.log(content);
@@ -42,21 +28,42 @@ const Create: NextPage = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify({
         title: title.value,
         image: image.value,
+        content,
+        tags: tags.value.split(', '),
       }),
     });
     const json = await response.json();
 
-    if (json.user) {
+    if (json.post) {
       localStorage.setItem('token', json.token);
       router.push('/');
     } else {
       setInvalid(true);
     }
   };
+
+  useEffect(() => {
+    if (!ISSERVER) {
+      const checkIfLoggedIn = (async () => {
+        const res = await fetch('http://localhost:4000/user', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        const data = await res.json();
+        if (!data) {
+          router.push('/login');
+        }
+      })();
+    }
+  }, []);
   return (
     <>
       <Head>
@@ -91,6 +98,7 @@ const Create: NextPage = () => {
           <label htmlFor="content" className={styles.label}>
             Content <span className={styles.required}>*</span>
             <Editor
+              id="editor"
               textareaName="content"
               apiKey="43kem55nzyn2unpp405bl6tbi63lr06vcg3u0169qhwe0xpr"
               onInit={(evt, editor: any) => (editorRef.current = editor)}
@@ -106,6 +114,11 @@ const Create: NextPage = () => {
               <p className={styles.error}>• Invalid title or content</p>
             )}
           </label>
+          <label htmlFor="tags" className={styles.label}>
+            Tags (Seperate tags with comma and a space)
+            <input type="text" id="tags" className={styles.input} />
+          </label>
+
           <button type="submit">Post</button>
         </form>
       </main>
