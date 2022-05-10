@@ -1,0 +1,49 @@
+$mainColor: #5d0c89cd;
+
+.totalContainer {
+  display: flex;
+
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 2;
+
+  .background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgb(175, 175, 175);
+    filter: blur(5px);
+  }
+
+  .logoutForm {
+    background: white;
+    padding: 30px;
+    z-index: 1;
+    box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.5);
+    width: min(80vw, 300px);
+    display: grid;
+    justify-content: center;
+
+    h1 {
+      justify-self: center;
+    }
+
+    button {
+      padding: 0.8rem 4rem;
+      border: none;
+      border-radius: 2px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background: $mainColor;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    button:hover {
+      background-color: darken($mainColor, 10%);
+    }
+  }
+}
