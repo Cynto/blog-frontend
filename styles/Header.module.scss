@@ -1,0 +1,6 @@
+.header {
+  display: grid;
+  grid-template-columns: 7fr min-content min-content max-content max-content;
+  grid-gap: 2rem;
+  align-items: center;
+}
