@@ -6,7 +6,7 @@ const LogoutForm = (props: { setViewLogout: Function }) => {
   const router = useRouter();
   const { setViewLogout } = props;
   return (
-    <div className={styles.totalContainer}>
+    <div className={styles.totalContainer} data-testid="logout-form">
       <div className={styles.background} />
       <div className={styles.logoutForm}>
         <h1>Logout</h1>
@@ -22,6 +22,7 @@ const LogoutForm = (props: { setViewLogout: Function }) => {
             localStorage.removeItem('token');
             router.push('/login');
           }}
+          data-testid="logout-button"
         >
           Logout
         </button>
