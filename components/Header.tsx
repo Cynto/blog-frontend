@@ -7,7 +7,7 @@ const Header = (props: { setViewLogout: Function }) => {
   return (
     <header className={styles.header}>
       <h1>Blog</h1>
-      <Link href="/Home">
+      <Link href="/">
         <a>Home</a>
       </Link>
       <Link href="/posts">
