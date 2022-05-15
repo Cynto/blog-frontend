@@ -52,10 +52,6 @@ $breakpoint-desktop: 1260px;
     button:hover {
       background-color: darken($mainColor, 10%);
     }
-    .error {
-      color: red;
-      margin-top: 0;
-    }
   }
   @media (min-width: $breakpoint-tablet) {
     .form {
