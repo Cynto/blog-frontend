@@ -16,12 +16,12 @@ describe('homepage tests', () => {
     cy.get('header').should('be.visible');
   });
   it('logout form should be visible on click', () => {
-    cy.get('header span').click();
-    cy.get('#logout-form').should('be.visible');
+    cy.get('[data-testid=header-logout]').click();
+    cy.get('[data-testid=logout-form]').should('be.visible');
   });
   it('jwt token should be removed on logout', () => {
-    cy.get('header span').click();
-    cy.get('#logout-form button').eq(1).click();
+    cy.get('[data-testid=header-logout]').click();
+    cy.get('[data-testid=logout-button]').click();
     cy.getLocalStorage('token').should('be.null');
   });
 });
