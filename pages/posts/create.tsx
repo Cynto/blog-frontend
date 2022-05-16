@@ -110,12 +110,12 @@ const Create: NextPage = () => {
                 setContent(content);
               }}
             />
-            {invalid && <p className="error">• Invalid title or content</p>}
           </label>
           <label htmlFor="tags" className={styles.label}>
             Tags (Seperate tags with comma and a space)
             <input type="text" id="tags" className={styles.input} />
           </label>
+          {invalid && <p className="error">• Invalid title, content or tags</p>}
 
           <button type="submit">Post</button>
         </form>
