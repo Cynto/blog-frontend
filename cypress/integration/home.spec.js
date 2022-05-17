@@ -10,7 +10,7 @@ describe('homepage tests', () => {
     cy.visit('http://localhost:3000/');
   });
   it('should have a title', () => {
-    cy.title().should('include', 'Blog');
+    cy.title().should('include', 'Bloggy');
   });
   it('should have a header', () => {
     cy.get('header').should('be.visible');
