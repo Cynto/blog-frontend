@@ -116,6 +116,7 @@ describe('Logout', () => {
   });
   it('deletes token on logout', async () => {
     render(<Home />);
+    localStorage.setItem('token', '123');
     const logout = screen.getByTestId('header-logout');
     await userEvent.click(logout);
     const logoutForm = screen.getByTestId('logout-form');
@@ -123,4 +124,9 @@ describe('Logout', () => {
     await userEvent.click(logoutButton);
     expect(localStorage.getItem('token')).toBeNull();
   });
-});
+  
+}
+);
+    
+    
+
