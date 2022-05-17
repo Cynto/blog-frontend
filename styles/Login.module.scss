@@ -22,7 +22,7 @@ $breakpoint-desktop: 1260px;
     background: white;
 
     .label {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
 
       .input {
         display: grid;
@@ -46,7 +46,7 @@ $breakpoint-desktop: 1260px;
       border: none;
       border-radius: 2px;
       padding: 0.8rem;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       cursor: pointer;
     }
     button:hover {
@@ -55,12 +55,25 @@ $breakpoint-desktop: 1260px;
   }
   @media (min-width: $breakpoint-tablet) {
     .form {
-      width: min(35vw, 500px);
+      width: min(55vw, 800px);
+      .label {
+        font-size: 1.7rem;
+      }
+      button {
+        font-size: 1.7rem;
+      }
     }
   }
   @media (min-width: $breakpoint-desktop) {
     .form {
-      width: min(30vw, 500px);
+      width: min(30vw, 450px);
+
+      .label {
+        font-size: 1.2rem;
+      }
+      button {
+        font-size: 1.2rem;
+      }
     }
   }
 }
