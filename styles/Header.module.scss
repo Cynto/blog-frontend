@@ -1,6 +1,72 @@
+$headerFontFamily: 'Koulen', sans-serif;
+$normalFontFamily: 'Roboto', serif;
+$normalFontColor: rgb(18, 18, 18);
+$normalFontColorHover: #5d0c89cd;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1260px;
+
 .header {
   display: grid;
-  grid-template-columns: 7fr min-content min-content max-content max-content;
+  grid-template-columns: 7fr max-content;
   grid-gap: 2rem;
   align-items: center;
+  border-bottom: 1px solid grey;
+  width: 100%;
+  padding: 0 40px;
+
+  h1 {
+    font: 3rem $headerFontFamily;
+    margin: 0;
+  }
+
+  nav {
+    display: none;
+
+    a {
+      font: 1rem $normalFontFamily;
+      color: $normalFontColor;
+
+      &:hover {
+        color: $normalFontColorHover;
+      }
+    }
+    span {
+      font: 1rem $normalFontFamily;
+      color: $normalFontColor;
+      cursor: pointer;
+
+      &:hover {
+        color: $normalFontColorHover;
+      }
+    }
+    .active {
+      color: $normalFontColorHover;
+      font-weight: bolder;
+    }
+  }
+}
+@media (min-width: $breakpoint-tablet) {
+  .header {
+    .menuNavContainer {
+      > span {
+        display: none;
+      }
+      nav {
+        display: grid;
+        grid-auto-flow: column;
+        grid-gap: 2rem;
+
+        a {
+          font-size: 1.3rem;
+        }
+        span {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-desktop) {
+  .header {
+  }
 }
