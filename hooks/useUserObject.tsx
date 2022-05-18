@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import UserObjInterface from '../shared/interfaces/userObj.interface';
 
 const useUserObject = () => {
-  const [userObj, setUserObj] = useState<UserObjInterface | null>(null);
+  const [userObj, setUserObj] = useState<UserObjInterface | null | false>(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -27,7 +27,7 @@ const useUserObject = () => {
     };
     fetchUser();
   }, []);
-
+  
   return { userObj, loading, error };
 };
 
