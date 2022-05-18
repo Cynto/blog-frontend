@@ -17,7 +17,7 @@ $breakpoint-desktop: 1260px;
     filter: blur(0px);
     display: grid;
     box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.5);
-    padding: 40px;
+    padding: 40px 40px 20px;
     width: min(80vw, 500px);
     background: white;
 
@@ -51,6 +51,14 @@ $breakpoint-desktop: 1260px;
     }
     button:hover {
       background-color: darken($mainColor, 10%);
+    }
+    a {
+      color: $mainColor;
+      text-decoration: none;
+
+      &:hover {
+        color: darken($mainColor, 30%);
+      }
     }
   }
   @media (min-width: $breakpoint-tablet) {
