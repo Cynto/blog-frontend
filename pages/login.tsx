@@ -1,12 +1,17 @@
 import type { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Login.module.scss';
+import useUserObject from '../hooks/useUserObject';
 
 const Login: NextPage = () => {
   const [invalid, setInvalid] = useState(false);
+
+  const userHookObject = useUserObject();
+  const { userObj } = userHookObject;
 
   const router = useRouter();
 
@@ -37,22 +42,10 @@ const Login: NextPage = () => {
     }
   };
   useEffect(() => {
-    if (!ISSERVER) {
-      const checkIfLoggedIn = (async () => {
-        const res = await fetch('http://localhost:4000/user', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        const data = await res.json();
-        if (!data) {
-          router.push('/login');
-        }
-      })();
+    if (userObj) {
+      router.push('/');
     }
-  }, []);
+  }, [userObj]);
   return (
     <>
       <Head>
@@ -65,6 +58,7 @@ const Login: NextPage = () => {
         <Image
           src="https://uc566fb39cfe356c36fbd3d6fe36.previews.dropboxusercontent.com/p/thumb/ABgSWYe-zJuzr4lSM_ck2EC8BJBy-6mZGty82VlOA3qVQ62LpgeDeKOgSQorMzUqjZtPdPY1sB0baSDIfwmptmDLfvdKGUIwPSLj8gNvqO7AdjaDeASVpB6L1b0WLRFi-TvluT7sA5j3Pv6H-8_NwcGS29ZUTiI9U9ljK-zXi1ff3gyxogp2GGzuZy4C8Y31vo8ws_SMW1vROJVjj10KhWWgZughKqpZkolroNkCwc8vcQ-ZpbKrb70Jf-lszEWd5wjbWHcAZ_-eg3CmM0j89-h5CIQbtXjEAjjayCNyWdPFzVzpWoJ0Y0HYhSh18eNBUL_UAwky2_GC8z4k_myogUdl94Hwau4XaL166AhT9OFWGAOfe3xD5TlRqZKz3UVeR4Psd1sDLlxmh2I5YAN9HBoiGobdpjVy4bkAj4F0LWQQxA/p.jpeg"
           layout="fill"
+          objectFit="cover"
           alt="background"
         />
 
@@ -75,6 +69,7 @@ const Login: NextPage = () => {
           }}
           method="POST"
           className={styles.form}
+          data-testid="login-form"
         >
           <label htmlFor="email" className={styles.label}>
             Email
@@ -93,6 +88,13 @@ const Login: NextPage = () => {
             <p className={styles.error}>• Invalid email or password</p>
           )}
           <button type="submit">Log In</button>
+          <p>
+            Don&apos;t have an account?{' '}
+            <Link href="/register">
+              <a>Sign Up</a>
+            </Link>
+          </p>
+          
         </form>
       </main>
 
