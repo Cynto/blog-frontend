@@ -7,10 +7,11 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 
 import Header from '../components/Header';
-import { useUser } from '../context/user';
+import useUserObject from '../hooks/useUserObject';
 
 const Home: NextPage = () => {
-  const { userObj } = useUser();
+  const userHookObject = useUserObject();
+  const { userObj } = userHookObject;
   return (
     <>
       <Head>
