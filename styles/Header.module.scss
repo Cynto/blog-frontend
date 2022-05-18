@@ -13,6 +13,7 @@ $breakpoint-desktop: 1260px;
   border-bottom: 1px solid grey;
   width: 100%;
   padding: 0 40px;
+  position: relative;
 
   h1 {
     font: 3rem $headerFontFamily;
@@ -60,7 +61,9 @@ $breakpoint-desktop: 1260px;
 @media (min-width: $breakpoint-tablet) {
   .header {
     .menuNavContainer {
-      > span {
+      display: flex;
+      gap: 20px;
+      > span:nth-child(1) {
         display: none;
       }
       nav {
