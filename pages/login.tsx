@@ -8,7 +8,16 @@ import styles from '../styles/Login.module.scss';
 import useUserObject from '../hooks/useUserObject';
 
 const Login: NextPage = () => {
-  const [invalid, setInvalid] = useState(false);
+  const [errors, setErrors] = useState<
+    [
+      {
+        value: String;
+        msg: String;
+        param: String;
+        location: String;
+      }
+    ]
+  >([{ msg: '', value: '', param: '', location: '' }]);
 
   const userHookObject = useUserObject();
   const { userObj } = userHookObject;
@@ -38,7 +47,7 @@ const Login: NextPage = () => {
       localStorage.setItem('token', json.token);
       router.push('/');
     } else {
-      setInvalid(true);
+      setErrors(json.errors);
     }
   };
   useEffect(() => {
@@ -84,9 +93,16 @@ const Login: NextPage = () => {
               required
             />
           </label>
-          {invalid && (
-            <p className={styles.error}>• Invalid email or password</p>
-          )}
+          {errors[0].msg !== '' ? (
+            <ul>
+              {errors.map((error, index) => (
+                <li key={index} className="error">
+                  {' '}
+                  {error.msg}
+                </li>
+              ))}
+            </ul>
+          ) : null}
           <button type="submit">Log In</button>
           <p>
             Don&apos;t have an account?{' '}
@@ -94,7 +110,6 @@ const Login: NextPage = () => {
               <a>Sign Up</a>
             </Link>
           </p>
-          
         </form>
       </main>
 

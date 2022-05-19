@@ -10,7 +10,16 @@ import useUserObject from '../../hooks/useUserObject';
 import useDidMountEffect from '../../hooks/useDidMountEffect';
 
 const Create: NextPage = () => {
-  const [invalid, setInvalid] = useState(false);
+  const [errors, setErrors] = useState<
+    [
+      {
+        value: String;
+        msg: String;
+        param: String;
+        location: String;
+      }
+    ]
+  >([{ msg: '', value: '', param: '', location: '' }]);
   const [content, setContent] = useState('');
   const [count, setCount] = useState(0);
 
@@ -49,7 +58,7 @@ const Create: NextPage = () => {
     if (json.post) {
       router.push('/posts');
     } else {
-      setInvalid(true);
+      setErrors(json.errors);
     }
   };
 
@@ -112,7 +121,16 @@ const Create: NextPage = () => {
             Tags (Seperate tags with comma and a space)
             <input type="text" id="tags" className={styles.input} />
           </label>
-          {invalid && <p className="error">• Invalid title, content or tags</p>}
+          {errors[0].msg !== '' ? (
+            <ul>
+              {errors.map((error, index) => (
+                <li key={index} className="error">
+                  {' '}
+                  {error.msg}
+                </li>
+              ))}
+            </ul>
+          ) : null}
 
           <button type="submit">Post</button>
         </form>
