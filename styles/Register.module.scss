@@ -1,0 +1,41 @@
+$mainColor: #0087ca;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1260px;
+
+.main {
+  > span {
+    z-index: 0;
+    filter: blur(4px);
+  }
+  .form {
+    .label {
+      .input {
+        &:focus {
+        }
+      }
+    }
+  }
+  @media (min-width: $breakpoint-tablet) {
+    .form {
+      
+      .label {
+        
+      }
+      button {
+        
+      }
+    }
+  }
+  @media (min-width: $breakpoint-desktop) {
+    .form {
+      width: min(30vw, 450px);
+
+      .label {
+        
+      }
+      button {
+        
+      }
+    }
+  }
+}
