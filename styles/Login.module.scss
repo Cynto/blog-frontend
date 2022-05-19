@@ -3,50 +3,16 @@ $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1260px;
 
 .main {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  width: 100vw;
-  height: 100vh;
   > span {
-    z-index: 0;
-    filter: blur(4px);
   }
   .form {
-    z-index: 1;
-    filter: blur(0px);
-    display: grid;
-    box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.5);
-    padding: 40px 40px 20px;
-    width: min(80vw, 500px);
-    background: white;
-
     .label {
-      font-size: 1.2rem;
-
       .input {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 1rem;
-        margin-bottom: 1rem;
-        width: 100%;
-        padding: 0.8rem;
-        background: darken(white, 3%);
-        border: 1px solid #ccc;
-        border-radius: 2px;
         &:focus {
-          outline: none;
-          border-color: $mainColor;
         }
       }
     }
     button {
-      background-color: $mainColor;
-      color: #fff;
-      border: none;
-      border-radius: 2px;
-      padding: 0.8rem;
-      font-size: 1.2rem;
       cursor: pointer;
     }
     button:hover {
@@ -63,24 +29,17 @@ $breakpoint-desktop: 1260px;
   }
   @media (min-width: $breakpoint-tablet) {
     .form {
-      width: min(55vw, 800px);
       .label {
-        font-size: 1.7rem;
       }
       button {
-        font-size: 1.7rem;
       }
     }
   }
   @media (min-width: $breakpoint-desktop) {
     .form {
-      width: min(30vw, 450px);
-
       .label {
-        font-size: 1.2rem;
       }
       button {
-        font-size: 1.2rem;
       }
     }
   }
