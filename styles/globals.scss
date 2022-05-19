@@ -49,34 +49,42 @@ body {
           }
         }
       }
-    }
-    button {
-      background-color: $mainColor;
-      color: #fff;
-      border: none;
-      border-radius: 2px;
-      padding: 0.8rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: darken($mainColor, 10%);
-    }
-    a {
-      color: $mainColor;
-      text-decoration: none;
+      button {
+        background-color: $mainColor;
+        color: #fff;
+        border: none;
+        border-radius: 2px;
+        padding: 0.8rem;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: darken($mainColor, 10%);
+      }
+      p {
+        margin-bottom: 0;
+        &:nth-of-type(2) {
+          margin-top: 5px;
+        }
+        a {
+          color: $mainColor;
+          text-decoration: none;
 
-      &:hover {
-        color: darken($mainColor, 30%);
+          &:hover {
+            color: darken($mainColor, 30%);
+          }
+        }
       }
-    }
-    ul {
-      margin-top: 0;
-      .error {
-        color: red;
+
+      ul {
         margin-top: 0;
+        .error {
+          color: red;
+          margin-top: 0;
+        }
       }
     }
+
     @media (min-width: $breakpoint-tablet) {
       form {
         width: min(45vw, 700px);
