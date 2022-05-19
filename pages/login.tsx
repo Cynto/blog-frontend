@@ -110,6 +110,12 @@ const Login: NextPage = () => {
               <a>Sign Up</a>
             </Link>
           </p>
+          <p>
+            Return to{' '}
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          </p>
         </form>
       </main>
 

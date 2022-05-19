@@ -49,7 +49,6 @@ const Register: NextPage = () => {
     if (json.user) {
       router.push('/login');
     } else {
-      
       setErrors(json.errors);
     }
   };
@@ -130,6 +129,12 @@ const Register: NextPage = () => {
             Already have an account?{' '}
             <Link href="/login">
               <a>Login</a>
+            </Link>
+          </p>
+          <p>
+            Return to{' '}
+            <Link href="/">
+              <a>Home</a>
             </Link>
           </p>
         </form>
