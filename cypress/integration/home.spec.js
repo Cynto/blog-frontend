@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-localstorage-commands';
 
-describe('homepage tests', () => {
+describe('homepage logged in tests', () => {
   beforeEach(() => {
     cy.setLocalStorage(
       'token',
@@ -17,11 +17,31 @@ describe('homepage tests', () => {
   });
   it('logout form should be visible on click', () => {
     cy.get('[data-testid=header-logout]').click();
-    cy.get('[data-testid=logout-form]').should('be.visible');
+    cy.url().should('include', '/logout');
   });
   it('jwt token should be removed on logout', () => {
     cy.get('[data-testid=header-logout]').click();
     cy.get('[data-testid=logout-button]').click();
     cy.getLocalStorage('token').should('be.null');
+  });
+});
+
+describe('homepage guest tests', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:3000/');
+  });
+  it('should have a title', () => {
+    cy.title().should('include', 'Bloggy');
+  });
+  it('should have a header', () => {
+    cy.get('header').should('be.visible');
+  });
+  it('should redirect to login page on click', () => {
+    cy.get('[data-testid=header-login]').click();
+    cy.url().should('include', '/login');
+  });
+  it('register form should be visible on click', () => {
+    cy.get('[data-testid=header-register]').click();
+    cy.url().should('include', '/register');
   });
 });
