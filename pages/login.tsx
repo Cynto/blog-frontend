@@ -103,7 +103,9 @@ const Login: NextPage = () => {
               ))}
             </ul>
           ) : null}
-          <button type="submit">Log In</button>
+          <button type="submit" data-testid="login-button">
+            Log In
+          </button>
           <p>
             Don&apos;t have an account?{' '}
             <Link href="/register">
