@@ -32,6 +32,11 @@ const customJestConfig = {
   globals: {
     localStorage: new LocalStorageMock(),
   },
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/lib/',
+    '<rootDir>/cypress/',
+  ],
 };
 
 module.exports = createJestConfig(customJestConfig);
