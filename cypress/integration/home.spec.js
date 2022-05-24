@@ -40,7 +40,7 @@ describe('homepage guest tests', () => {
     cy.get('[data-testid=header-login]').click();
     cy.url().should('include', '/login');
   });
-  it('register form should be visible on click', () => {
+  it('should redirect to register page on click', () => {
     cy.get('[data-testid=header-register]').click();
     cy.url().should('include', '/register');
   });
