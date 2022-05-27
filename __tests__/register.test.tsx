@@ -21,14 +21,14 @@ jest.mock('next/router', () => ({
 
 describe('Register page tests', () => {
   it('renders without crashing', async () => {
-    useUserObject.mockReturnValue({
+    (useUserObject as jest.Mock).mockReturnValue({
       userObj: null,
     });
 
     render(<Register />);
   });
   it('renders input boxes and submit button ', async () => {
-    useUserObject.mockReturnValue({
+    (useUserObject as jest.Mock).mockReturnValue({
       userObj: null,
     });
 
@@ -42,7 +42,7 @@ describe('Register page tests', () => {
     expect(screen.getByText('Create Account')).toBeInTheDocument();
   });
   it('renders navigation links', () => {
-    useUserObject.mockReturnValue({
+    (useUserObject as jest.Mock).mockReturnValue({
       userObj: null,
     });
 
@@ -52,8 +52,8 @@ describe('Register page tests', () => {
     expect(screen.getByText('Home')).toBeInTheDocument();
   });
   it('redirects to homepage if user is logged in', async () => {
-    useUserObject.mockReturnValue({
-      userObj,
+    (useUserObject as jest.Mock).mockReturnValue({
+      userObj: userObj,
     });
     const mockRouter = {
       push: jest.fn(),
