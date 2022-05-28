@@ -140,7 +140,7 @@ const Create: NextPage = () => {
             />
           </label>
           <div className={styles.publishedContainer}>
-            Publish on creation
+            <h3>Publish on Creation</h3>
             <label htmlFor="publishedTrue" className={styles.label}>
               Yes
               <input
@@ -159,11 +159,12 @@ const Create: NextPage = () => {
                 name="published"
                 value="false"
                 className={styles.radio}
+                defaultChecked
               />
             </label>
           </div>
           <div className={styles.featuredContainer}>
-            Set as Featured Post
+            <h3>Set as Featured Post</h3>
             <label htmlFor="featuredTrue">
               Yes
               <input
