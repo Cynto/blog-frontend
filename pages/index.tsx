@@ -12,6 +12,23 @@ import useUserObject from '../hooks/useUserObject';
 const Home: NextPage = () => {
   const userHookObject = useUserObject();
   const { userObj } = userHookObject;
+
+  const getFrontPagePosts = () => {
+    fetch('http://localhost:4000/posts', {
+      method: 'GET',
+      headers: {
+        frontpage: 'true',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
+  useEffect(() => {
+    getFrontPagePosts();
+  }, []);
   return (
     <>
       <Head>
