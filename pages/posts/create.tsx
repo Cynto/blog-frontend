@@ -34,11 +34,22 @@ const Create: NextPage = () => {
   const handleSubmit = async (data: any) => {
     const title = data.title;
     const image = data.image || '';
-    const tags = data.tags;
-    console.log(tags.value.split(', '));
+    const tags = data.tags
+      ? data.tags
+      : {
+          value: '',
+        };
+    const published = data.published || false;
+    const featured = data.featured || false;
 
-    console.log(title.value, image.value, content);
-    console.log(content);
+    console.log({
+      title: title.value,
+      image: image.value,
+      tags: tags.value,
+      published: published.value,
+      featured: featured.value,
+      content,
+    });
 
     const response = await fetch('http://localhost:4000/posts', {
       method: 'POST',
@@ -49,14 +60,16 @@ const Create: NextPage = () => {
       body: JSON.stringify({
         title: title.value,
         image: image.value,
-        content,
         tags: tags.value.split(', '),
+        published: published.value,
+        featured: featured.value,
+        content,
       }),
     });
     const json = await response.json();
 
     if (json.post) {
-      router.push('/posts');
+      router.push(`/posts/${json.post._id}`);
     } else {
       setErrors(json.errors);
     }
@@ -104,7 +117,7 @@ const Create: NextPage = () => {
           <label htmlFor="content" className={styles.label}>
             Content <span className={styles.required}>*</span>
             <Editor
-              id="editor"
+              id="content"
               textareaName="content"
               apiKey="43kem55nzyn2unpp405bl6tbi63lr06vcg3u0169qhwe0xpr"
               onInit={(evt, editor: any) => (editorRef.current = editor)}
@@ -118,9 +131,62 @@ const Create: NextPage = () => {
             />
           </label>
           <label htmlFor="tags" className={styles.label}>
-            Tags (Seperate tags with comma and a space)
-            <input type="text" id="tags" className={styles.input} />
+            Tags (Seperate tags with a comma and a space)
+            <input
+              data-testid="tags-input"
+              type="text"
+              id="tags"
+              className={styles.input}
+            />
           </label>
+          <div className={styles.publishedContainer}>
+            Publish on creation
+            <label htmlFor="publishedTrue" className={styles.label}>
+              Yes
+              <input
+                type="radio"
+                id="publishedTrue"
+                name="published"
+                value="true"
+                className={styles.radio}
+              />
+            </label>
+            <label htmlFor="publishedFalse">
+              No
+              <input
+                type="radio"
+                id="publishedFalse"
+                name="published"
+                value="false"
+                className={styles.radio}
+              />
+            </label>
+          </div>
+          <div className={styles.featuredContainer}>
+            Set as Featured Post
+            <label htmlFor="featuredTrue">
+              Yes
+              <input
+                type="radio"
+                id="featuredTrue"
+                name="featured"
+                value="true"
+                className={styles.radio}
+              />
+            </label>
+            <label htmlFor="featuredFalse">
+              No
+              <input
+                type="radio"
+                id="featuredFalse"
+                name="featured"
+                value="false"
+                className={styles.radio}
+                defaultChecked
+              />
+            </label>
+          </div>
+
           {errors[0].msg !== '' ? (
             <ul>
               {errors.map((error, index) => (
@@ -132,7 +198,9 @@ const Create: NextPage = () => {
             </ul>
           ) : null}
 
-          <button type="submit">Post</button>
+          <button type="submit" data-testid="create-post">
+            Create Post
+          </button>
         </form>
       </main>
     </>
