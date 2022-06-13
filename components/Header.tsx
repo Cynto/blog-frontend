@@ -14,8 +14,6 @@ const Header = (props: { userObj: UserObjInterface | null | false }) => {
   const currentRoute = router.pathname;
 
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [navDisplay, setNavDisplay] = useState<string>('grid');
-  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const [width, setWidth] = useState<number>(
     typeof window !== 'undefined' ? window.innerWidth : 0
@@ -26,26 +24,15 @@ const Header = (props: { userObj: UserObjInterface | null | false }) => {
   }
   useEffect(() => {
     window.addEventListener('resize', handleWindowSizeChange);
-    setIsMobile(width <= 768);
+
     return () => {
       window.removeEventListener('resize', handleWindowSizeChange);
     };
   }, []);
 
   useEffect(() => {
-    if (isMobile) {
-      setNavDisplay('none');
-    }
-    if (menuOpen) {
-      setNavDisplay('grid');
-    }
-    if (!menuOpen) {
-      setNavDisplay('none');
-    }
-    if (!isMobile) {
-      setNavDisplay('grid');
-    }
-  }, [menuOpen, isMobile]);
+    width >= 968 ? setMenuOpen(false) : null;
+  }, [width]);
 
   const navLinks = [
     {
@@ -84,7 +71,7 @@ const Header = (props: { userObj: UserObjInterface | null | false }) => {
   return (
     <>
       <header
-        className="grid xl:grid-cols-2 xl:justify-items-end py-3 px-6 gap-x-8 xl:gap-x-24 items-center  relative dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-600"
+        className=" z-10 fixed left-0 right-0   grid xl:grid-cols-2 shadow-2xl xl:justify-items-end py-3 px-6 gap-x-8 xl:gap-x-24 items-center bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-600"
         style={{
           gridTemplateColumns: width >= 1280 ? '1fr 1fr' : '7fr max-content',
         }}
@@ -92,14 +79,14 @@ const Header = (props: { userObj: UserObjInterface | null | false }) => {
         <h1 className="text-5xl font-header m-0 text-slate-800 dark:text-slate-100">
           Bloggy
         </h1>
-        <div className="flex gap-5 xl:justify-self-start">
+        <div className="flex items-center gap-5 xl:justify-self-start relative">
           <nav
-            className="
-              hidden md:grid grid-flow-col gap-x-8 "
-            style={{
-              position:
-                navDisplay === 'grid' && isMobile ? 'fixed' : 'relative',
-            }}
+            className={` md:!opacity-100 md:!items-center
+               dark:bg-gray-900 bg-white px-0 py-0 my-0 md:!grid md:!relative grid-flow-col gap-x-8 ${
+                 menuOpen
+                   ? 'opacity-100 !grid auto-rows-min gap-10  justify-center justify-items-center fixed !grid-flow-row right-0 bottom-0 left-0 top-[13%]   shadow-lg border-t-2  border-gray-200 dark:border-gray-600 transition-all duration-800 ease-in-out origin-left'
+                   : 'opacity-0 absolute'
+               }`}
           >
             {navLinks.map((navLink, index) => {
               if (navLink.visible) {
@@ -108,6 +95,7 @@ const Header = (props: { userObj: UserObjInterface | null | false }) => {
                     key={index}
                     href={navLink.href}
                     text={navLink.text}
+                    menuOpen={menuOpen}
                   />
                 );
               }
@@ -121,13 +109,13 @@ const Header = (props: { userObj: UserObjInterface | null | false }) => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="white"
-              title="Turn on light theme"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
               className="feather feather-sun cursor-pointer"
               onClick={() => setDarkMode(false)}
             >
+              <title>Turn on light theme</title>
               <circle cx="12" cy="12" r="5"></circle>
               <line x1="12" y1="1" x2="12" y2="3"></line>
               <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -147,14 +135,25 @@ const Header = (props: { userObj: UserObjInterface | null | false }) => {
               dark_mode
             </span>
           )}
-          <span
-            className="material-symbols-outlined dark:text-slate-100 md:hidden"
-            onClick={() => {
-              setMenuOpen(!menuOpen);
-            }}
-          >
-            menu
-          </span>
+          {!menuOpen ? (
+            <span
+              className="material-symbols-outlined dark:text-slate-100 md:hidden z-10 mr-0"
+              onClick={() => {
+                setMenuOpen(true);
+              }}
+            >
+              menu
+            </span>
+          ) : (
+            <span
+              className="material-symbols-outlined dark:text-slate-100 md:hidden z-10 mr-0"
+              onClick={() => {
+                setMenuOpen(false);
+              }}
+            >
+              menu_open
+            </span>
+          )}
         </div>
       </header>
     </>
