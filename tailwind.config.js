@@ -9,6 +9,10 @@ module.exports = {
       colors: {
         'button-primary': '#0087ca',
       },
+      fontFamily: {
+        header: ['Koulen', 'sans-serif'],
+        normal: ['Roboto', 'sans-serif'],
+      },
     },
   },
   plugins: [],
