@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-const NavLink = (props: { href: string; text: string, menuOpen: boolean }) => {
+const NavLink = (props: { href: string; text: string; menuOpen: boolean }) => {
   const { href, text, menuOpen } = props;
   const [activeClass, setActiveClass] = useState<string>('');
   const [menuClass, setMenuClass] = useState<string>('');
@@ -19,11 +19,8 @@ const NavLink = (props: { href: string; text: string, menuOpen: boolean }) => {
         "hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 dark:after:bg-slate-50 after:bg-slate-900 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out"
       );
     }
-    if(menuOpen) {
-      setMenuClass(
-        "md:first:mt-0 first:mt-10 w-min"
-      )
-
+    if (menuOpen) {
+      setMenuClass('md:first:mt-0 first:mt-10 w-min');
     }
   }, [currentRoute, href, menuOpen]);
 
