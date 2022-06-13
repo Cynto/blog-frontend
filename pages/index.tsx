@@ -5,30 +5,52 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
+import dynamic from 'next/dynamic';
 
-import Header from '../components/Header';
+const Header = dynamic(() => import('../components/Header'), { ssr: false });
+import FeaturedPost from '../components/FeaturedPost';
 import useUserObject from '../hooks/useUserObject';
 
-const Home: NextPage = () => {
+export async function getStaticProps(context) {
+  const data = await fetch('http://localhost:4000/posts', {
+    method: 'GET',
+    headers: {
+      frontpage: 'true',
+    },
+  });
+
+  const posts = await data.json();
+  console.log(posts);
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+
+const Home: NextPage<{
+  posts: [
+    {
+      _id: string;
+      title: string;
+      content: string;
+      image: string;
+      user: {
+        _id: string;
+        firstName: string;
+        lastName: string;
+      };
+      featured: boolean;
+      tags: string[];
+      published: boolean;
+      createdAt: string;
+      updatedAt: string;
+    }
+  ];
+}> = ({ posts }) => {
   const userHookObject = useUserObject();
   const { userObj } = userHookObject;
 
-  const getFrontPagePosts = () => {
-    fetch('http://localhost:4000/posts', {
-      method: 'GET',
-      headers: {
-        frontpage: 'true',
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  };
-
-  useEffect(() => {
-    getFrontPagePosts();
-  }, []);
   return (
     <>
       <Head>
@@ -39,7 +61,9 @@ const Home: NextPage = () => {
 
       <Header userObj={userObj} />
       <div className={styles.container}>
-        <main className={styles.main}></main>
+        <main className={styles.main}>
+          <FeaturedPost posts={posts} />
+        </main>
 
         <footer className={styles.footer}></footer>
       </div>
