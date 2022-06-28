@@ -1,11 +1,13 @@
 import type { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
 import { useState, useRef, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../../styles/CreatePost.module.scss';
 import { Editor } from '@tinymce/tinymce-react';
-import Header from '../../components/Header';
+
+const Header = dynamic(() => import('../../components/Header'), { ssr: false });
 import useUserObject from '../../hooks/useUserObject';
 import useDidMountEffect from '../../hooks/useDidMountEffect';
 
@@ -74,6 +76,9 @@ const Create: NextPage = () => {
       setErrors(json.errors);
     }
   };
+  const inputClass =
+    'text-slate-800 grid grid-cols-2 gap-4 mb-4 w-full p-3 bg-slate-100 border-[1px] dark:border-2  rounded-sm dark:border-slate-100 focus:outline-none focus:border-gray-900 dark:focus:border-red-800 ';
+  const labelClass = 'text-lg';
 
   useEffect(() => {
     if (userObj === null) {
@@ -90,7 +95,7 @@ const Create: NextPage = () => {
       </Head>
       <Header userObj={userObj} />
 
-      <main className={styles.main}>
+      <main className="pt-24 pb-5 w-full grid content-center justify-center relative min-h-screen ">
         <Image
           src="https://uca3892d2045b4c59e30bd55644f.previews.dropboxusercontent.com/p/thumb/ABg1y-xI-rzHbzdxzL7TRG1Jf3XL0ECJksyCslu9EuR39ZYwiw8jBH38aUI-4dzMpVTmd1y5VYblL1GgBp_0GXk9QuQ2hEgqjHLbaS4XR8ZPQXeqnAGrf0utFAy9Zq0pdXWrhVAjuRpcs8jBTttcYbqK6rL_eVB1k9gNebJy9aItuLyNLbFQSi2RDkoO2WFuOJiVfXYgAR-WykYLagV0cRVYxDnKTxNBTRDqa7bx3lU79AOqPn3SQkQP65vm8GHNBmSevNGRGmMNXejsmf_EHQF8nqXiJ9k5XV3Z8jtwYyspdWULvU1wIR7Day9gRD8tCVgVw8LoB8JirQHOmbpGpu2JbLK_Em2wRRRox5mm3BCutLYzmeZ_uQ-RsqTJHmhgJ-JegOtgeX-WuRLZWdRS5H1qDY8F2T3KGIWsGxOn4e2dOA/p.jpeg"
           layout="fill"
@@ -98,23 +103,23 @@ const Create: NextPage = () => {
           alt="background"
         />
         <form
-          className={styles.form}
+          className="z-[1] blur-0 grid shadow lg:w-[700px] xl:w-[800px]  pt-10 px-10 pb-5  bg-white dark:bg-gray-900 text-slate-800 dark:text-slate-100"
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(e.target);
           }}
           method="POST"
         >
-          <h1>Create Blog Post</h1>
-          <label htmlFor="title" className={styles.label}>
+          <h1 className="text-4xl font-bold pb-6">Create Blog Post</h1>
+          <label htmlFor="title" className={labelClass}>
             Title <span className={styles.required}>*</span>
-            <input type="title" id="title" className={styles.input} required />
+            <input type="title" id="title" className={inputClass} required />
           </label>
-          <label htmlFor="image" className={styles.label}>
+          <label htmlFor="image" className={labelClass}>
             Image URL (Optional)
-            <input type="text" id="image" className={styles.input} />
+            <input type="text" id="image" className={inputClass} />
           </label>
-          <label htmlFor="content" className={styles.label}>
+          <label htmlFor="content" className={labelClass}>
             Content <span className={styles.required}>*</span>
             <Editor
               id="content"
@@ -130,62 +135,103 @@ const Create: NextPage = () => {
               }}
             />
           </label>
-          <label htmlFor="tags" className={styles.label}>
+          <label htmlFor="tags" className="mt-5">
             Tags (Seperate tags with a comma and a space)
             <input
               data-testid="tags-input"
               type="text"
               id="tags"
-              className={styles.input}
+              className={inputClass}
             />
           </label>
-          <div className={styles.publishedContainer}>
-            <h3>Publish on Creation</h3>
-            <label htmlFor="publishedTrue" className={styles.label}>
-              Yes
-              <input
-                type="radio"
-                id="publishedTrue"
-                name="published"
-                value="true"
-                className={styles.radio}
-              />
-            </label>
-            <label htmlFor="publishedFalse">
-              No
-              <input
-                type="radio"
-                id="publishedFalse"
-                name="published"
-                value="false"
-                className={styles.radio}
-                defaultChecked
-              />
-            </label>
+          <div
+            className="py-1 bg-white dark:bg-gray-900 grid-flow-row  grid justify-center mb-4"
+            style={{
+              gridTemplateColumns: '50%',
+            }}
+          >
+            <h3 className="flex items-center justify-center cursor-default text-xl font-normal">
+              Publish on Creation
+            </h3>
+            <div className="bg-gray-200 grid grid-cols-2 auto-cols-max py-1 px-2 ">
+              <div className="">
+                <input
+                  type="radio"
+                  id="publishedTrue"
+                  name="published"
+                  value="true"
+                  className="peer hidden"
+                />
+                <label
+                  htmlFor="publishedTrue"
+                  className="block cursor-pointer select-none  p-1  text-center text-slate-800 peer-checked:bg-white dark:peer-checked:bg-gray-900 dark:peer-checked:text-slate-100 peer-checked:font-bold "
+                >
+                  Yes
+                </label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="publishedFalse"
+                  name="published"
+                  value="false"
+                  className="peer hidden"
+                  defaultChecked
+                />
+                <label
+                  htmlFor="publishedFalse"
+                  className="block cursor-pointer select-none  p-1 text-center text-slate-800 peer-checked:bg-white dark:peer-checked:bg-gray-900 dark:peer-checked:text-slate-100 peer-checked:font-bold"
+                >
+                  {' '}
+                  No
+                </label>
+              </div>
+            </div>
           </div>
-          <div className={styles.featuredContainer}>
-            <h3>Set as Featured Post</h3>
-            <label htmlFor="featuredTrue">
-              Yes
-              <input
-                type="radio"
-                id="featuredTrue"
-                name="featured"
-                value="true"
-                className={styles.radio}
-              />
-            </label>
-            <label htmlFor="featuredFalse">
-              No
-              <input
-                type="radio"
-                id="featuredFalse"
-                name="featured"
-                value="false"
-                className={styles.radio}
-                defaultChecked
-              />
-            </label>
+          <div
+            className="py-1 bg-white dark:bg-gray-900 grid-flow-row  grid justify-center mb-4"
+            style={{
+              gridTemplateColumns: '50%',
+            }}
+          >
+            <h3 className="flex items-center justify-center cursor-default text-xl font-normal">
+              Set as Featured Post
+            </h3>
+            <div className="bg-gray-200 grid grid-cols-2 auto-cols-max py-1 px-2 ">
+              <div className="">
+                <input
+                  type="radio"
+                  id="featuredTrue"
+                  name="featured"
+                  value="true"
+                  className="peer hidden"
+                />
+                <label
+                  htmlFor="featuredTrue"
+                  className="block cursor-pointer select-none  p-1 text-center text-slate-800 peer-checked:bg-white dark:peer-checked:bg-gray-900 dark:peer-checked:text-slate-100 peer-checked:font-bold"
+                >
+                  Yes
+                </label>
+              </div>
+
+              <div className="">
+                <input
+                  type="radio"
+                  id="featuredFalse"
+                  name="featured"
+                  value="false"
+                  className="peer hidden"
+                  defaultChecked
+                />
+
+                <label
+                  htmlFor="featuredFalse"
+                  className="block cursor-pointer select-none  p-1 text-center text-slate-800 peer-checked:bg-white dark:peer-checked:bg-gray-900 dark:peer-checked:text-slate-100 peer-checked:font-bold"
+                >
+                  No
+                </label>
+              </div>
+            </div>
           </div>
 
           {errors[0].msg !== '' ? (
@@ -199,7 +245,11 @@ const Create: NextPage = () => {
             </ul>
           ) : null}
 
-          <button type="submit" data-testid="create-post">
+          <button
+            type="submit"
+            data-testid="create-post"
+            className="mt-5 bg-gray-800 hover:bg-gray-900 dark:bg-slate-100 dark:hover:bg-white dark:text-slate-800 text-slate-100 font-bold  rounded p-3 text-xl cursor-pointer"
+          >
             Create Post
           </button>
         </form>
