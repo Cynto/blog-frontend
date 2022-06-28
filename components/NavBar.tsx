@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavLink from './NavLink';
 import UserObjInterface from '../shared/interfaces/userObj.interface';
 
@@ -7,40 +7,48 @@ const NavBar = (props: {
   userObj: UserObjInterface | null | false;
 }) => {
   const { menuOpen, userObj } = props;
+  const [navLinks, setNavLinks] = useState<
+    {
+      href: string;
+      text: string;
+      visible: boolean;
+    }[]
+  >([]);
 
-  const navLinks = [
-    {
-      href: '/',
-      text: 'Home',
-      visible: true,
-    },
-    {
-      href: '/posts',
-      text: 'Posts',
-      visible: true,
-    },
-    {
-      href: '/posts/create',
-      text: 'Create Post',
-      visible: userObj && userObj.isAdmin ? true : false,
-    },
-    {
-      href: '/logout',
-      text: 'Logout',
-      visible: userObj ? true : false,
-    },
-    {
-      href: '/login',
-      text: 'Login',
-      visible: userObj ? false : true,
-    },
-    {
-      href: '/register',
-      text: 'Register',
-      visible: userObj ? false : true,
-    },
-    {},
-  ];
+  useEffect(() => {
+    setNavLinks([
+      {
+        href: '/',
+        text: 'Home',
+        visible: true,
+      },
+      {
+        href: '/posts',
+        text: 'Posts',
+        visible: true,
+      },
+      {
+        href: '/posts/create',
+        text: 'Create Post',
+        visible: userObj && userObj.isAdmin ? true : false,
+      },
+      {
+        href: '/logout',
+        text: 'Logout',
+        visible: userObj ? true : false,
+      },
+      {
+        href: '/login',
+        text: 'Login',
+        visible: userObj ? false : true,
+      },
+      {
+        href: '/register',
+        text: 'Register',
+        visible: userObj ? false : true,
+      },
+    ]);
+  }, [userObj]);
   return (
     <nav
       className={` md:!opacity-100 md:!items-center md:!bottom-0
