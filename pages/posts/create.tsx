@@ -63,15 +63,15 @@ const Create: NextPage = () => {
         title: title.value,
         image: image.value,
         tags: tags.value.split(', '),
-        published: published.value,
-        featured: featured.value,
+        published: published.value === 'true',
+        featured: featured.value === 'true',
         content,
       }),
     });
     const json = await response.json();
 
     if (json.post) {
-      router.push(`/posts/${json.post._id}`);
+      router.push(`/posts/${json.post.url}`);
     } else {
       setErrors(json.errors);
     }
