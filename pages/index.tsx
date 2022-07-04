@@ -8,8 +8,10 @@ import styles from '../styles/Home.module.scss';
 import dynamic from 'next/dynamic';
 
 const Header = dynamic(() => import('../components/Header'), { ssr: false });
-import FeaturedPost from '../components/FeaturedPost';
+import FeaturedPost from '../components/frontPage/FeaturedPost';
+import FrontPageMain from '../components/frontPage/FrontPageMain';
 import useUserObject from '../hooks/useUserObject';
+import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 
 export async function getStaticProps(context) {
   const data = await fetch('http://localhost:4000/posts', {
@@ -29,28 +31,11 @@ export async function getStaticProps(context) {
 }
 
 const Home: NextPage<{
-  posts: [
-    {
-      _id: string;
-      title: string;
-      content: string;
-      image: string;
-      user: {
-        _id: string;
-        firstName: string;
-        lastName: string;
-      };
-      featured: boolean;
-      tags: string[];
-      published: boolean;
-      createdAt: string;
-      updatedAt: string;
-    }
-  ];
+  posts: blogPostObjInterface[];
 }> = ({ posts }) => {
   const userHookObject = useUserObject();
   const { userObj } = userHookObject;
-
+  console.log(posts)
   return (
     <>
       <Head>
@@ -60,12 +45,12 @@ const Home: NextPage<{
       </Head>
 
       <Header userObj={userObj} />
-      <div className={styles.container}>
-        <main className={styles.main}>
+      <div className="h-full relative">
+        <main className="min-h-screen h-screen flex flex-col justify-start">
           <FeaturedPost posts={posts} />
+          <FrontPageMain posts={posts} />
         </main>
 
-        <footer className={styles.footer}></footer>
       </div>
     </>
   );
