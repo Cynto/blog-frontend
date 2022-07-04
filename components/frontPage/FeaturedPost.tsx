@@ -1,32 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import blogPostObjInterface from '../../shared/interfaces/blogPostObj.interface';
 
-interface Props {
-  posts: [
-    {
-      _id: string;
-      title: string;
-      content: string;
-      image: string;
-      user: {
-        _id: string;
-        firstName: string;
-        lastName: string;
-      };
-      featured: boolean;
-      tags: string[];
-      published: boolean;
-      createdAt: string;
-      updatedAt: string;
-    }
-  ];
-}
-
-const FeaturedPost = ({ posts }: Props) => {
+const FeaturedPost = ({ posts }: { posts: blogPostObjInterface[] }) => {
   const router = useRouter();
   return (
-    <div className=" w-full relative sm:h-[40%] lg:h-[300px]">
+    <div className=" w-full relative h-[40%] lg:h-[300px]">
       {posts
         ? posts.map((post, index) => {
             return post.featured ? (
@@ -55,12 +36,13 @@ const FeaturedPost = ({ posts }: Props) => {
                     style={{ WebkitLineClamp: 3 }}
                     dangerouslySetInnerHTML={{ __html: post.content }}
                   ></div>
-                  <button
-                    className="   font-bold p-1.5 md:px-5 text-slate-900  dark:text-slate-100 bg-white hover:bg-slate-100 dark:bg-gray-900 dark:hover:bg-gray-800 rounded"
-                    onClick={() => router.push(`/${post.title}`)}
-                  >
-                    Read Article
-                  </button>
+                  <Link href={post.url}>
+                    <button className="   font-bold p-1.5 md:px-5 text-slate-900  dark:text-slate-100 bg-white  dark:bg-gray-900  rounded">
+                      <span className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 dark:after:bg-slate-50 after:bg-slate-900 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
+                        Read Article
+                      </span>
+                    </button>
+                  </Link>
                 </div>
               </div>
             ) : null;
