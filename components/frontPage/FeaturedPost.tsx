@@ -37,8 +37,8 @@ const FeaturedPost = ({ posts }: { posts: blogPostObjInterface[] }) => {
                     dangerouslySetInnerHTML={{ __html: post.content }}
                   ></div>
                   <Link href={post.url}>
-                    <button className="   font-bold p-1.5 md:px-5 text-slate-900  dark:text-slate-100 bg-white  dark:bg-gray-900  rounded">
-                      <span className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 dark:after:bg-slate-50 after:bg-slate-900 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
+                    <button className="group   font-bold p-1.5 md:px-5 text-slate-900  dark:text-slate-100 bg-white  dark:bg-gray-900  rounded">
+                      <span className="relative group-hover:after:scale-x-100 group-hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 dark:after:bg-slate-50 after:bg-slate-900 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
                         Read Article
                       </span>
                     </button>
