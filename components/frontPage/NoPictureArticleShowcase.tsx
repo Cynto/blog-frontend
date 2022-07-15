@@ -2,11 +2,23 @@ import React from 'react';
 import Link from 'next/link';
 import blogPostObjInterface from '../../shared/interfaces/blogPostObj.interface';
 
-const MidRightSuggestion = ({ post }: { post: blogPostObjInterface }) => {
+const NoPictureArticleShowcase = ({
+  post,
+  mid,
+}: {
+  post: blogPostObjInterface;
+  mid: boolean;
+}) => {
+  const titleFontSize = mid ? '0.9rem' : '1.2rem';
   return (
     <Link href={post.url}>
       <div className="mid-right-suggestion grid w-full max-w-full h-min overflow-hidden cursor-pointer group">
-        <h4 className=" text-base font-bold group-hover:text-slate-700  dark:text-slate-100 dark:group-hover:text-slate-300">
+        <h4
+          className=" text-base font-bold group-hover:text-slate-700  dark:text-slate-100 dark:group-hover:text-slate-300"
+          style={{
+            fontSize: titleFontSize,
+          }}
+        >
           {post.title}
         </h4>
         <div
@@ -26,4 +38,4 @@ const MidRightSuggestion = ({ post }: { post: blogPostObjInterface }) => {
   );
 };
 
-export default MidRightSuggestion;
+export default NoPictureArticleShowcase;
