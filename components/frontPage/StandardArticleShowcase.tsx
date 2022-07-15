@@ -10,11 +10,29 @@ const StandardArticleShowcase = ({
   mid: boolean;
   post: blogPostObjInterface;
 }) => {
-  console.log(post);
+  const maxWidth = mid ? '18rem' : '12rem';
+  const maxImageHeight = mid ? '12rem' : '6rem';
+  const minHeight = mid ? '366px' : 'min-content';
+  const fontSize = mid ? 'text-xl' : 'text-md';
+  const contentPaddingTop = mid ? '0.7rem' : '0.3rem';
+  const contentPaddingBottom = mid ? '1rem' : '0.3rem';
+
   return (
     <Link href={post.url}>
-      <div className="min-h-[366px]  md:mr-4 max-w-[18rem] group cursor-pointer">
-        <div className="h-48 w-72 mb-4 border-2 dark:border-0 bg-black dark:bg-white rounded-xl relative">
+      <div
+        className={`md:mr-4 group cursor-pointer`}
+        style={{
+          minHeight: minHeight,
+          maxWidth: maxWidth,
+        }}
+      >
+        <div
+          className={` mb-4 border-2 dark:border-0 bg-black dark:bg-white rounded-xl relative`}
+          style={{
+            minHeight: maxImageHeight,
+            width: maxWidth,
+          }}
+        >
           <Image
             loader={() => post.image}
             src={post.image}
@@ -24,12 +42,18 @@ const StandardArticleShowcase = ({
             className="rounded-xl group-hover:brightness-[70%]"
           />
         </div>
-        <h3 className="text-xl font-bold dark:text-slate-100 dark:group-hover:text-slate-300 group-hover:text-slate-700 ">
+        <h4
+          className={`${fontSize} font-bold dark:text-slate-100 dark:group-hover:text-slate-300 group-hover:text-slate-700 `}
+        >
           {post.title}
-        </h3>
+        </h4>
         <div
-          className="published-paragraph-container pt-3 pb-4 text-sm dark:text-slate-400 dark:group-hover:text-slate-500 group-hover:text-slate-600"
-          style={{ WebkitLineClamp: 3 }}
+          className="published-paragraph-container  text-sm dark:text-slate-400 dark:group-hover:text-slate-500 group-hover:text-slate-600"
+          style={{
+            WebkitLineClamp: 3,
+            paddingTop: contentPaddingTop,
+            paddingBottom: contentPaddingBottom,
+          }}
           dangerouslySetInnerHTML={{ __html: post.content }}
         ></div>
         {mid ? (
@@ -39,7 +63,12 @@ const StandardArticleShowcase = ({
             </span>
           </button>
         ) : (
-          <a></a>
+          <a
+            className=" text-sm text-slate-900 group-hover:text-slate-500
+          dark:text-slate-50 dark:group-hover:text-slate-300 w-max relative after:content-{''} after:absolute after:w-full after:h-0.5 after:bottom-0 after:left-0 dark:after:bg-slate-50 dark:group-hover:after:bg-slate-300 after:bg-slate-900 group-hover:after:bg-slate-500"
+          >
+            Read Article
+          </a>
         )}
       </div>
     </Link>
