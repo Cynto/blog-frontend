@@ -1,29 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import StandardArticleShowcase from './StandardArticleShowcase';
-import MidRightSuggestion from './MidRightSuggestion';
+import NoPictureArticleShowcase from './NoPictureArticleShowcase';
 import blogPostObjInterface from '../../shared/interfaces/blogPostObj.interface';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 const FrontMidSection = ({ posts }: { posts: blogPostObjInterface[] }) => {
   console.log(posts[0]);
+  const { width } = useWindowDimensions();
+  const [maxArticles, setMaxArticles] = useState(0);
+
+  useEffect(() => {
+    if (width > 1500) {
+      setMaxArticles(5);
+    }
+    if (width <= 1500) {
+      setMaxArticles(4);
+    }
+    if (width <= 1200) {
+      setMaxArticles(3);
+    }
+    if (width <= 900) {
+      setMaxArticles(3);
+    }
+    console.log(maxArticles);
+  }, [width]);
   return (
     <div className="grid w-full max-w-full md:grid-cols-[1fr_220px] justify-center">
       <div
-        className="grid w-full max-w-full gap-y-10 md:h-[366px] md:auto-rows-[0] overflow-hidden mb-14"
+        className="grid w-full max-w-full   md:auto-rows-[0] overflow-hidden "
         style={{
           gridTemplateColumns: 'repeat(auto-fit, max(19rem))',
           gridTemplateRows: 'min-content',
         }}
       >
         {posts.map((post, index) => {
-          return index <= 5 ? (
+          return index < maxArticles ? (
             <StandardArticleShowcase key={index} mid post={post} />
           ) : null;
         })}
       </div>
-      <div className="hidden md:grid auto-rows-min gap-y-5 w-full  pt-5">
+      <div className="hidden md:grid auto-rows-min gap-y-5 w-full  pt-5 ">
         {posts.map((post, index) => {
-          return index <= 1 ? (
-            <MidRightSuggestion key={index} post={post} />
+          return index < 2 ? (
+            <NoPictureArticleShowcase key={index} post={post} mid />
           ) : null;
         })}
       </div>
