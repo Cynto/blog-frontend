@@ -20,7 +20,7 @@ const StandardArticleShowcase = ({
   return (
     <Link href={post.url}>
       <div
-        className={`md:mr-4 group cursor-pointer`}
+        className={`mb-6 md:mb-0 md:mr-4 group cursor-pointer`}
         style={{
           minHeight: minHeight,
           maxWidth: maxWidth,
