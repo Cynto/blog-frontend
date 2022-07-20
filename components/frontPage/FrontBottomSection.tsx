@@ -23,7 +23,7 @@ const FrontBottomSection = ({ posts }: { posts: blogPostObjInterface[] }) => {
   }, [width]);
   return (
     <div className="w-full grid md:grid-flow-col md:grid-cols-[1fr_minmax(500px, 2fr)]  gap-x-10">
-      <div className="max-w-[300px] justify-self-end hidden md:grid auto-rows-min gap-y-5 pt-5">
+      <div className="max-w-[300px] justify-self-end hidden md:grid auto-rows-min gap-y-5 ">
         {posts.map((post, index) => {
           return index < 3 ? (
             <NoPictureArticleShowcase key={index} post={post} mid={false} />
