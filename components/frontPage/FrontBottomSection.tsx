@@ -32,7 +32,7 @@ const FrontBottomSection = ({ posts }: { posts: blogPostObjInterface[] }) => {
       </div>
       <div className="flex gap-x-10 ">
         {posts.map((post, index) => {
-          return index < maxArticles ? (
+          return index < 1 ? (
             <BottomBigArticle key={index} post={post} />
           ) : null;
         })}
