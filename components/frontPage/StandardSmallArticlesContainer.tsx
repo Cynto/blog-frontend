@@ -15,16 +15,16 @@ const StandardSmallArticlesContainer = ({
 
   useEffect(() => {
     if (width > 1500) {
-      setMaxArticles(7);
-    }
-    if (width <= 1500) {
       setMaxArticles(5);
     }
+    if (width <= 1500) {
+      setMaxArticles(4);
+    }
     if (width <= 1200) {
-      setMaxArticles(3);
+      setMaxArticles(4);
     }
     if (width <= 900) {
-      setMaxArticles(3);
+      setMaxArticles(4);
     }
     console.log(maxArticles);
   }, [width]);
@@ -41,7 +41,7 @@ const StandardSmallArticlesContainer = ({
         }}
       >
         {posts.map((post, index) => {
-          return index <= maxArticles ? (
+          return index < maxArticles ? (
             <StandardArticleShowcase key={index} mid={mid} post={post} />
           ) : null;
         })}
