@@ -11,23 +11,23 @@ const FrontMidSection = ({ posts }: { posts: blogPostObjInterface[] }) => {
 
   useEffect(() => {
     if (width > 1500) {
-      setMaxArticles(5);
+      setMaxArticles(3);
     }
     if (width <= 1500) {
-      setMaxArticles(4);
+      setMaxArticles(2);
     }
     if (width <= 1200) {
-      setMaxArticles(3);
+      setMaxArticles(2);
     }
     if (width <= 900) {
-      setMaxArticles(3);
+      setMaxArticles(2);
     }
     console.log(maxArticles);
   }, [width]);
   return (
     <div className="grid w-full max-w-full md:grid-cols-[1fr_220px] justify-center">
       <div
-        className="grid w-full max-w-full   md:auto-rows-[0] overflow-hidden "
+        className="grid w-full grid-flow-col max-w-full   md:auto-rows-[0] overflow-hidden "
         style={{
           gridTemplateColumns: 'repeat(auto-fit, max(19rem))',
           gridTemplateRows: 'min-content',
