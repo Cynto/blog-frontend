@@ -65,7 +65,7 @@ const Login: NextPage = () => {
 
       <main className={styles.main}>
         <Image
-          src="https://uc566fb39cfe356c36fbd3d6fe36.previews.dropboxusercontent.com/p/thumb/ABgSWYe-zJuzr4lSM_ck2EC8BJBy-6mZGty82VlOA3qVQ62LpgeDeKOgSQorMzUqjZtPdPY1sB0baSDIfwmptmDLfvdKGUIwPSLj8gNvqO7AdjaDeASVpB6L1b0WLRFi-TvluT7sA5j3Pv6H-8_NwcGS29ZUTiI9U9ljK-zXi1ff3gyxogp2GGzuZy4C8Y31vo8ws_SMW1vROJVjj10KhWWgZughKqpZkolroNkCwc8vcQ-ZpbKrb70Jf-lszEWd5wjbWHcAZ_-eg3CmM0j89-h5CIQbtXjEAjjayCNyWdPFzVzpWoJ0Y0HYhSh18eNBUL_UAwky2_GC8z4k_myogUdl94Hwau4XaL166AhT9OFWGAOfe3xD5TlRqZKz3UVeR4Psd1sDLlxmh2I5YAN9HBoiGobdpjVy4bkAj4F0LWQQxA/p.jpeg"
+          src="/backgrounds/register_background.jpg"
           layout="fill"
           objectFit="cover"
           alt="background"
