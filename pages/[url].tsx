@@ -3,7 +3,9 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 import { NextPage } from 'next';
-import Header from '../components/Header';
+import dynamic from 'next/dynamic';
+
+const Header = dynamic(() => import('../components/Header'), { ssr: false });
 import NoPictureArticleShowcase from '../components/frontPage/NoPictureArticleShowcase';
 import useUserObject from '../hooks/useUserObject';
 
@@ -47,9 +49,11 @@ const BlogPost: NextPage<{
     <>
       <Header userObj={userObj} />
 
-      <article className="h-full w-full pt-40">
-        <div className="grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 px-64">
-          <h1 className="text-4xl font-header text-center">{post.title}</h1>
+      <article className="h-full w-full pt-40 pb-20 dark:bg-gray-900">
+        <div className="grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 md:px-64">
+          <h1 className="text-4xl font-header text-center dark:text-slate-100">
+            {post.title}
+          </h1>
           <div className="h-8  flex gap-x-5 justify-around">
             <div className="w-8">
               <svg viewBox="0 0 128 128" className="cursor-pointer">
@@ -90,8 +94,8 @@ const BlogPost: NextPage<{
             </div>
           </div>
         </div>
-        <div className="px-28">
-          <div className="relative w-full h-[350px] ">
+        <div className="px-10 md:px-28 flex justify-center">
+          <div className="relative w-full h-[180px] max-w-[600px] md:h-[350px] ">
             <Image
               loader={() => post.image}
               src={post.image}
@@ -103,14 +107,14 @@ const BlogPost: NextPage<{
             />
           </div>
         </div>
-        <div className="pl-56 pr-10 pt-16 grid md:grid-cols-[1fr_220px] gap-x-7">
+        <div className="px-12 md:pl-56 md:pr-10 pt-10 md:pt-16 grid content-center justify-items-center md:grid-cols-[1fr_220px] gap-x-7">
           <div
-            className="font-normal"
+            className="article-content-container font-normal dark:text-slate-400 max-w-[500px] [&>*:not(p)]:text-3xl [&>*:not(p)]:mb-4 [&>*:not(p)]:dark:text-slate-100 [&>p]:mb-8 "
             dangerouslySetInnerHTML={{ __html: post.content }}
           ></div>
-          <div className="">
+          <div className="hidden md:grid auto-rows-min gap-y-5 w-full ">
             {posts.map((post, index) => {
-              return index < 2 ? (
+              return index < 3 ? (
                 <NoPictureArticleShowcase key={index} post={post} mid />
               ) : null;
             })}
