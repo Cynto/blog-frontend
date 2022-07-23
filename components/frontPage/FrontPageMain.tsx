@@ -16,7 +16,7 @@ const FrontBottomSection = dynamic(() => import('./FrontBottomSection'), {
 
 const FrontPageMain = ({ posts }: { posts: blogPostObjInterface[] }) => {
   return (
-    <div className="w-full  p-14 dark:bg-gray-900 grid gap-y-10">
+    <div className="w-full  p-14 dark:bg-gray-900 grid gap-y-10 justify-center">
       <FrontMidSection posts={posts} />
       <StandardSmallArticlesContainer posts={posts} mid={false} />
       <FrontBottomSection posts={posts} />
