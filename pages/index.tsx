@@ -13,7 +13,7 @@ import FrontPageMain from '../components/frontPage/FrontPageMain';
 import useUserObject from '../hooks/useUserObject';
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   const data = await fetch('http://localhost:4000/posts', {
     method: 'GET',
     headers: {
