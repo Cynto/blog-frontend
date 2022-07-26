@@ -25,9 +25,9 @@ const FrontMidSection = ({ posts }: { posts: blogPostObjInterface[] }) => {
     console.log(maxArticles);
   }, [width]);
   return (
-    <div className="grid w-full max-w-full md:grid-cols-[1fr_220px] justify-center">
+    <div className="grid w-min max-w-full md:grid-cols-[1fr_220px] justify-center">
       <div
-        className="grid w-full grid-flow-col max-w-full   md:auto-rows-[0] overflow-hidden "
+        className="grid w-min md:grid-flow-col    md:auto-rows-[0] "
         style={{
           gridTemplateColumns: 'repeat(auto-fit, max(19rem))',
           gridTemplateRows: 'min-content',
