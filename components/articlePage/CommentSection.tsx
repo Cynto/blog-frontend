@@ -61,8 +61,8 @@ const CommentSection = ({
       });
   }, []);
   return (
-    <div className=" dark:bg-gray-900 dark:text-slate-100 flex justify-center">
-      <div className="w-2/3  border-t-2 grid auto-rows-min justify-items-center p-5">
+    <div className="w-screen dark:bg-gray-900 dark:text-slate-100 flex justify-center max-w-screen">
+      <div className="md:w-2/3 max-w-[630px]  border-t-2 grid grid-cols-1 justify-items-center p-5">
         <h3 className="dark:text-slate-100 text-2xl font-header ">Comments</h3>
 
         {!userObj ? (
@@ -124,7 +124,7 @@ const CommentSection = ({
             </form>
           </div>
         )}
-        <div className=" max-w-[calc(623px-2.5rem)] pt-10 border-2">
+        <div className=" w-full  pt-10 border-2">
           {comments.map((comment: commentInterface, index) => (
             <SingleComment comment={comment} key={index} />
           ))}
