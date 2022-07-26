@@ -22,7 +22,7 @@ const FrontBottomSection = ({ posts }: { posts: blogPostObjInterface[] }) => {
     console.log(maxArticles);
   }, [width]);
   return (
-    <div className="w-full grid md:grid-flow-col md:grid-cols-[1fr_minmax(500px, 2fr)]  gap-x-10">
+    <div className=" md:flex  gap-x-10">
       <div className="max-w-[300px] justify-self-end hidden md:grid auto-rows-min gap-y-5 ">
         {posts.map((post, index) => {
           return index < 3 ? (
@@ -30,7 +30,7 @@ const FrontBottomSection = ({ posts }: { posts: blogPostObjInterface[] }) => {
           ) : null;
         })}
       </div>
-      <div className="flex gap-x-10 ">
+      <div className="flex-1 ">
         {posts.map((post, index) => {
           return index < 1 ? (
             <BottomBigArticle key={index} post={post} />
