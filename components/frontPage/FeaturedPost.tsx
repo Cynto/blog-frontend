@@ -27,7 +27,7 @@ const FeaturedPost = ({ posts }: { posts: blogPostObjInterface[] }) => {
                   />
                 </div>
 
-                <div className=" xl:max-w-[37%] lg:max-w-[50%] md:max-w-[60%]     -translate-x-0  overflow-hidden">
+                <div className=" xl:max-w-[37%] lg:max-w-[50%] md:max-w-[60%] lg:translate-x-[50%]    -translate-x-0  overflow-hidden">
                   <h1 className=" text-slate-900 text-xl md:text-4xl font-bold m-0  break-words">
                     {post.title}
                   </h1>
