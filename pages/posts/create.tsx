@@ -72,7 +72,7 @@ const Create: NextPage = () => {
     console.log(json);
 
     if (json.post) {
-      router.push(`/posts/${json.post.url}`);
+      router.push(`/${json.post.url}`);
     } else {
       setErrors(json.errors);
     }
@@ -98,7 +98,6 @@ const Create: NextPage = () => {
 
       <main className="pt-24 pb-5 w-full grid content-center justify-center relative min-h-screen ">
         <Image
-          
           src="/backgrounds/create_post_background.jpg"
           layout="fill"
           objectFit="cover"
