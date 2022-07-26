@@ -4,6 +4,7 @@ import Image from 'next/image';
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import CommentSection from '../components/articlePage/CommentSection';
 
 const Header = dynamic(() => import('../components/Header'), { ssr: false });
 import NoPictureArticleShowcase from '../components/frontPage/NoPictureArticleShowcase';
@@ -49,7 +50,7 @@ const BlogPost: NextPage<{
     <>
       <Header userObj={userObj} />
 
-      <article className="h-full w-full pt-40 pb-20 dark:bg-gray-900">
+      <article className="h-full w-full pt-40 pb-0 dark:bg-gray-900">
         <div className="grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 md:px-64">
           <h1 className="text-4xl font-header text-center dark:text-slate-100">
             {post.title}
@@ -93,6 +94,9 @@ const BlogPost: NextPage<{
               </svg>
             </div>
           </div>
+          <span className="dark:text-slate-100 font-normal">
+            {new Date(post.createdAt).toLocaleDateString('en-GB')}
+          </span>
         </div>
         <div className="px-10 md:px-28 flex justify-center">
           <div className="relative w-full h-[180px] max-w-[600px] md:h-[350px] ">
@@ -107,12 +111,12 @@ const BlogPost: NextPage<{
             />
           </div>
         </div>
-        <div className="px-12 md:pl-56 md:pr-10 pt-10 md:pt-16 grid content-center justify-items-center md:grid-cols-[1fr_220px] gap-x-7">
+        <div className="px-12 lg:pl-56 md:pr-10 pt-10 md:pt-16 grid justify-center content-center justify-items-center lg:grid-cols-[600px_220px] gap-x-7">
           <div
-            className="article-content-container font-normal dark:text-slate-400 max-w-[500px] [&>*:not(p)]:text-3xl [&>*:not(p)]:mb-4 [&>*:not(p)]:dark:text-slate-100 [&>p]:mb-8 "
+            className="article-content-container font-normal dark:text-slate-400 max-w-[500px] [&>*:not(p)]:text-2xl [&>*:not(p)]:font-header [&>*:not(p)]:mb-4 [&>*:not(p)]:dark:text-slate-100 [&>p]:mb-8 "
             dangerouslySetInnerHTML={{ __html: post.content }}
           ></div>
-          <div className="hidden md:grid auto-rows-min gap-y-5 w-full ">
+          <div className="hidden lg:grid auto-rows-min gap-y-5 w-full ">
             {posts.map((post, index) => {
               return index < 3 ? (
                 <NoPictureArticleShowcase key={index} post={post} mid />
@@ -121,6 +125,7 @@ const BlogPost: NextPage<{
           </div>
         </div>
       </article>
+      <CommentSection post={post} userObj={userObj} />
     </>
   );
 };
