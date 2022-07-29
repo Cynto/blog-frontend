@@ -47,18 +47,24 @@ const CommentSection = ({
     console.log(json);
 
     if (json.comment) {
+      userComment.value = '';
       console.log('comment added');
+      getComments();
     } else {
       setErrors(json.errors);
     }
   };
+  const getComments = async () => {
+    const response = await fetch(
+      `http://localhost:4000/posts/${post._id}/comments`
+    );
+    const json = await response.json();
+    json.comments = json.comments.reverse()
+    setComments(json.comments);
+  };
 
   useEffect(() => {
-    fetch(`http://localhost:4000/posts/${post._id}/comments`)
-      .then((res) => res.json())
-      .then((json) => {
-        setComments(json.comments);
-      });
+    getComments();
   }, []);
   return (
     <div className="w-screen dark:bg-gray-900 dark:text-slate-100 flex justify-center max-w-screen">
@@ -116,7 +122,10 @@ const CommentSection = ({
                   Post
                 </span>
               </button>
-              <button className="ml-3 my-5  border-slate-900 dark:border-0 rounded    font-bold">
+              <button
+                type="button"
+                className="ml-3 my-5  border-slate-900 dark:border-0 rounded    font-bold"
+              >
                 <span className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
                   Cancel
                 </span>
@@ -126,7 +135,7 @@ const CommentSection = ({
         )}
         <div className=" w-full  pt-10 border-2">
           {comments.map((comment: commentInterface, index) => (
-            <SingleComment comment={comment} key={index} />
+            <SingleComment comment={comment} userObj={userObj} getComments={getComments} key={index} />
           ))}
         </div>
       </div>
