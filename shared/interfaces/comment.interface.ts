@@ -1,4 +1,5 @@
-export default interface commentObj {
+import replyInterface from './reply.interface';
+export default interface CommentInterface {
   _id: string;
   content: string;
   user: {
@@ -6,7 +7,8 @@ export default interface commentObj {
     firstName: string;
     lastName: string;
   };
+  post: string;
   createdAt: string;
   updatedAt: string;
-  replies: [];
+  replies: replyInterface[];
 }
