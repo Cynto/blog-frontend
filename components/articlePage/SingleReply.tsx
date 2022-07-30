@@ -11,6 +11,7 @@ const SingleReply = ({
   setRefreshReplies,
   getReplies,
   comment,
+  getComments
 }: {
   reply: replyInterface;
   userObj: userObjInterface | null | undefined;
@@ -18,6 +19,7 @@ const SingleReply = ({
   setRefreshReplies: Function;
   getReplies: Function;
   comment: commentInterface;
+  getComments: Function;
 }) => {
   const [displayDeleteConfirm, setDisplayDeleteConfirm] =
     useState<boolean>(false);
@@ -77,7 +79,9 @@ const SingleReply = ({
         <span className=" font-header mr-3 text-xl">
           {reply.user.firstName}
         </span>
-        ~<span className=" font-normal text-sm">24/07/2022</span>
+        ~{new Date(reply.createdAt).toLocaleDateString()}
+        <span className="mr-2"></span>
+        {new Date(reply.createdAt).toLocaleTimeString().slice(0, 5)}
       </div>
       <div className="pb-1">
         <span className="italic text-gray-500 ">
@@ -103,6 +107,7 @@ const SingleReply = ({
           comment={comment}
           setIsReplying={setIsReplying}
           setRefreshReplies={setRefreshReplies}
+          getComments={getComments}
         />
       ) : null}
     </div>

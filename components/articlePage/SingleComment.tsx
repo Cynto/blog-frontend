@@ -15,7 +15,8 @@ const SingleComment = ({
 }) => {
   const [isReplying, setIsReplying] = useState<boolean>(false);
   const [refreshReplies, setRefreshReplies] = useState<boolean>(false);
-  const [displayDeleteConfirm, setDisplayDeleteConfirm] = useState<boolean>(false);
+  const [displayDeleteConfirm, setDisplayDeleteConfirm] =
+    useState<boolean>(false);
 
   const handleDelete = async () => {
     const response = await fetch(
@@ -62,7 +63,7 @@ const SingleComment = ({
                 delete
               </span>
             </button>
-            <div className="absolute right-12">
+            <div className="hidden md:visible absolute right-12">
               <span>Click again to confirm deletion</span>
             </div>
           </>
@@ -71,7 +72,12 @@ const SingleComment = ({
           <span className=" font-header mr-3 text-xl">
             {comment.user.firstName}
           </span>
-          ~<span className=" font-normal text-sm">24/07/2022</span>
+          ~
+          <span className=" font-normal text-sm">
+            {new Date(comment.createdAt).toLocaleDateString()}
+            <span className="mr-2"></span>
+            {new Date(comment.createdAt).toLocaleTimeString().slice(0, 5)}
+          </span>
         </div>
         <div className=" w-full max-w-full ">
           <p className="dark:text-slate-300 break-words font-normal">
@@ -87,7 +93,13 @@ const SingleComment = ({
           </span>
         </button>
         {isReplying ? (
-          <ReplyForm originalUser={comment.user} comment={comment} setIsReplying={setIsReplying} setRefreshReplies={setRefreshReplies} />
+          <ReplyForm
+            originalUser={comment.user}
+            comment={comment}
+            setIsReplying={setIsReplying}
+            setRefreshReplies={setRefreshReplies}
+            getComments={getComments}
+          />
         ) : null}
         {comment.replies[0] ? (
           <ReplySection
@@ -95,6 +107,7 @@ const SingleComment = ({
             refreshReplies={refreshReplies}
             setRefreshReplies={setRefreshReplies}
             userObj={userObj}
+            getComments={getComments}
           />
         ) : null}
       </div>
