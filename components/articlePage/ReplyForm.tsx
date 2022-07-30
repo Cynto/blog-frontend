@@ -7,6 +7,7 @@ const ReplyForm = ({
   setRefreshReplies,
   originalUser,
   setIsReplying,
+  getComments
 }: {
   comment: commentInterface;
   setRefreshReplies: Function;
@@ -16,6 +17,7 @@ const ReplyForm = ({
     lastName: string;
   };
   setIsReplying: Function;
+  getComments: Function;
 }) => {
   const [errors, setErrors] = useState<
     [
@@ -52,6 +54,7 @@ const ReplyForm = ({
       userReply.value = '';
       console.log('reply added');
       setRefreshReplies(true);
+      getComments();
     } else {
       setErrors(json.errors);
     }
