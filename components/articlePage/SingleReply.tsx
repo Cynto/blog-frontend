@@ -11,7 +11,7 @@ const SingleReply = ({
   setRefreshReplies,
   getReplies,
   comment,
-  getComments
+  getComments,
 }: {
   reply: replyInterface;
   userObj: userObjInterface | null | undefined;
@@ -48,7 +48,10 @@ const SingleReply = ({
           className="absolute right-5"
           onClick={() => setDisplayDeleteConfirm(true)}
         >
-          <span className="material-symbols-outlined" title="Delete comment">
+          <span
+            className="material-symbols-outlined font-extralight"
+            title="Delete comment"
+          >
             delete
           </span>
         </button>
@@ -63,7 +66,7 @@ const SingleReply = ({
             }}
           >
             <span
-              className="material-symbols-outlined"
+              className="material-symbols-outlined font-extralight"
               title="Confirm deletion"
             >
               delete
@@ -93,14 +96,17 @@ const SingleReply = ({
           {reply.content}
         </p>
       </div>
-      <button
-        className=" mt-3  border-slate-900 dark:border-0 rounded    font-bold"
-        onClick={() => setIsReplying(!isReplying)}
-      >
-        <span className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
-          Reply
-        </span>
-      </button>
+      {userObj ? (
+        <button
+          className=" mt-3  border-slate-900 dark:border-0 rounded    font-bold"
+          onClick={() => setIsReplying(!isReplying)}
+        >
+          <span className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
+            Reply
+          </span>
+        </button>
+      ) : null}
+
       {isReplying ? (
         <ReplyForm
           originalUser={reply.user}
