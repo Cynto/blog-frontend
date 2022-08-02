@@ -61,6 +61,7 @@ const CommentForm = ({
         maxLength={240}
         placeholder="Write a comment..."
         name="comment"
+        minLength={5}
       />
       <button
         type="submit"

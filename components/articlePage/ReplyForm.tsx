@@ -55,6 +55,7 @@ const ReplyForm = ({
       console.log('reply added');
       setRefreshReplies(true);
       getComments();
+      setIsReplying(false);
     } else {
       setErrors(json.errors);
     }
@@ -73,6 +74,8 @@ const ReplyForm = ({
         maxLength={240}
         placeholder="Write a reply..."
         name="reply"
+        minLength={5}
+        
       />
       <button
         type="submit"
