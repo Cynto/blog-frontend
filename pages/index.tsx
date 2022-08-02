@@ -14,11 +14,9 @@ import useUserObject from '../hooks/useUserObject';
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 
 export async function getStaticProps() {
-  const data = await fetch('http://localhost:4000/posts', {
+  const data = await fetch('http://localhost:4000/posts/published', {
     method: 'GET',
-    headers: {
-      frontpage: 'true',
-    },
+    
   });
 
   const posts = await data.json();
@@ -35,7 +33,7 @@ const Home: NextPage<{
 }> = ({ posts }) => {
   const userHookObject = useUserObject();
   const { userObj } = userHookObject;
-  console.log(posts)
+  console.log(posts);
   return (
     <>
       <Head>
@@ -50,7 +48,6 @@ const Home: NextPage<{
           <FeaturedPost posts={posts} />
           <FrontPageMain posts={posts} />
         </main>
-
       </div>
     </>
   );

@@ -23,12 +23,7 @@ export async function getServerSideProps(context: any) {
 
   const post = await articleData.json();
 
-  const postsData = await fetch('http://localhost:4000/posts', {
-    method: 'GET',
-    headers: {
-      frontpage: 'true',
-    },
-  });
+  const postsData = await fetch('http://localhost:4000/posts/published');
 
   const posts = await postsData.json();
 
