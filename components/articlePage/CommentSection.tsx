@@ -15,16 +15,15 @@ const CommentSection = ({
   userObj: userObjInterface | null | undefined;
 }) => {
   console.log(post);
-  
+
   const [comments, setComments] = useState<commentInterface[]>([]);
 
-  
   const getComments = async () => {
     const response = await fetch(
       `http://localhost:4000/posts/${post._id}/comments`
     );
     const json = await response.json();
-    json.comments = json.comments.reverse()
+    json.comments = json.comments.reverse();
     setComments(json.comments);
   };
 
@@ -32,7 +31,10 @@ const CommentSection = ({
     getComments();
   }, []);
   return (
-    <div className="w-screen dark:bg-gray-900 dark:text-slate-100 flex justify-center max-w-screen">
+    <div
+      id="comments"
+      className="w-screen dark:bg-gray-900 dark:text-slate-100 flex justify-center max-w-screen"
+    >
       <div className="md:w-2/3 max-w-[630px]  border-t-2 grid grid-cols-1 justify-items-center p-5">
         <h3 className="dark:text-slate-100 text-2xl font-header ">Comments</h3>
 
@@ -68,12 +70,16 @@ const CommentSection = ({
               You&apos;re signed in, <b>{userObj.firstName}</b>
             </span>
             <CommentForm post={post} getComments={getComments} />
-            
           </div>
         )}
         <div className=" w-full  pt-10 border-2">
           {comments.map((comment: commentInterface, index) => (
-            <SingleComment comment={comment} userObj={userObj} getComments={getComments} key={index} />
+            <SingleComment
+              comment={comment}
+              userObj={userObj}
+              getComments={getComments}
+              key={index}
+            />
           ))}
         </div>
       </div>
