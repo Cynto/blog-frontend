@@ -89,8 +89,12 @@ const BlogPost: NextPage<{
               </svg>
             </div>
           </div>
+
           <span className="dark:text-slate-100 font-normal">
-            {new Date(post.createdAt).toLocaleDateString('en-GB')}
+            Article written by: {post.user.firstName}
+            <span className="ml-3">
+              ~{new Date(post.createdAt).toLocaleDateString('en-GB')}
+            </span>
           </span>
         </div>
         <div className="px-10 md:px-28 flex justify-center">
