@@ -3,13 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import blogPostObjInterface from '../../shared/interfaces/blogPostObj.interface';
 import UserObj from '../../shared/interfaces/userObj.interface';
+import ReadEditDeleteButtons from './ReadEditDeleteButtons';
 
 const StandardPostPageArticle = ({
-  mid,
   post,
   userObj,
 }: {
-  mid: boolean;
   post: blogPostObjInterface;
   userObj: false | UserObj | null;
 }) => {
@@ -37,41 +36,16 @@ const StandardPostPageArticle = ({
           Written by {post.user.firstName}
         </span>
         <Link href={`/${post.url}#comments`}>
-          <div className="flex items-start h-min cursor-pointer ">
-            <span className="h-min">{post.comments?.length}</span>
+          <div className="flex items-start h-min cursor-pointer  ">
+            <span className="h-min block">{post.comments?.length}</span>
 
-            <span className="material-symbols-outlined font-extralight">
+            <span className="material-symbols-outlined text-xl font-extralight">
               comment
             </span>
           </div>
         </Link>
       </div>
-
-      <div className="w-full flex justify-around">
-        <Link href={`/${post.url}`}>
-          <button className="group dark:bg-white border-[1px] border-slate-900 dark:border-0 rounded px-4 py-1 text-slate-900 font-bold">
-            <span className="relative group-hover:after:scale-x-100 group-hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
-              Read Article
-            </span>
-          </button>
-        </Link>
-
-        {(userObj && userObj.isAdmin) ||
-        (userObj && userObj._id === post.user._id) ? (
-          <>
-            <button className="group  dark:bg-white border-[1px] border-slate-900 dark:border-0 rounded px-4 py-1 text-slate-900 font-bold">
-              <span className="relative group-hover:after:scale-x-100 group-hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
-                Edit Article
-              </span>
-            </button>
-            <button className="group  dark:bg-white border-[1px] border-slate-900 dark:border-0 rounded px-4 py-1 text-slate-900 font-bold">
-              <span className="relative group-hover:after:scale-x-100 group-hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
-                Delete Article
-              </span>
-            </button>
-          </>
-        ) : null}
-      </div>
+      <ReadEditDeleteButtons userObj={userObj} post={post} />
     </div>
   );
 };
