@@ -13,9 +13,14 @@ import SortLink from '../../components/postsPage/SortLink';
 const Posts: NextPage = () => {
   const userHookObject = useUserObject();
   const router = useRouter();
+  const { query } = useRouter();
+
   const { userObj } = userHookObject;
   const [posts, setPosts] = useState<blogPostObj[]>([]);
   const [sort, setSort] = useState<string>('newest');
+  const [limit, setLimit] = useState<number>(
+    router.query.limit ? Number(router.query.limit) : 12
+  );
 
   const getPosts = async () => {
     const sort = router.query.sort as string;
@@ -26,18 +31,19 @@ const Posts: NextPage = () => {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
               sort: sort || '-createdAt',
+              limit: limit.toString(),
             },
           })
         : await fetch('http://localhost:4000/posts/published', {
             method: 'GET',
             headers: {
-              sort: sort || 'newest',
+              sort: sort || '-createdAt',
+              limit: limit.toString(),
             },
           });
     const posts = await data.json();
 
     if (posts) {
-      console.log(posts);
       setPosts(posts);
     }
   };
@@ -49,7 +55,6 @@ const Posts: NextPage = () => {
   }, [userObj]);
 
   useEffect(() => {
-    console.log(router.query.sort);
     if (router.query.sort && router.query.sort !== sort) {
       getPosts();
       if (router.query.sort === '-createdAt') {
@@ -60,9 +65,10 @@ const Posts: NextPage = () => {
         setSort('comments');
       }
     }
-  }, [router.query.sort]);
-
-  useEffect(() => {}, [sort]);
+    if (router.query.limit && router.query.limit !== '12') {
+      getPosts();
+    }
+  }, [router.query.sort, router.query.limit]);
 
   return (
     <>
@@ -80,19 +86,34 @@ const Posts: NextPage = () => {
               <SortLink sortBy="comments" title="Most Comments" />
             </div>
           </div>
-          <div className="w-full max-w-[500px] lg:max-w-[1500px]  p-10 grid grid-cols-1 lg:grid-cols-3 gap-16"
-          style={{
-            gridTemplateRows: 'repeat(auto-fit, 392px)',
-          }}>
+          <div
+            className="w-full max-w-[500px] lg:max-w-[1500px]  p-10 grid grid-cols-1 lg:grid-cols-3 gap-16"
+            style={{
+              gridTemplateRows: 'repeat(auto-fit, 392px)',
+            }}
+          >
             {posts.map((post) => (
               <StandardPostPageArticle
                 userObj={userObj}
                 key={post._id}
                 post={post}
-                mid
               />
             ))}
           </div>
+          {posts.length >= limit ? (
+            <div className="flex justify-center pb-5">
+              <Link
+                href={{
+                  pathname: '/posts',
+                  query: { ...query, limit: `${limit + 12}` },
+                }}
+              >
+                <button onClick={() => setLimit(limit + 12)}>
+                  Load More Posts
+                </button>
+              </Link>
+            </div>
+          ) : null}
         </main>
       </div>
     </>
