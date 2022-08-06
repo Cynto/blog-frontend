@@ -24,8 +24,16 @@ const ReadEditDeleteButtons = ({
       {(userObj && userObj.isAdmin) ||
       (userObj && userObj._id === post.user._id) ? (
         <>
-          <BasicButton text={width >= 800 ? 'Edit Article' : 'Edit'} />
-          <BasicButton text={width >= 800 ? 'Delete Article' : 'Delete'} />
+          <Link href={`/posts/edit/${post.url}`}>
+            <a>
+              <BasicButton text={width >= 800 ? 'Edit Article' : 'Edit'} />
+            </a>
+          </Link>
+          <Link href={`/posts/delete/${post.url}`}>
+            <a>
+              <BasicButton text={width >= 800 ? 'Delete Article' : 'Delete'} />
+            </a>
+          </Link>
         </>
       ) : null}
     </div>
