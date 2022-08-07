@@ -11,20 +11,23 @@ import { Editor } from '@tinymce/tinymce-react';
 const { useRouter } = require('next/router');
 
 export async function getServerSideProps(context: any) {
-  const articleData = await fetch(
-    `http://localhost:4000/posts/${context.params.url}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
-  const post = await articleData.json();
+  const res = await fetch(`http://localhost:4000/posts/${context.params.url}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await res.json();
+
+  if (!data.post) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      post,
+      post: data.post,
     },
   };
 }
@@ -232,7 +235,7 @@ const EditForm: NextPage<{
   return (
     <>
       <Header userObj={userObj} />
-      <main>
+      <main className="relative md:pb-16 md:pt-32">
         <Image
           src="/backgrounds/create_post_background.jpg"
           layout="fill"
@@ -247,7 +250,7 @@ const EditForm: NextPage<{
           }}
           method="POST"
         >
-          <h1 className="text-4xl font-bold pb-6">Create Blog Post</h1>
+          <h2 className="text-4xl font-bold pb-6">Update Blog Post</h2>
           <label htmlFor="title" className={labelClass}>
             Title <span className="">*</span>
             <input
@@ -301,7 +304,7 @@ const EditForm: NextPage<{
               gridTemplateColumns: '50%',
             }}
           >
-            <h3 className="flex items-center justify-center cursor-default text-xl font-normal">
+            <h3 className="flex text-center items-center justify-center cursor-default text-xl font-normal">
               Publish on Creation
             </h3>
             <div className="bg-gray-200 grid grid-cols-2 auto-cols-max py-1 px-2 ">
@@ -345,7 +348,7 @@ const EditForm: NextPage<{
               gridTemplateColumns: '50%',
             }}
           >
-            <h3 className="flex items-center justify-center cursor-default text-xl font-normal">
+            <h3 className="flex text-center items-center justify-center cursor-default text-xl font-normal">
               Set as Featured Post
             </h3>
             <div className="bg-gray-200 grid grid-cols-2 auto-cols-max py-1 px-2 ">
