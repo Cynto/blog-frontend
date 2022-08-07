@@ -13,14 +13,12 @@ import useDidMountEffect from '../../hooks/useDidMountEffect';
 
 const Create: NextPage = () => {
   const [errors, setErrors] = useState<
-    [
-      {
-        value: String;
-        msg: String;
-        param: String;
-        location: String;
-      }
-    ]
+    {
+      value: String;
+      msg: String;
+      param: String;
+      location: String;
+    }[]
   >([{ msg: '', value: '', param: '', location: '' }]);
   const [content, setContent] = useState('');
   const [count, setCount] = useState(0);
@@ -96,7 +94,7 @@ const Create: NextPage = () => {
       </Head>
       <Header userObj={userObj} />
 
-      <main className="pt-24 pb-5 w-full grid content-center justify-center relative min-h-screen ">
+      <main className="md:pt-32 md:pb-16 w-full grid content-center justify-center relative min-h-screen ">
         <Image
           src="/backgrounds/create_post_background.jpg"
           layout="fill"
