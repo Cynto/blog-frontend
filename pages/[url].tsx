@@ -11,17 +11,19 @@ import NoPictureArticleShowcase from '../components/frontPage/NoPictureArticleSh
 import useUserObject from '../hooks/useUserObject';
 
 export async function getServerSideProps(context: any) {
-  const articleData = await fetch(
-    `http://localhost:4000/posts/${context.params.url}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+  const res = await fetch(`http://localhost:4000/posts/${context.params.url}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
-  const post = await articleData.json();
+  const data = await res.json();
+  if (!data.post) {
+    return {
+      notFound: true,
+    };
+  }
 
   const postsData = await fetch('http://localhost:4000/posts/published');
 
@@ -29,7 +31,7 @@ export async function getServerSideProps(context: any) {
 
   return {
     props: {
-      post,
+      post: data.post,
       posts,
     },
   };
@@ -89,13 +91,19 @@ const BlogPost: NextPage<{
               </svg>
             </div>
           </div>
-
-          <span className="dark:text-slate-100 font-normal">
-            Article written by: {post.user.firstName}
-            <span className="ml-3">
-              ~{new Date(post.createdAt).toLocaleDateString('en-GB')}
+          <div className="grid justify-items-center">
+            <span className="dark:text-slate-100 font-normal">
+              Article written by: {post.user.firstName}
+              <span className="ml-3">
+                ~{new Date(post.createdAt).toLocaleDateString('en-GB')}
+              </span>
             </span>
-          </span>
+            {post.createdAt !== post.updatedAt && (
+              <span className="dark:text-slate-300 font-normal">
+                Updated ~{new Date(post.updatedAt).toLocaleDateString('en-GB')}
+              </span>
+            )}
+          </div>
         </div>
         <div className="px-10 md:px-28 flex justify-center">
           <div className="relative w-full h-[180px] max-w-[600px] md:h-[350px] ">
@@ -116,11 +124,11 @@ const BlogPost: NextPage<{
             dangerouslySetInnerHTML={{ __html: post.content }}
           ></div>
           <div className="hidden lg:grid auto-rows-min gap-y-5 w-full ">
-            {posts.map((post, index) => {
+            {posts ? posts.map((post, index) => {
               return index < 3 ? (
                 <NoPictureArticleShowcase key={index} post={post} mid />
               ) : null;
-            })}
+            }) : null}
           </div>
         </div>
       </article>
