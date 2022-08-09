@@ -235,7 +235,7 @@ const EditForm: NextPage<{
   return (
     <>
       <Header userObj={userObj} />
-      <main className="relative md:pb-16 md:pt-32">
+      <main className="relative md:pb-16 md:pt-32 grid justify-center">
         <Image
           src="/backgrounds/create_post_background.jpg"
           layout="fill"
@@ -315,6 +315,7 @@ const EditForm: NextPage<{
                   name="published"
                   value="true"
                   className="peer hidden"
+                  defaultChecked={post.published}
                 />
                 <label
                   htmlFor="publishedTrue"
@@ -330,7 +331,7 @@ const EditForm: NextPage<{
                   name="published"
                   value="false"
                   className="peer hidden"
-                  defaultChecked
+                  defaultChecked={!post.published}
                 />
                 <label
                   htmlFor="publishedFalse"
@@ -359,6 +360,7 @@ const EditForm: NextPage<{
                   name="featured"
                   value="true"
                   className="peer hidden"
+                  defaultChecked={post.featured}
                 />
                 <label
                   htmlFor="featuredTrue"
@@ -375,7 +377,7 @@ const EditForm: NextPage<{
                   name="featured"
                   value="false"
                   className="peer hidden"
-                  defaultChecked
+                  defaultChecked={!post.featured}
                 />
 
                 <label
@@ -389,9 +391,9 @@ const EditForm: NextPage<{
           </div>
 
           {errors[0]?.msg !== '' ? (
-            <ul>
+            <ul className="mt-0">
               {errors.map((error, index) => (
-                <li key={index} className="error">
+                <li key={index} className="text-red-700 mt-0 mb-1">
                   {' '}
                   {error.msg}
                 </li>
