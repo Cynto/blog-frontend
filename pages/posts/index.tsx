@@ -49,9 +49,7 @@ const Posts: NextPage = () => {
   };
 
   useEffect(() => {
-    if (userObj) {
-      getPosts();
-    }
+    getPosts();
   }, [userObj]);
 
   useEffect(() => {
@@ -74,7 +72,7 @@ const Posts: NextPage = () => {
     <>
       <Header userObj={userObj} />
       <div className="h-full relative dark:bg-gray-900 dark:text-slate-100 w-full">
-        <main className="w-full">
+        <main className="pt-20 grid justify-center relative min-h-screen">
           <div className="w-full flex justify-center">
             <h2 className=" text-3xl py-5">Posts </h2>
           </div>
