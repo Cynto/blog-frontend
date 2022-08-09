@@ -44,7 +44,7 @@ const Home: NextPage<{
 
       <Header userObj={userObj} />
       <div className="h-full relative">
-        <main className="min-h-screen h-screen flex flex-col justify-start">
+        <main className="min-h-screen h-screen pt-[4.6rem]  flex flex-col justify-start">
           <FeaturedPost posts={posts} />
           <FrontPageMain posts={posts} />
         </main>
