@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 
-const useLocalStorage = (key, initialValue) => {
+const useLocalStorage = (key: string, initialValue: boolean) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.log(error);
       return initialValue;
     }
   });
@@ -27,7 +26,7 @@ const useLocalStorage = (key, initialValue) => {
 };
 
 const useDarkMode = () => {
-  const [enabled, setEnabled] = useLocalStorage<boolean>('dark-theme', false);
+  const [enabled, setEnabled] = useLocalStorage('dark-theme', false);
   const isEnabled = typeof enabledState === 'undefined' && enabled;
 
   useEffect(() => {
