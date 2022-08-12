@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../../styles/CreatePost.module.scss';
 import { Editor } from '@tinymce/tinymce-react';
 
 const Header = dynamic(() => import('../../components/Header'), { ssr: false });
@@ -111,7 +110,7 @@ const Create: NextPage = () => {
         >
           <h1 className="text-4xl font-bold pb-6">Create Blog Post</h1>
           <label htmlFor="title" className={labelClass}>
-            Title <span className={styles.required}>*</span>
+            Title <span>*</span>
             <input type="title" id="title" className={inputClass} required />
           </label>
           <label htmlFor="image" className={labelClass}>
@@ -119,7 +118,7 @@ const Create: NextPage = () => {
             <input type="text" id="image" className={inputClass} />
           </label>
           <label htmlFor="content" className={labelClass}>
-            Content <span className={styles.required}>*</span>
+            Content <span>*</span>
             <Editor
               id="content"
               textareaName="content"
