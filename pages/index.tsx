@@ -9,18 +9,22 @@ import dynamic from 'next/dynamic';
 
 const Header = dynamic(() => import('../components/Header'), { ssr: false });
 import FeaturedPost from '../components/frontPage/FeaturedPost';
-import FrontPageMain from '../components/frontPage/FrontPageMain';
+const FrontPageMain = dynamic(
+  () => import('../components/frontPage/FrontPageMain'),
+  { ssr: false }
+);
 import useUserObject from '../hooks/useUserObject';
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 
 export async function getStaticProps() {
   const data = await fetch('http://localhost:4000/posts/published', {
     method: 'GET',
-    
   });
 
-  const posts = await data.json();
-  console.log(posts);
+  const posts: any[] = await data.json();
+  const featuredIndex = posts.findIndex((post) => post.featured === true);
+  posts.unshift(posts.splice(featuredIndex, 1)[0]);
+  
   return {
     props: {
       posts,
