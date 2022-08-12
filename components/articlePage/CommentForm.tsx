@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import blogPostObj from '../../shared/interfaces/blogPostObj.interface';
 
@@ -19,6 +19,7 @@ const CommentForm = ({
       }
     ]
   >([{ msg: '', value: '', param: '', location: '' }]);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (data: any) => {
     console.log(data.comment.value);
@@ -38,7 +39,7 @@ const CommentForm = ({
       }
     );
     const json = await response.json();
-    console.log(json);
+    
 
     if (json.comment) {
       userComment.value = '';
@@ -47,6 +48,10 @@ const CommentForm = ({
     } else {
       setErrors(json.errors);
     }
+  };
+
+  const resetTextArea = () => {
+    textAreaRef.current!.value = '';
   };
 
   return (
@@ -62,6 +67,9 @@ const CommentForm = ({
         placeholder="Write a comment..."
         name="comment"
         minLength={5}
+        ref={textAreaRef}
+        
+
       />
       <button
         type="submit"
@@ -75,7 +83,8 @@ const CommentForm = ({
         type="button"
         className="ml-3 my-5  border-slate-900 dark:border-0 rounded    font-bold"
       >
-        <span className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
+        <span className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out"
+        onClick={resetTextArea}>
           Cancel
         </span>
       </button>
