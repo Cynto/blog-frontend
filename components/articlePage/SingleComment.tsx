@@ -66,7 +66,7 @@ const SingleComment = ({
                 delete
               </span>
             </button>
-            <div className="hidden md:visible absolute right-12">
+            <div className="hidden md:block absolute right-12">
               <span>Click again to confirm deletion</span>
             </div>
           </>
