@@ -4,26 +4,24 @@ import NoPictureArticleShowcase from './NoPictureArticleShowcase';
 import blogPostObjInterface from '../../shared/interfaces/blogPostObj.interface';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 
-const FrontMidSection = ({ posts }: { posts: blogPostObjInterface[] }) => {
-  console.log(posts[0]);
+const FrontMidSection = ({
+  posts,
+  articleNumbers,
+}: {
+  posts: blogPostObjInterface[];
+  articleNumbers: {
+    midStandard: number;
+    midNoPicture: number;
+    standardSmall: number;
+    bottomNoPicture: number;
+    bottomBig: number;
+  };
+}) => {
   const { width } = useWindowDimensions();
-  const [maxArticles, setMaxArticles] = useState(0);
 
-  useEffect(() => {
-    if (width > 1500) {
-      setMaxArticles(3);
-    }
-    if (width <= 1500) {
-      setMaxArticles(2);
-    }
-    if (width <= 1200) {
-      setMaxArticles(2);
-    }
-    if (width <= 900) {
-      setMaxArticles(2);
-    }
-    console.log(maxArticles);
-  }, [width]);
+  let standardArticlesShown = 0;
+  let noPictureArticlesShown = 0;
+
   return (
     <div className="grid w-min max-w-full md:grid-cols-[1fr_220px] justify-center">
       <div
@@ -34,16 +32,25 @@ const FrontMidSection = ({ posts }: { posts: blogPostObjInterface[] }) => {
         }}
       >
         {posts.map((post, index) => {
-          return index < maxArticles ? (
-            <StandardArticleShowcase key={index} mid post={post} />
-          ) : null;
+          if (standardArticlesShown < articleNumbers.midStandard) {
+            if (index < 4) {
+              standardArticlesShown++;
+              return <StandardArticleShowcase key={index} mid post={post} />;
+            }
+          }
         })}
       </div>
       <div className="hidden md:grid auto-rows-min gap-y-5 w-full  pt-5 ">
         {posts.map((post, index) => {
-          return index < 2 ? (
-            <NoPictureArticleShowcase key={index} post={post} mid />
-          ) : null;
+          if (noPictureArticlesShown < 2) {
+            if (
+              index >= articleNumbers.midStandard &&
+              index < articleNumbers.midNoPicture + articleNumbers.midStandard
+            ) {
+              noPictureArticlesShown++;
+              return <NoPictureArticleShowcase mid key={index} post={post} />;
+            }
+          }
         })}
       </div>
     </div>
