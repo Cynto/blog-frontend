@@ -72,7 +72,7 @@ const SingleReply = ({
               delete
             </span>
           </button>
-          <div className="absolute right-12">
+          <div className="hidden md:block absolute right-12">
             <span>Click again to confirm deletion</span>
           </div>
         </>
