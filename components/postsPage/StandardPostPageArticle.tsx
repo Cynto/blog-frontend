@@ -32,11 +32,11 @@ const StandardPostPageArticle = ({
         dangerouslySetInnerHTML={{ __html: post.content }}
       ></div>
       <div className="flex justify-between mt-1">
-        <span className="dark:text-slate-100 mb-4 block font-normal">
+        <span className="dark:text-slate-100 mb-4 block font-normal ">
           Written by {post.user.firstName}
         </span>
         <Link href={`/${post.url}#comments`}>
-          <div className="flex items-start h-min cursor-pointer  ">
+          <div className="flex items-start h-min cursor-pointer  hover:text-blue-500  dark:hover:text-blue-500">
             <span className="h-min block">{post.comments?.length}</span>
 
             <span className="material-symbols-outlined text-xl font-extralight">
