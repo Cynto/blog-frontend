@@ -6,28 +6,21 @@ import useWindowDimensions from '../../hooks/useWindowDimensions';
 const StandardSmallArticlesContainer = ({
   posts,
   mid,
+  articleNumbers,
 }: {
   posts: blogPostObjInterface[];
   mid: boolean;
-}) => {
-  const { width } = useWindowDimensions();
-  const [maxArticles, setMaxArticles] = useState(0);
 
-  useEffect(() => {
-    if (width > 1500) {
-      setMaxArticles(5);
-    }
-    if (width <= 1500) {
-      setMaxArticles(4);
-    }
-    if (width <= 1200) {
-      setMaxArticles(4);
-    }
-    if (width <= 900) {
-      setMaxArticles(4);
-    }
-    console.log(maxArticles);
-  }, [width]);
+  articleNumbers: {
+    midStandard: number;
+    midNoPicture: number;
+    standardSmall: number;
+    bottomNoPicture: number;
+    bottomBig: number;
+  };
+}) => {
+  let articlesShown = 0;
+
   return (
     <div>
       <h3 className="text-[1.1rem] font-bold pb-5 dark:text-slate-100 ">
@@ -41,9 +34,22 @@ const StandardSmallArticlesContainer = ({
         }}
       >
         {posts.map((post, index) => {
-          return index < maxArticles ? (
-            <StandardArticleShowcase key={index} mid={mid} post={post} />
-          ) : null;
+          if (articlesShown < articleNumbers.standardSmall) {
+            if (
+              index >=
+                articleNumbers.midStandard + articleNumbers.midNoPicture &&
+              index <
+                articleNumbers.midStandard +
+                  articleNumbers.midNoPicture +
+                  articleNumbers.standardSmall
+            ) {
+              articlesShown++;
+
+              return (
+                <StandardArticleShowcase key={index} mid={mid} post={post} />
+              );
+            }
+          }
         })}
       </div>
     </div>
