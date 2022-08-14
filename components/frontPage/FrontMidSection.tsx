@@ -23,7 +23,7 @@ const FrontMidSection = ({
   let noPictureArticlesShown = 0;
 
   return (
-    <div className="grid w-min max-w-full md:grid-cols-[1fr_220px] justify-center">
+    <div className="grid w-min max-w-full md:grid-cols-[1fr_min-content] justify-center">
       <div
         className="grid w-min md:grid-flow-col    md:auto-rows-[0] "
         style={{
