@@ -12,7 +12,7 @@ const NoPictureArticleShowcase = ({
   const titleFontSize = mid ? '0.9rem' : '1.2rem';
   return (
     <Link href={post.url}>
-      <div className="mid-right-suggestion grid w-full max-w-full h-min overflow-hidden cursor-pointer group">
+      <div className="mid-right-suggestion grid w-max max-w-[220px] h-min overflow-hidden cursor-pointer group">
         <h4
           className=" text-base font-bold group-hover:text-slate-700  dark:text-slate-100 dark:group-hover:text-slate-300"
           style={{
