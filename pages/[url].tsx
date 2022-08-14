@@ -45,11 +45,11 @@ const BlogPost: NextPage<{
   const { userObj } = userHookObject;
   return (
     <>
-      <Header userObj={userObj} />
+      <Header  />
 
-      <article className="h-full w-full pt-40 pb-0 dark:bg-gray-900">
-        <div className="grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 md:px-64">
-          <h1 className="text-4xl font-header text-center dark:text-slate-100">
+      <article className="h-full w-full pt-40 pb-0 dark:bg-gray-900 flex flex-col justify-center items-center">
+        <div className="max-w-[300px] lg:max-w-[500px] grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 break-words">
+          <h1 className="text-4xl w-full font-header text-center dark:text-slate-100 break-words">
             {post.title}
           </h1>
           <div className="h-8  flex gap-x-5 justify-around">
@@ -105,8 +105,8 @@ const BlogPost: NextPage<{
             )}
           </div>
         </div>
-        <div className="px-10 md:px-28 flex justify-center">
-          <div className="relative w-full h-[180px] max-w-[600px] md:h-[350px] ">
+        <div className=" flex justify-center">
+          <div className="relative w-[300px] lg:w-[600px] h-[180px] max-w[300px] lg:max-w-[600px] md:h-[350px] ">
             <Image
               loader={() => post.image}
               src={post.image}
@@ -120,7 +120,7 @@ const BlogPost: NextPage<{
         </div>
         <div className="px-12 lg:pl-56 md:pr-10 pt-10 md:pt-16 grid justify-center content-center justify-items-center lg:grid-cols-[600px_220px] gap-x-7">
           <div
-            className="article-content-container font-normal dark:text-slate-400 max-w-[500px] [&>*:not(p)]:text-2xl [&>*:not(p)]:font-header [&>*:not(p)]:mb-4 [&>*:not(p)]:dark:text-slate-100 [&>p]:mb-8 "
+            className="article-content-container font-normal dark:text-slate-400 max-w-[300px] lg:max-w-[500px] break-words [&>*:not(p)]:text-2xl [&>*:not(p)]:font-header [&>*:not(p)]:mb-4 [&>*:not(p)]:dark:text-slate-100 [&>p]:mb-8 "
             dangerouslySetInnerHTML={{ __html: post.content }}
           ></div>
           <div className="hidden lg:grid auto-rows-min gap-y-5 w-full ">
