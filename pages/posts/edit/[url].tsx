@@ -8,6 +8,7 @@ const Header = dynamic(() => import('../../../components/Header'), {
 import useUserObject from '../../../hooks/useUserObject';
 import Image from 'next/image';
 import { Editor } from '@tinymce/tinymce-react';
+import validateCreationForm from '../../../vanillaTypescript/validateCreationForm';
 const { useRouter } = require('next/router');
 
 export async function getServerSideProps(context: any) {
@@ -56,143 +57,6 @@ const EditForm: NextPage<{
     'text-slate-800 grid grid-cols-2 gap-4 mb-4 w-full p-3 bg-slate-100 border-[1px] dark:border-2  rounded-sm dark:border-slate-100 focus:outline-none focus:border-gray-900 dark:focus:border-red-800 ';
   const labelClass = 'text-lg';
 
-  const validateFields = (data: any) => {
-    let errorsArr: {
-      value: String;
-      msg: String;
-      param: String;
-      location: String;
-    }[] = [];
-    const title = data.title;
-    const image = data.image;
-    const tags = data.tags;
-    const published = data.published;
-    const featured = data.featured;
-
-    if (!title.value && !errorsArr.find((e) => e.param === 'title')) {
-      errorsArr = [
-        ...errorsArr,
-        {
-          msg: 'Title is required',
-          value: '',
-          param: 'title',
-          location: 'body',
-        },
-      ];
-    } else if (
-      title.value.length > 50 &&
-      !errorsArr.find((e) => e.param === 'title')
-    ) {
-      errorsArr = [
-        ...errorsArr,
-        {
-          msg: 'Title must have 50 or less characters',
-          value: '',
-          param: 'title',
-          location: 'body',
-        },
-      ];
-    } else if (
-      title.value.length < 5 &&
-      !errorsArr.find((e) => e.param === 'title')
-    ) {
-      errorsArr = [
-        ...errorsArr,
-        {
-          msg: 'Title must have 5 or more characters',
-          value: '',
-          param: 'title',
-          location: 'body',
-        },
-      ];
-    }
-    if (!image.value && !errorsArr.find((e) => e.param === 'image')) {
-      errorsArr = [
-        ...errorsArr,
-        {
-          msg: 'Image is required',
-          value: '',
-          param: 'image',
-          location: 'body',
-        },
-      ];
-    }
-    function isUrl(s: string) {
-      var regexp =
-        /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-      return regexp.test(s);
-    }
-    if (!isUrl(image.value) && !errorsArr.find((e) => e.param === 'image')) {
-      errorsArr = [
-        ...errorsArr,
-        {
-          msg: 'Image URL must be valid',
-          value: '',
-          param: 'image',
-          location: 'body',
-        },
-      ];
-    }
-    if (content.length < 10 || content.length > 10000) {
-      errorsArr = [
-        ...errorsArr,
-        {
-          msg: 'Content must be between 10 and 10000 characters',
-          value: '',
-          param: 'content',
-          location: 'body',
-        },
-      ];
-    }
-
-    let tagsArray = tags.value ? tags.value.split(',') : [];
-    tagsArray = tagsArray.map((tag: string) => {
-      return tag.trim();
-    });
-
-    if (
-      (tagsArray.length === 0 || tagsArray.length > 20) &&
-      !errorsArr.find((error) => error.param === 'tags')
-    ) {
-      errorsArr = [
-        ...errorsArr,
-        {
-          msg: 'There must be between 1 and 20 tags',
-          value: '',
-          param: 'tags',
-          location: 'body',
-        },
-      ];
-    }
-    if (!errorsArr.find((error) => error.param === 'tags')) {
-      if (
-        tagsArray.find((tag: string) => {
-          if (tag.length > 20) return true;
-        }) ||
-        tagsArray.find((tag: string) => {
-          if (tag.length < 4) return true;
-        })
-      ) {
-        errorsArr = [
-          ...errorsArr,
-          {
-            msg: 'Each tag must have between 4 and 20 characters',
-            value: '',
-            param: 'tags',
-            location: 'body',
-          },
-        ];
-      }
-    }
-
-    if (errorsArr.length > 0) {
-      setErrors(errorsArr);
-    } else {
-      setErrors([]);
-      handleSubmit(data);
-    }
-  };
-
   const handleSubmit = async (data: any) => {
     const title = data.title;
     const image = data.image;
@@ -234,7 +98,7 @@ const EditForm: NextPage<{
 
   return (
     <>
-      <Header userObj={userObj} />
+      <Header />
       <main className="relative md:pb-16 md:pt-32 grid justify-center">
         <Image
           src="/backgrounds/create_post_background.jpg"
@@ -246,7 +110,7 @@ const EditForm: NextPage<{
           className="z-[1] blur-0 grid shadow lg:w-[700px] xl:w-[800px]  pt-10 px-10 pb-5  bg-white dark:bg-gray-900 text-slate-800 dark:text-slate-100"
           onSubmit={(e) => {
             e.preventDefault();
-            validateFields(e.target);
+            validateCreationForm(e.target, content, handleSubmit, setErrors);
           }}
           method="POST"
         >
