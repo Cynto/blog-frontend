@@ -57,7 +57,7 @@ const FrontPageMain = ({ posts }: { posts: blogPostObjInterface[] }) => {
       setArticleNumbers((prev) => {
         return {
           ...prev,
-          standardSmall: 5,
+          standardSmall: 4,
         };
       });
     }
@@ -65,7 +65,7 @@ const FrontPageMain = ({ posts }: { posts: blogPostObjInterface[] }) => {
       setArticleNumbers((prev) => {
         return {
           ...prev,
-          standardSmall: 4,
+          standardSmall: 3,
         };
       });
     }
@@ -77,7 +77,7 @@ const FrontPageMain = ({ posts }: { posts: blogPostObjInterface[] }) => {
   }, [width]);
 
   return (
-    <div className="w-full  p-14 dark:bg-gray-900 grid  justify-center">
+    <div className="w-full break-words  p-14 dark:bg-gray-900 grid  justify-center">
       <div className="max-w-[1132px] grid gap-y-10">
         <FrontMidSection posts={posts} articleNumbers={articleNumbers} />
         <StandardSmallArticlesContainer
