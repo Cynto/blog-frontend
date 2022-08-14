@@ -17,7 +17,7 @@ const ReadEditDeleteButtons = ({
     <div className="w-full flex justify-between">
       <Link href={`/${post.url}`}>
         <a>
-          <BasicButton text={width >= 800 ? 'Read Article' : 'Read'} />
+          <BasicButton callback={() => {}} text={width >= 800 ? 'Read Article' : 'Read'} />
         </a>
       </Link>
 
@@ -26,12 +26,12 @@ const ReadEditDeleteButtons = ({
         <>
           <Link href={`/posts/edit/${post.url}`}>
             <a>
-              <BasicButton text={width >= 800 ? 'Edit Article' : 'Edit'} />
+              <BasicButton callback={() => {}} text={width >= 800 ? 'Edit Article' : 'Edit'} />
             </a>
           </Link>
           <Link href={`/posts/delete/${post.url}`}>
             <a>
-              <BasicButton text={width >= 800 ? 'Delete Article' : 'Delete'} />
+              <BasicButton callback={() => {}} text={width >= 800 ? 'Delete Article' : 'Delete'} />
             </a>
           </Link>
         </>
