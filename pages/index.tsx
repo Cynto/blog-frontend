@@ -24,7 +24,7 @@ export async function getStaticProps() {
   const posts: any[] = await data.json();
   const featuredIndex = posts.findIndex((post) => post.featured === true);
   posts.unshift(posts.splice(featuredIndex, 1)[0]);
-  
+
   return {
     props: {
       posts,
@@ -46,7 +46,7 @@ const Home: NextPage<{
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header userObj={userObj} />
+      <Header />
       <div className="h-full relative">
         <main className="min-h-screen h-screen pt-[4.6rem]  flex flex-col justify-start">
           <FeaturedPost posts={posts} />
