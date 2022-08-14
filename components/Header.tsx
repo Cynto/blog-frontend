@@ -5,10 +5,11 @@ import styles from '../styles/Header.module.scss';
 import Head from 'next/head';
 import UserObjInterface from '../shared/interfaces/userObj.interface';
 import useDarkMode from '../hooks/useDarkMode';
+import useUserObject from '../hooks/useUserObject';
 import NavBar from './NavBar';
 
-const Header = (props: { userObj: UserObjInterface | null | false }) => {
-  const { userObj } = props;
+const Header = () => {
+  const { userObj } = useUserObject();
   const [darkMode, setDarkMode] = useDarkMode();
   const router = useRouter();
   const currentRoute = router.pathname;
