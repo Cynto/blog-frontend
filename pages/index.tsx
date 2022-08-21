@@ -35,9 +35,6 @@ export async function getStaticProps() {
 const Home: NextPage<{
   posts: blogPostObjInterface[];
 }> = ({ posts }) => {
-  const userHookObject = useUserObject();
-  const { userObj } = userHookObject;
-  console.log(posts);
   return (
     <>
       <Head>
