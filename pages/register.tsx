@@ -5,8 +5,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Register.module.scss';
-import useUserObject from '../hooks/useUserObject';
-
+import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 const DarkMode = dynamic(() => import('../components/DarkMode'), {
   ssr: false,
@@ -24,8 +23,8 @@ const Register: NextPage = () => {
     ]
   >([{ msg: '', value: '', param: '', location: '' }]);
 
-  const userHookObject = useUserObject();
-  const { userObj } = userHookObject;
+  
+  const  userObj = useSelector((state: any) => state.userObj);
 
   const router = useRouter();
 
