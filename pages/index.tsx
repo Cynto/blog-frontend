@@ -13,7 +13,6 @@ const FrontPageMain = dynamic(
   () => import('../components/frontPage/FrontPageMain'),
   { ssr: false }
 );
-import useUserObject from '../hooks/useUserObject';
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 
 export async function getStaticProps() {

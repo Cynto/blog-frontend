@@ -6,7 +6,6 @@ import dynamic from 'next/dynamic';
 import { useSelector } from 'react-redux';
 
 const Header = dynamic(() => import('../../components/Header'), { ssr: false });
-import useUserObject from '../../hooks/useUserObject';
 import StandardPostPageArticle from '../../components/postsPage/StandardPostPageArticle';
 import blogPostObj from '../../shared/interfaces/blogPostObj.interface';
 import SortLink from '../../components/postsPage/SortLink';

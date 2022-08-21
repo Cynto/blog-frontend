@@ -8,8 +8,6 @@ import { Editor } from '@tinymce/tinymce-react';
 import { useSelector } from 'react-redux';
 
 const Header = dynamic(() => import('../../components/Header'), { ssr: false });
-import useUserObject from '../../hooks/useUserObject';
-import useDidMountEffect from '../../hooks/useDidMountEffect';
 import validateCreationForm from '../../vanillaTypescript/validateCreationForm';
 
 const Create: NextPage = () => {
