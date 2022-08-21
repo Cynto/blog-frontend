@@ -57,11 +57,17 @@ const FrontPageMain = ({ posts }: { posts: blogPostObjInterface[] }) => {
       setArticleNumbers((prev) => {
         return {
           ...prev,
+          standardSmall: 5,
+        };
+      });
+    } else  if (width <= 1500 && width > 960) {
+      setArticleNumbers((prev) => {
+        return {
+          ...prev,
           standardSmall: 4,
         };
       });
-    }
-    if (width <= 1500) {
+    } else  if (width <= 960) {
       setArticleNumbers((prev) => {
         return {
           ...prev,
@@ -74,7 +80,9 @@ const FrontPageMain = ({ posts }: { posts: blogPostObjInterface[] }) => {
   useEffect(() => {
     setMidStandardAmount();
     setStandardSmall();
+  
   }, [width]);
+
 
   return (
     <div className="w-full break-words  p-14 dark:bg-gray-900 grid  justify-center">
