@@ -8,7 +8,7 @@ import CommentSection from '../components/articlePage/CommentSection';
 
 const Header = dynamic(() => import('../components/Header'), { ssr: false });
 import NoPictureArticleShowcase from '../components/frontPage/NoPictureArticleShowcase';
-import useUserObject from '../hooks/useUserObject';
+import { useSelector } from 'react-redux';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(`http://localhost:4000/posts/${context.params.url}`, {
@@ -41,11 +41,10 @@ const BlogPost: NextPage<{
   post: blogPostObjInterface;
   posts: blogPostObjInterface[];
 }> = ({ post, posts }) => {
-  const userHookObject = useUserObject();
-  const { userObj } = userHookObject;
+  const userObj = useSelector((state: any) => state.userObj);
   return (
     <>
-      <Header  />
+      <Header />
 
       <article className="h-full w-full pt-40 pb-0 dark:bg-gray-900 flex flex-col justify-center items-center">
         <div className="max-w-[300px] lg:max-w-[500px] grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 break-words">
@@ -124,11 +123,13 @@ const BlogPost: NextPage<{
             dangerouslySetInnerHTML={{ __html: post.content }}
           ></div>
           <div className="hidden lg:grid auto-rows-min gap-y-5 w-full ">
-            {posts ? posts.map((post, index) => {
-              return index < 3 ? (
-                <NoPictureArticleShowcase key={index} post={post} mid />
-              ) : null;
-            }) : null}
+            {posts
+              ? posts.map((post, index) => {
+                  return index < 3 ? (
+                    <NoPictureArticleShowcase key={index} post={post} mid />
+                  ) : null;
+                })
+              : null}
           </div>
         </div>
       </article>

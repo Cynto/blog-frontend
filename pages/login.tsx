@@ -5,11 +5,12 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Login.module.scss';
-import useUserObject from '../hooks/useUserObject';
+import { useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 const DarkMode = dynamic(() => import('../components/DarkMode'), {
   ssr: false,
 });
+import UserObjectComponent from '../components/UserObjectComponent';
 
 const Login: NextPage = () => {
   const [errors, setErrors] = useState<
@@ -23,8 +24,7 @@ const Login: NextPage = () => {
     ]
   >([{ msg: '', value: '', param: '', location: '' }]);
 
-  const userHookObject = useUserObject();
-  const { userObj } = userHookObject;
+  const userObj = useSelector((state: any) => state.userObj);
 
   const router = useRouter();
 
@@ -41,7 +41,7 @@ const Login: NextPage = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: email.value,
+        email: email.value.toLowerCase(),
         password: password.value,
       }),
     });
@@ -60,7 +60,11 @@ const Login: NextPage = () => {
   const labelClass = 'text-xl';
 
   useEffect(() => {
-    if (userObj) {
+    if (
+      userObj !== null &&
+      !userObj.initial &&
+      localStorage.getItem('token')
+    ) {
       router.push('/');
     }
   }, [userObj]);
@@ -72,6 +76,7 @@ const Login: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DarkMode />
+      <UserObjectComponent />
       <main className="min-h-screen grid justify-center content-center relative text-slate-900">
         <Image
           src="/backgrounds/login_background.jpg"

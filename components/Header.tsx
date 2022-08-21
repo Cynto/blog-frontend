@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import styles from '../styles/Header.module.scss';
-import Head from 'next/head';
-import UserObjInterface from '../shared/interfaces/userObj.interface';
 import useDarkMode from '../hooks/useDarkMode';
-import useUserObject from '../hooks/useUserObject';
+
 import NavBar from './NavBar';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import UserObjectComponent from './UserObjectComponent';
 
 const Header = () => {
-  const { userObj } = useUserObject();
+  const userObj = useSelector((state: RootState) => state.userObj);
+
   const [darkMode, setDarkMode] = useDarkMode();
   const router = useRouter();
   const currentRoute = router.pathname;
@@ -23,6 +24,7 @@ const Header = () => {
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
+
   useEffect(() => {
     window.addEventListener('resize', handleWindowSizeChange);
 
@@ -37,6 +39,7 @@ const Header = () => {
 
   return (
     <>
+      <UserObjectComponent />
       <header
         className=" z-10 fixed left-0 right-0 xl:flex xl:justify-center   shadow-2xl  py-3 px-6  items-center bg-white dark:bg-gray-900 border-b-2 border-gray-200 dark:border-gray-600"
         style={{

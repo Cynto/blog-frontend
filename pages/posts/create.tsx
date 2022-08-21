@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import { Editor } from '@tinymce/tinymce-react';
+import { useSelector } from 'react-redux';
 
 const Header = dynamic(() => import('../../components/Header'), { ssr: false });
 import useUserObject from '../../hooks/useUserObject';
@@ -23,11 +24,8 @@ const Create: NextPage = () => {
   >([]);
   const [content, setContent] = useState('');
 
-  const userHookObject = useUserObject();
-  const { userObj } = userHookObject;
-
+  const userObj = useSelector((state: any) => state.userObj);
   const editorRef = useRef(null);
-
   const router = useRouter();
 
   const handleSubmit = async (data: any) => {
