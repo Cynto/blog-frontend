@@ -32,7 +32,8 @@ const Register: NextPage = () => {
   const ISSERVER = typeof window === 'undefined';
 
   const handleSubmit = async (data: any) => {
-    const { firstName, lastName, email, password, confirmPassword } = data;
+    const { firstName, lastName, email, password, confirmPassword, adminCode } =
+      data;
 
     console.log(email.value, password.value);
 
@@ -47,6 +48,7 @@ const Register: NextPage = () => {
         email: email.value,
         password: password.value,
         confirmPassword: confirmPassword.value,
+        adminCode: adminCode.value,
       }),
     });
     const json = await response.json();
@@ -123,6 +125,10 @@ const Register: NextPage = () => {
               className={inputClass}
               required
             />
+          </label>
+          <label htmlFor="adminPassword" className={labelClass}>
+            Admin Code (Optional)
+            <input type="password" id="adminCode" className={inputClass} />
           </label>
 
           {errors[0].msg !== '' ? (
