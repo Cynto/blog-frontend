@@ -9,11 +9,13 @@ const ReplySection = ({
   userObj,
   refreshReplies,
   setRefreshReplies,
+  getComments
 }: {
   comment: commentInterface;
   userObj: userObjInterface | null | undefined;
   refreshReplies: boolean;
   setRefreshReplies: Function;
+  getComments: Function;
 }) => {
   const [replies, setReplies] = useState<replyInterface[]>([]);
   const [repliesShown, setRepliesShown] = useState(false);
@@ -72,6 +74,7 @@ const ReplySection = ({
               setRefreshReplies={setRefreshReplies}
               getReplies={getReplies}
               comment={comment}
+              getComments={getComments}
             />
           ))}
         </div>
