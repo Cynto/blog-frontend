@@ -10,7 +10,7 @@ const useLocalStorage = (key: string, initialValue: boolean) => {
     }
   });
 
-  const setValue = (value) => {
+  const setValue = (value: any) => {
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;
@@ -27,12 +27,11 @@ const useLocalStorage = (key: string, initialValue: boolean) => {
 
 const useDarkMode = () => {
   const [enabled, setEnabled] = useLocalStorage('dark-theme', false);
-  const isEnabled = typeof enabledState === 'undefined' && enabled;
+  const isEnabled = enabled;
 
   useEffect(() => {
     const className = 'dark';
     const bodyClass = window.document.body.classList;
-
     isEnabled ? bodyClass.add(className) : bodyClass.remove(className);
   }, [enabled, isEnabled]);
 
