@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 const Header = dynamic(() => import('../../../components/Header'), {
   ssr: false,
 });
-import useUserObject from '../../../hooks/useUserObject';
+import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import { Editor } from '@tinymce/tinymce-react';
 import validateCreationForm from '../../../vanillaTypescript/validateCreationForm';
@@ -37,8 +37,7 @@ const EditForm: NextPage<{
   post: blogPostObjInterface;
 }> = ({ post }) => {
   const router = useRouter();
-  const userHookObject = useUserObject();
-  const { userObj } = userHookObject;
+  const userObj = useSelector((state: any) => state.userObj);
 
   const [content, setContent] = useState<string>(post.content);
   const [errors, setErrors] = useState<
