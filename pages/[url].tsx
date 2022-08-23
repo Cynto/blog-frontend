@@ -47,7 +47,7 @@ const BlogPost: NextPage<{
       <Header />
 
       <article className="h-full w-full pt-40 pb-0 dark:bg-gray-900 flex flex-col justify-center items-center">
-        <div className="max-w-[300px] lg:max-w-[500px] grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 break-words">
+        <div className="max-w-[300px] md:max-w-[500px] grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 break-words">
           <h1 className="text-4xl w-full font-header text-center dark:text-slate-100 break-words">
             {post.title}
           </h1>
@@ -105,21 +105,21 @@ const BlogPost: NextPage<{
           </div>
         </div>
         <div className=" flex justify-center">
-          <div className="relative w-[300px] lg:w-[600px] h-[180px] max-w[300px] lg:max-w-[600px] md:h-[350px] ">
+          <div className="relative w-[300px] md:w-[600px] h-[180px] max-w[300px] lg:max-w-[600px] md:h-[350px] ">
             <Image
-              loader={() => post.image}
               src={post.image}
               alt={post.title}
               layout="fill"
               objectFit="cover"
               objectPosition="top"
+              priority
               className="rounded-xl"
             />
           </div>
         </div>
         <div className="px-12 lg:pl-56 md:pr-10 pt-10 md:pt-16 grid justify-center content-center justify-items-center lg:grid-cols-[600px_220px] gap-x-7">
           <div
-            className="article-content-container font-normal dark:text-slate-400 max-w-[300px] lg:max-w-[500px] break-words [&>*:not(p)]:text-2xl [&>*:not(p)]:font-header [&>*:not(p)]:mb-4 [&>*:not(p)]:dark:text-slate-100 [&>p]:mb-8 "
+            className="article-content-container font-normal dark:text-slate-400 max-w-[300px] md:max-w-[500px] break-words [&>*:not(p)]:text-2xl [&>*:not(p)]:font-header [&>*:not(p)]:mb-4 [&>*:not(p)]:dark:text-slate-100 [&>p]:mb-8 "
             dangerouslySetInnerHTML={{ __html: post.content }}
           ></div>
           <div className="hidden lg:grid auto-rows-min gap-y-5 w-full ">
