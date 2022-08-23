@@ -46,21 +46,24 @@ const Create: NextPage = () => {
       content,
     });
 
-    const response = await fetch('http://localhost:4000/posts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify({
-        title: title.value,
-        image: image.value,
-        tags: tags.value.split(', '),
-        published: published.value === 'true',
-        featured: featured.value === 'true',
-        content,
-      }),
-    });
+    const response = await fetch(
+      'https://bloggy-api-cynto.herokuapp.com/posts',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          title: title.value,
+          image: image.value,
+          tags: tags.value.split(', '),
+          published: published.value === 'true',
+          featured: featured.value === 'true',
+          content,
+        }),
+      }
+    );
     const json = await response.json();
     console.log(json);
 

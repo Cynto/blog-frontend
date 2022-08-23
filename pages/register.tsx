@@ -23,8 +23,7 @@ const Register: NextPage = () => {
     ]
   >([{ msg: '', value: '', param: '', location: '' }]);
 
-  
-  const  userObj = useSelector((state: any) => state.userObj);
+  const userObj = useSelector((state: any) => state.userObj);
 
   const router = useRouter();
 
@@ -36,20 +35,23 @@ const Register: NextPage = () => {
 
     console.log(email.value, password.value);
 
-    const response = await fetch('http://localhost:4000/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value,
-        password: password.value,
-        confirmPassword: confirmPassword.value,
-        adminCode: adminCode.value,
-      }),
-    });
+    const response = await fetch(
+      'https://bloggy-api-cynto.herokuapp.com/users',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: firstName.value,
+          lastName: lastName.value,
+          email: email.value,
+          password: password.value,
+          confirmPassword: confirmPassword.value,
+          adminCode: adminCode.value,
+        }),
+      }
+    );
     const json = await response.json();
 
     if (json.user) {

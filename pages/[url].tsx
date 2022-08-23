@@ -11,7 +11,7 @@ import NoPictureArticleShowcase from '../components/frontPage/NoPictureArticleSh
 import { useSelector } from 'react-redux';
 
 export async function getServerSideProps(context: any) {
-  const res = await fetch(`http://localhost:4000/posts/${context.params.url}`, {
+  const res = await fetch(`https://bloggy-api-cynto.herokuapp.com/posts/${context.params.url}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export async function getServerSideProps(context: any) {
     };
   }
 
-  const postsData = await fetch('http://localhost:4000/posts/published');
+  const postsData = await fetch('https://bloggy-api-cynto.herokuapp.com/posts/published');
 
   const posts = await postsData.json();
 

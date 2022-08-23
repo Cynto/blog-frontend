@@ -33,7 +33,7 @@ const Posts: NextPage = () => {
 
     const data =
       userObj && userObj.isAdmin
-        ? await fetch('http://localhost:4000/posts', {
+        ? await fetch('https://bloggy-api-cynto.herokuapp.com/posts', {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -41,13 +41,16 @@ const Posts: NextPage = () => {
               limit: limitToUse,
             },
           })
-        : await fetch('http://localhost:4000/posts/published', {
-            method: 'GET',
-            headers: {
-              sort: sort || '-createdAt',
-              limit: limitToUse,
-            },
-          });
+        : await fetch(
+            'https://bloggy-api-cynto.herokuapp.com/posts/published',
+            {
+              method: 'GET',
+              headers: {
+                sort: sort || '-createdAt',
+                limit: limitToUse,
+              },
+            }
+          );
     const posts = await data.json();
 
     if (posts) {
@@ -57,7 +60,7 @@ const Posts: NextPage = () => {
   };
 
   useEffect(() => {
-    if (  !router.query.sort) {
+    if (!router.query.sort) {
       getPosts();
     }
   }, [userObj]);

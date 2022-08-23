@@ -9,7 +9,7 @@ const ReplySection = ({
   userObj,
   refreshReplies,
   setRefreshReplies,
-  getComments
+  getComments,
 }: {
   comment: commentInterface;
   userObj: userObjInterface | null | undefined;
@@ -20,11 +20,9 @@ const ReplySection = ({
   const [replies, setReplies] = useState<replyInterface[]>([]);
   const [repliesShown, setRepliesShown] = useState(false);
 
-  
-
   const getReplies = async () => {
     const response = await fetch(
-      `http://localhost:4000/posts/${comment.post}/comments/${comment._id}/replies`
+      `https://bloggy-api-cynto.herokuapp.com/posts/${comment.post}/comments/${comment._id}/replies`
     );
     const json = await response.json();
 

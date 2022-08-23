@@ -8,12 +8,15 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 export async function getServerSideProps(context: any) {
-  const res = await fetch(`http://localhost:4000/posts/${context.params.url}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const res = await fetch(
+    `https://bloggy-api-cynto.herokuapp.com/posts/${context.params.url}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
   const data = await res.json();
 
   if (!data.post) {

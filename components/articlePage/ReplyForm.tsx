@@ -7,7 +7,7 @@ const ReplyForm = ({
   setRefreshReplies,
   originalUser,
   setIsReplying,
-  getComments
+  getComments,
 }: {
   comment: commentInterface;
   setRefreshReplies: Function;
@@ -34,7 +34,7 @@ const ReplyForm = ({
     const userReply = data.reply;
 
     const response = await fetch(
-      `http://localhost:4000/posts/${comment.post}/comments/${comment._id}/replies`,
+      `https://bloggy-api-cynto.herokuapp.com/posts/${comment.post}/comments/${comment._id}/replies`,
       {
         method: 'POST',
         headers: {
@@ -75,7 +75,6 @@ const ReplyForm = ({
         placeholder="Write a reply..."
         name="reply"
         minLength={5}
-        
       />
       <button
         type="submit"

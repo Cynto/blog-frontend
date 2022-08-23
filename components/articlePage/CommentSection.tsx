@@ -19,7 +19,7 @@ const CommentSection = ({
 
   const getComments = async () => {
     const response = await fetch(
-      `http://localhost:4000/posts/${post._id}/comments`
+      `https://bloggy-api-cynto.herokuapp.com/posts/${post._id}/comments`
     );
     const json = await response.json();
     json.comments = json.comments.reverse();

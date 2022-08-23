@@ -25,7 +25,7 @@ const CommentForm = ({
     console.log(data.comment.value);
     const userComment = data.comment;
     const response = await fetch(
-      `http://localhost:4000/posts/${post._id}/comments`,
+      `https://bloggy-api-cynto.herokuapp.com/posts/${post._id}/comments`,
       {
         method: 'POST',
         headers: {
@@ -39,7 +39,6 @@ const CommentForm = ({
       }
     );
     const json = await response.json();
-    
 
     if (json.comment) {
       userComment.value = '';
@@ -68,8 +67,6 @@ const CommentForm = ({
         name="comment"
         minLength={5}
         ref={textAreaRef}
-        
-
       />
       <button
         type="submit"
@@ -83,8 +80,10 @@ const CommentForm = ({
         type="button"
         className="ml-3 my-5  border-slate-900 dark:border-0 rounded    font-bold"
       >
-        <span className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out"
-        onClick={resetTextArea}>
+        <span
+          className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out"
+          onClick={resetTextArea}
+        >
           Cancel
         </span>
       </button>

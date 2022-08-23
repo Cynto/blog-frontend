@@ -67,21 +67,24 @@ const EditForm: NextPage<{
     const published = data.published || false;
     const featured = data.featured || false;
 
-    const response = await fetch(`http://localhost:4000/posts/${post._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify({
-        title: title.value,
-        image: image.value,
-        tags: tagsArray,
-        published: published.value === 'true',
-        featured: featured.value === 'true',
-        content: content,
-      }),
-    });
+    const response = await fetch(
+      `https://bloggy-api-cynto.herokuapp.com/posts/${post._id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          title: title.value,
+          image: image.value,
+          tags: tagsArray,
+          published: published.value === 'true',
+          featured: featured.value === 'true',
+          content: content,
+        }),
+      }
+    );
     const dataResponse = await response.json();
     console.log(dataResponse);
     if (dataResponse.errors) {

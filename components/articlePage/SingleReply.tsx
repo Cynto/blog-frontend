@@ -27,7 +27,7 @@ const SingleReply = ({
 
   const handleDelete = async (replyId: string) => {
     const response = await fetch(
-      `http://localhost:4000/posts/${comment.post}/comments/${comment._id}/replies/${replyId}`,
+      `https://bloggy-api-cynto.herokuapp.com/posts/${comment.post}/comments/${comment._id}/replies/${replyId}`,
       {
         method: 'DELETE',
         headers: {
