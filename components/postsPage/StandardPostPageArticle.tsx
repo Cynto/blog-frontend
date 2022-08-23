@@ -16,7 +16,7 @@ const StandardPostPageArticle = ({
     <div className="flex flex-col justify-between">
       <div className="mb-4 h-60 border-2 dark:border-0 bg-black dark:bg-white rounded-xl relative">
         <Image
-          loader={() => post.image}
+          
           src={post.image}
           layout="fill"
           objectFit="cover"

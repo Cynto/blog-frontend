@@ -34,7 +34,6 @@ const StandardArticleShowcase = ({
           }}
         >
           <Image
-            loader={() => post.image}
             src={post.image}
             layout="fill"
             objectFit="cover"

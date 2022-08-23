@@ -9,7 +9,6 @@ const BottomBigArticle = ({ post }: { post: blogPostObjInterface }) => {
       <div className="group cursor-pointer max-w-[400px] md:max-w-[800px] min-h-[342px] max-h-[528px]">
         <div className="w-full min-h-[159px] md:min-h-[359px] h-[30%] md:h-[70%] relative mb-5">
           <Image
-            loader={() => post.image}
             src={post.image}
             alt={post.title}
             layout="fill"

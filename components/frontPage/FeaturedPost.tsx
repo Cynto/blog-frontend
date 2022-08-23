@@ -17,12 +17,12 @@ const FeaturedPost = ({ posts }: { posts: blogPostObjInterface[] }) => {
               >
                 <div className="absolute w-full h-full">
                   <Image
-                    loader={() => post.image}
                     src={post.image}
                     className="blur-sm"
                     alt={post.title}
                     objectFit="cover"
                     objectPosition="top"
+                    priority
                     layout="fill"
                   />
                 </div>
