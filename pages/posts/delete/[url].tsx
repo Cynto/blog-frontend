@@ -32,9 +32,20 @@ export async function getServerSideProps(context: any) {
 const PostDelete = ({ post }: { post: any }) => {
   const router = useRouter();
 
-  const handleDelete = async () => {};
+  const handleDelete = async () => {
+    const response = await fetch(`http://localhost:4000/posts/${post._id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    console.log(response);
+    if (response.status === 204) {
+      router.push('/posts');
+    }
+  };
   const cancel = () => {
-    console.log('hi');
     router.back();
   };
 
