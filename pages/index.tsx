@@ -16,14 +16,11 @@ const FrontPageMain = dynamic(
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 
 export async function getStaticProps() {
-  const data = await fetch('http://localhost:4000/posts/published', {
-    method: 'GET',
-  });
+  const data = await fetch('http://localhost:4000/posts/published');
 
   const posts: any[] = await data.json();
   const featuredIndex = posts.findIndex((post) => post.featured === true);
   posts.unshift(posts.splice(featuredIndex, 1)[0]);
-
   return {
     props: {
       posts,
