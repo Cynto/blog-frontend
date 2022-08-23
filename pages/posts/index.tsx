@@ -21,12 +21,15 @@ const Posts: NextPage = () => {
   const [sort, setSort] = useState<string | string[]>(
     router.query.sort || '-createdAt'
   );
-  const [limit, setLimit] = useState<number>(
-    router.query.limit ? Number(router.query.limit) : 12
+  const [limit, setLimit] = useState<string>(
+    router.query.limit ? router.query.limit.toString() : '12'
   );
 
   const getPosts = async () => {
     const sort = router.query.sort as string;
+    const limitToUse = router.query.limit
+      ? router.query.limit.toString()
+      : '12';
 
     const data =
       userObj && userObj.isAdmin
@@ -35,14 +38,14 @@ const Posts: NextPage = () => {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
               sort: sort || '-createdAt',
-              limit: limit.toString(),
+              limit: limitToUse,
             },
           })
         : await fetch('http://localhost:4000/posts/published', {
             method: 'GET',
             headers: {
               sort: sort || '-createdAt',
-              limit: limit.toString(),
+              limit: limitToUse,
             },
           });
     const posts = await data.json();
@@ -54,7 +57,7 @@ const Posts: NextPage = () => {
   };
 
   useEffect(() => {
-    if (userObj !== undefined && !router.query.sort) {
+    if (  !router.query.sort) {
       getPosts();
     }
   }, [userObj]);
@@ -75,6 +78,9 @@ const Posts: NextPage = () => {
       router.query.limit !== '12' &&
       !firstRender
     ) {
+      if (Number(router.query.limit) > Number(limit)) {
+        setLimit(router.query.limit.toString());
+      }
       getPosts();
     }
   }, [router.query.sort, router.query.limit]);
@@ -109,17 +115,20 @@ const Posts: NextPage = () => {
               />
             ))}
           </div>
-          {posts.length >= limit ? (
+          {posts.length >= Number(limit) ? (
             <div className="flex justify-center pb-5">
               <Link
                 href={{
                   pathname: '/posts',
-                  query: { ...query, limit: `${limit + 12}` },
+                  query: {
+                    ...query,
+                    limit: `${(Number(limit) + 12).toString()}`,
+                  },
                 }}
               >
                 <button
                   className="flex group relative"
-                  onClick={() => setLimit(limit + 12)}
+                  onClick={() => setLimit((Number(limit) + 12).toString())}
                 >
                   <span className=" hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
                     Load More Posts
