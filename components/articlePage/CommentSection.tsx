@@ -14,7 +14,6 @@ const CommentSection = ({
   post: blogPostObjInterface;
   userObj: userObjInterface | null | undefined;
 }) => {
-  console.log(post);
 
   const [comments, setComments] = useState<commentInterface[]>([]);
 
