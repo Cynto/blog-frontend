@@ -5,6 +5,7 @@ const nextConfig = {
     domains: [
       'uc566fb39cfe356c36fbd3d6fe36.previews.dropboxusercontent.com',
       'uca3892d2045b4c59e30bd55644f.previews.dropboxusercontent.com',
+      'i.imgur.com',
     ],
   },
 };
