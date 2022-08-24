@@ -92,11 +92,11 @@ const Posts: NextPage = () => {
     <>
       <Header />
       <div className="h-full relative dark:bg-gray-900 dark:text-slate-100 w-full">
-        <main className="pt-20 grid justify-center relative min-h-screen">
+        <main className="pt-20 grid auto-rows-min justify-center relative min-h-screen">
           <div className="w-full flex justify-center">
             <h2 className=" text-3xl py-5">Posts </h2>
           </div>
-          <div className="w-full flex flex-col items-center justify-center">
+          <div className="w-full flex flex-col items-center ">
             <span className="block">Sort by: </span>
             <div className="flex gap-3">
               <SortLink sortBy="-createdAt" title="Newest" />
