@@ -88,7 +88,7 @@ const Header = () => {
             )}
             {!menuOpen ? (
               <span
-                className="material-symbols-outlined dark:text-slate-100 md:hidden z-10 mr-0"
+                className="material-symbols-outlined dark:text-slate-100 !md:hidden z-10 mr-0"
                 onClick={() => {
                   setMenuOpen(true);
                 }}
@@ -97,7 +97,7 @@ const Header = () => {
               </span>
             ) : (
               <span
-                className="material-symbols-outlined dark:text-slate-100 md:hidden z-10 mr-0"
+                className="material-symbols-outlined dark:text-slate-100 !md:hidden z-10 mr-0"
                 onClick={() => {
                   setMenuOpen(false);
                 }}
