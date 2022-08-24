@@ -21,8 +21,11 @@ export async function getStaticProps() {
   );
 
   const posts: any[] = await data.json();
-  const featuredIndex = posts.findIndex((post) => post.featured === true);
-  posts.unshift(posts.splice(featuredIndex, 1)[0]);
+  if (posts[0]) {
+    const featuredIndex = posts.findIndex((post) => post.featured === true);
+    posts.unshift(posts.splice(featuredIndex, 1)[0]);
+  }
+
   return {
     props: {
       posts,
