@@ -45,10 +45,14 @@ const Home: NextPage<{
       </Head>
 
       <Header />
-      <div className="h-full relative">
+      <div className="h-full relative dark:bg-gray-900 dark:text-slate-100">
         <main className="min-h-screen h-screen pt-[4.6rem]  flex flex-col justify-start">
-          <FeaturedPost posts={posts} />
-          <FrontPageMain posts={posts} />
+          {posts[0] ? (
+            <>
+              <FeaturedPost posts={posts} />
+              <FrontPageMain posts={posts} />
+            </>
+          ) : null}
         </main>
       </div>
     </>
