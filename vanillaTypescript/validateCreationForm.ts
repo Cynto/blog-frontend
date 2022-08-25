@@ -27,13 +27,13 @@ const validateCreationForm = (
       },
     ];
   } else if (
-    title.value.length > 50 &&
+    title.value.length > 75 &&
     !errorsArr.find((e) => e.param === 'title')
   ) {
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'Title must have 50 or less characters',
+        msg: 'Title must have 75 or less characters',
         value: '',
         param: 'title',
         location: 'body',
