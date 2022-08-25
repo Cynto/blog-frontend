@@ -15,7 +15,7 @@ const FrontPageMain = dynamic(
 );
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const data = await fetch(
     'https://bloggy-api-cynto.herokuapp.com/posts/published'
   );
@@ -25,7 +25,6 @@ export async function getStaticProps() {
     const featuredIndex = posts.findIndex((post) => post.featured === true);
     posts.unshift(posts.splice(featuredIndex, 1)[0]);
   }
-
   return {
     props: {
       posts,
@@ -33,9 +32,7 @@ export async function getStaticProps() {
   };
 }
 
-const Home: NextPage<{
-  posts: blogPostObjInterface[];
-}> = ({ posts }) => {
+const Home: NextPage<{ posts: blogPostObjInterface[] }> = ({ posts }) => {
   return (
     <>
       <Head>
