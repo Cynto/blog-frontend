@@ -33,8 +33,6 @@ const Register: NextPage = () => {
     const { firstName, lastName, email, password, confirmPassword, adminCode } =
       data;
 
-    console.log(email.value, password.value);
-
     const response = await fetch(
       'https://bloggy-api-cynto.herokuapp.com/users',
       {
@@ -48,7 +46,7 @@ const Register: NextPage = () => {
           email: email.value,
           password: password.value,
           confirmPassword: confirmPassword.value,
-          adminCode: adminCode.value,
+          adminCode: adminCode.value ? adminCode.value : null,
         }),
       }
     );
