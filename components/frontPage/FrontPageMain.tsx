@@ -60,14 +60,14 @@ const FrontPageMain = ({ posts }: { posts: blogPostObjInterface[] }) => {
           standardSmall: 5,
         };
       });
-    } else  if (width <= 1500 && width > 960) {
+    } else  if (width <= 1500 && width > 820) {
       setArticleNumbers((prev) => {
         return {
           ...prev,
           standardSmall: 4,
         };
       });
-    } else  if (width <= 960) {
+    } else  if (width <= 820) {
       setArticleNumbers((prev) => {
         return {
           ...prev,
