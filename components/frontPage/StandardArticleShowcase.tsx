@@ -25,6 +25,7 @@ const StandardArticleShowcase = ({
           minHeight: minHeight,
           maxWidth: maxWidth,
         }}
+        title={post.title}
       >
         <div
           className={` mb-4 border-2 dark:border-0 bg-black dark:bg-white rounded-xl relative`}
@@ -43,7 +44,7 @@ const StandardArticleShowcase = ({
         </div>
         <div className="flex flex-1 flex-col justify-between w-full">
           <h4
-            className={`${fontSize} font-bold dark:text-slate-100 dark:group-hover:text-slate-300 group-hover:text-slate-700 `}
+            className={`${fontSize} frontpage-title font-bold dark:text-slate-100 dark:group-hover:text-slate-300 group-hover:text-slate-700 `}
           >
             {post.title}
           </h4>

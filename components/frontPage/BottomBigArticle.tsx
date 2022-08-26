@@ -6,7 +6,10 @@ import Link from 'next/link';
 const BottomBigArticle = ({ post }: { post: blogPostObjInterface }) => {
   return (
     <Link href={post.url}>
-      <div className="group cursor-pointer max-w-[400px] md:max-w-[800px] min-h-[342px] max-h-[528px]">
+      <div
+        className="group cursor-pointer max-w-[400px] md:max-w-[800px] min-h-[342px] max-h-[528px]"
+        title={post.title}
+      >
         <div className="w-full min-h-[159px] md:min-h-[359px] h-[30%] md:h-[70%] relative mb-5">
           <Image
             src={post.image}
