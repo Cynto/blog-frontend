@@ -20,7 +20,7 @@ const StandardArticleShowcase = ({
   return (
     <Link href={post.url}>
       <div
-        className={`mb-6 md:mb-0 md:mr-4 group cursor-pointer flex flex-col justify-between items-start`}
+        className={`mb-6 md:mb-0  group cursor-pointer flex flex-col justify-between items-start`}
         style={{
           minHeight: minHeight,
           maxWidth: maxWidth,

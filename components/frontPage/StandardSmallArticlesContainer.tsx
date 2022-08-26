@@ -27,9 +27,9 @@ const StandardSmallArticlesContainer = ({
         The Science Behind Bloggy
       </h3>
       <div
-        className="grid  md:grid-cols-4 justify-start overflow-hidden "
+        className="grid gap-4 justify-start overflow-hidden "
         style={{
-          gridTemplateColumns: 'repeat(auto-fit, max(13rem))',
+          gridTemplateColumns: 'repeat(auto-fit, max(12rem))',
           gridTemplateRows: 'min-content',
         }}
       >

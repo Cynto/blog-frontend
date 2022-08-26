@@ -23,11 +23,11 @@ const FrontMidSection = ({
   let noPictureArticlesShown = 0;
 
   return (
-    <div className="grid w-min max-w-full md:grid-cols-[1fr_min-content] justify-center">
+    <div className="grid gap-4 w-min max-w-full md:grid-cols-[1fr_min-content] justify-center">
       <div
-        className="grid w-min md:grid-flow-col    md:auto-rows-[0] "
+        className="grid w-min md:grid-flow-col gap-4   md:auto-rows-[0] "
         style={{
-          gridTemplateColumns: 'repeat(auto-fit, max(19rem))',
+          gridTemplateColumns: 'repeat(auto-fit, max(18rem))',
           gridTemplateRows: 'min-content',
         }}
       >
