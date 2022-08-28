@@ -14,7 +14,6 @@ const CommentSection = ({
   post: blogPostObjInterface;
   userObj: userObjInterface | null | undefined;
 }) => {
-
   const [comments, setComments] = useState<commentInterface[]>([]);
 
   const getComments = async () => {
@@ -27,7 +26,7 @@ const CommentSection = ({
   };
 
   useEffect(() => {
-    getComments();
+    setComments(post.comments);
   }, []);
   return (
     <div
@@ -73,9 +72,7 @@ const CommentSection = ({
         )}
         {comments.length > 0 ? (
           <div className=" w-full  pt-10 border-2">
-            <div>
-              
-            </div>
+            <div></div>
             {comments.map((comment: commentInterface, index) => (
               <SingleComment
                 comment={comment}

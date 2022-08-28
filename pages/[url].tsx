@@ -11,12 +11,15 @@ import NoPictureArticleShowcase from '../components/frontPage/NoPictureArticleSh
 import { useSelector } from 'react-redux';
 
 export async function getServerSideProps(context: any) {
-  const res = await fetch(`https://bloggy-api-cynto.herokuapp.com/posts/${context.params.url}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const res = await fetch(
+    `https://bloggy-api-cynto.herokuapp.com/posts/${context.params.url}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 
   const data = await res.json();
   if (!data.post) {
@@ -25,7 +28,9 @@ export async function getServerSideProps(context: any) {
     };
   }
 
-  const postsData = await fetch('https://bloggy-api-cynto.herokuapp.com/posts/published');
+  const postsData = await fetch(
+    'https://bloggy-api-cynto.herokuapp.com/posts/published'
+  );
 
   const posts = await postsData.json();
 
@@ -42,6 +47,7 @@ const BlogPost: NextPage<{
   posts: blogPostObjInterface[];
 }> = ({ post, posts }) => {
   const userObj = useSelector((state: any) => state.userObj);
+  
   return (
     <>
       <Header />
