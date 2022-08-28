@@ -83,6 +83,7 @@ const Register: NextPage = () => {
           layout="fill"
           objectFit="cover"
           alt="background"
+          priority
         />
 
         <form

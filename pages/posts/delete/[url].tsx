@@ -61,6 +61,7 @@ const PostDelete = ({ post }: { post: any }) => {
           alt="Delete Background"
           layout="fill"
           className=""
+          priority
         />
 
         <div className="max-w-[400px] grid justify-center justify-items-center p-8 z-10 bg-slate-100 dark:bg-gray-900 text-slate-800 dark:text-slate-100 shadow-2xl">

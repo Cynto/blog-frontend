@@ -98,6 +98,7 @@ const Create: NextPage = () => {
           layout="fill"
           objectFit="cover"
           alt="background"
+          priority
         />
         <form
           className="z-[1] blur-0 grid shadow lg:w-[700px] xl:w-[800px]  pt-10 px-10 pb-5  bg-white dark:bg-gray-900 text-slate-800 dark:text-slate-100"

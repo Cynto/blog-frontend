@@ -82,6 +82,7 @@ const Login: NextPage = () => {
           layout="fill"
           objectFit="cover"
           alt="background"
+          priority
         />
 
         <form

@@ -26,6 +26,7 @@ const Logout = () => {
         layout="fill"
         objectFit="cover"
         alt="background"
+        priority
       />
       <div
         className="grid justify-center p-8 z-10 bg-slate-100 dark:bg-gray-900 text-slate-800 dark:text-slate-100 shadow-2xl"
