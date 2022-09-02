@@ -37,6 +37,9 @@ const customJestConfig = {
     '<rootDir>/lib/',
     '<rootDir>/cypress/',
   ],
+  setupFiles: [
+    './setupJest.js'
+  ]
 };
 
 module.exports = createJestConfig(customJestConfig);
