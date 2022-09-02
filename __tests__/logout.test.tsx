@@ -1,10 +1,9 @@
-require('jest-fetch-mock').enableMocks();
-import { render, screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import Logout from '../pages/logout';
-import useUserObject from '../hooks/useUserObject';
-import useRouter from 'next/router';
+import { act } from 'react-dom/test-utils';
+import { renderWithProviders } from '../utils/test-utils';
 
 const userObj = {
   _id: '1',
@@ -30,24 +29,99 @@ jest.mock('next/router', () => ({
     };
   },
 }));
-jest.mock('../hooks/useUserObject');
 
 describe('logout page tests', () => {
   beforeEach(() => {
-    useUserObject.mockReturnValue({
-      userObj,
+    fetch.mockClear();
+    fetch.resetMocks();
+    localStorage.removeItem('token');
+  });
+
+  it('renders without crashing', async () => {
+    await act(async () => {
+      renderWithProviders(<Logout />);
     });
   });
 
-  it('renders without crashing', () => {
-    render(<Logout />);
+  it('fetch is called on render when bearer token exists', async () => {
+    localStorage.setItem('token', '123');
+    fetch.mockResponseOnce(JSON.stringify({}));
+    await act(async () => {
+      renderWithProviders(<Logout />);
+    });
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith(
+      'https://bloggy-api-cynto.herokuapp.com/user',
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer 123',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
   });
-  it('removes access token from local storage', async () => {
-    localStorage.setItem('token', 'Bearer 123');
-    
-    render(<Logout />);
+
+  it('fetch is not called without bearer token', async () => {
+    await act(async () => {
+      renderWithProviders(<Logout />);
+    });
+
+    expect(fetch).toHaveBeenCalledTimes(0);
+  });
+
+  it('removes access token from local storage on logout', async () => {
+    localStorage.setItem('token', '123');
+    fetch.mockResponseOnce(JSON.stringify({}));
+
+    await act(async () => {
+      renderWithProviders(<Logout />);
+    });
 
     await userEvent.click(screen.getByTestId('logout-button'));
-    expect(localStorage.getItem('toekn')).toBeNull();
+    expect(localStorage.getItem('token')).toBeNull();
+  });
+  it('push is called if no bearer token', async () => {
+    const useRouter = jest.spyOn(require('next/router'), 'useRouter');
+    const push = jest.fn();
+    useRouter.mockImplementation(() => ({
+      push,
+      query: '',
+      asPath: '',
+      route: '/',
+    }));
+
+    await act(async () => {
+      renderWithProviders(<Logout />);
+    });
+
+    expect(push).toBeCalled();
+  });
+  it('push is called with "/login" after logout', async () => {
+    localStorage.setItem('token', '123');
+    await fetch.mockResponseOnce(
+      JSON.stringify({
+        user: {
+          firstName: 'Bob',
+        },
+      })
+    );
+
+    const useRouter = jest.spyOn(require('next/router'), 'useRouter');
+    const push = jest.fn();
+    useRouter.mockImplementation(() => ({
+      push,
+      query: '',
+      asPath: '',
+      route: '/',
+    }));
+
+    await act(async () => {
+      renderWithProviders(<Logout />);
+    });
+
+    await userEvent.click(screen.getByTestId('logout-button'));
+    expect(push).toBeCalled();
+    expect(push).toBeCalledWith('/login');
   });
 });
