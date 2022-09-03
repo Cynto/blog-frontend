@@ -11,6 +11,7 @@ const DarkMode = dynamic(() => import('../components/DarkMode'), {
   ssr: false,
 });
 import UserObjectComponent from '../components/UserObjectComponent';
+import { handleLogin } from '../vanillaTypescript/handlers';
 
 const Login: NextPage = () => {
   const [errors, setErrors] = useState<
@@ -29,34 +30,6 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   const ISSERVER = typeof window === 'undefined';
-
-  const handleSubmit = async (data: any) => {
-    const email = data.email;
-    const password = data.password;
-    console.log(email.value, password.value);
-
-    const response = await fetch(
-      'https://bloggy-api-cynto.herokuapp.com/users/login',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email.value.toLowerCase(),
-          password: password.value,
-        }),
-      }
-    );
-    const json = await response.json();
-
-    if (json.user) {
-      localStorage.setItem('token', json.token);
-      router.push('/');
-    } else {
-      setErrors(json.errors);
-    }
-  };
 
   const inputClass =
     'text-slate-800 grid grid-cols-2 gap-4 mb-4 w-full p-3 bg-slate-100 border-[1px] border-slate-300 dark:border-2  rounded-sm dark:border-slate-100 focus:outline-none focus:border-gray-900 dark:focus:border-black ';
@@ -88,7 +61,7 @@ const Login: NextPage = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSubmit(e.target);
+            handleLogin(e.target, router, setErrors);
           }}
           method="POST"
           className="z-[1] w-screen md:w-[40vw] lg:w-[30vw] max-w-[450px]  grid shadow-xl pt-10 px-10 pb-5 bg-white dark:bg-gray-800 text-slate-800 dark:text-slate-100"
