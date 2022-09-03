@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import Logout from '../pages/logout';
@@ -101,9 +101,7 @@ describe('logout page tests', () => {
     localStorage.setItem('token', '123');
     await fetch.mockResponseOnce(
       JSON.stringify({
-        user: {
-          firstName: 'Bob',
-        },
+        user: userObj,
       })
     );
 
@@ -123,5 +121,33 @@ describe('logout page tests', () => {
     await userEvent.click(screen.getByTestId('logout-button'));
     expect(push).toBeCalled();
     expect(push).toBeCalledWith('/login');
+  });
+  it('back is called when cancel button is clicked', async () => {
+    localStorage.setItem('token', '123');
+    await fetch.mockResponseOnce(
+      JSON.stringify({
+        user: userObj,
+      })
+    );
+
+    const useRouter = jest.spyOn(require('next/router'), 'useRouter');
+    const push = jest.fn();
+    const back = jest.fn();
+    useRouter.mockImplementation(() => ({
+      push,
+      query: '',
+      asPath: '',
+      route: '/',
+      back,
+    }));
+
+    await act(async () => {
+      renderWithProviders(<Logout />);
+    });
+    
+    await userEvent.click(screen.getByText('Cancel'))
+
+    expect(back).toHaveBeenCalled()
+
   });
 });
