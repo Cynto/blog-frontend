@@ -6,6 +6,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Register.module.scss';
 import { useSelector } from 'react-redux';
+import { handleRegister } from '../vanillaTypescript/handlers';
+import { validateRegistration } from '../vanillaTypescript/formValidators';
 import dynamic from 'next/dynamic';
 const DarkMode = dynamic(() => import('../components/DarkMode'), {
   ssr: false,
@@ -29,42 +31,12 @@ const Register: NextPage = () => {
 
   const ISSERVER = typeof window === 'undefined';
 
-  const handleSubmit = async (data: any) => {
-    const { firstName, lastName, email, password, confirmPassword, adminCode } =
-      data;
-
-    const response = await fetch(
-      'https://bloggy-api-cynto.herokuapp.com/users',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: firstName.value,
-          lastName: lastName.value,
-          email: email.value,
-          password: password.value,
-          confirmPassword: confirmPassword.value,
-          adminCode: adminCode.value ? adminCode.value : null,
-        }),
-      }
-    );
-    const json = await response.json();
-
-    if (json.user) {
-      router.push('/login');
-    } else {
-      setErrors(json.errors);
-    }
-  };
-
   const inputClass =
     'text-slate-800 grid grid-cols-2 gap-4 mb-4 w-full p-3 bg-slate-100 border-[1px] border-slate-300 dark:border-2  rounded-sm dark:border-slate-100 focus:outline-none focus:border-gray-900 dark:focus:border-black ';
   const labelClass = 'text-xl ';
 
   useEffect(() => {
-    if (userObj) {
+    if (userObj !== null && !userObj.initial && localStorage.getItem('token')) {
       router.push('/');
     }
   }, [userObj]);
@@ -89,7 +61,7 @@ const Register: NextPage = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSubmit(e.target);
+            validateRegistration(e.target, handleRegister, setErrors, router);
           }}
           method="POST"
           className="z-[1] w-screen md:w-[40vw] lg:w-[30vw] max-w-[450px]   grid shadow-xl pt-10 px-10 pb-5 bg-white dark:bg-gray-800 text-slate-800 dark:text-slate-100"
@@ -126,12 +98,12 @@ const Register: NextPage = () => {
               required
             />
           </label>
-          <label htmlFor="adminPassword" className={labelClass}>
+          <label htmlFor="adminCode" className={labelClass}>
             Admin Code (Optional)
             <input type="password" id="adminCode" className={inputClass} />
           </label>
 
-          {errors[0].msg !== '' ? (
+          {errors[0]?.msg !== '' ? (
             <ul className="mt-0">
               {errors.map((error, index) => (
                 <li key={index} className="text-red-700 mt-0 mb-1">
