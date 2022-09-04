@@ -8,7 +8,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { useSelector } from 'react-redux';
 
 const Header = dynamic(() => import('../../components/Header'), { ssr: false });
-import validateCreationForm from '../../vanillaTypescript/validateCreationForm';
+import {validateCreationForm} from '../../vanillaTypescript/formValidators';
 
 const Create: NextPage = () => {
   const [errors, setErrors] = useState<

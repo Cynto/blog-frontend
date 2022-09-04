@@ -8,7 +8,7 @@ const Header = dynamic(() => import('../../../components/Header'), {
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import { Editor } from '@tinymce/tinymce-react';
-import validateCreationForm from '../../../vanillaTypescript/validateCreationForm';
+import { validateCreationForm } from '../../../vanillaTypescript/formValidators';
 const { useRouter } = require('next/router');
 
 export async function getServerSideProps(context: any) {
