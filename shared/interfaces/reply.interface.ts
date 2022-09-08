@@ -1,4 +1,4 @@
-export default interface replyInterface {
+export default interface Reply {
   _id: string;
   content: string;
   user: {
