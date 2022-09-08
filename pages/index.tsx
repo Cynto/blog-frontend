@@ -23,7 +23,11 @@ export async function getServerSideProps() {
   const posts: any[] = await data.json();
   if (posts[0]) {
     const featuredIndex = posts.findIndex((post) => post.featured === true);
-    posts.unshift(posts.splice(featuredIndex, 1)[0]);
+    if (featuredIndex !== -1) {
+      posts.unshift(posts.splice(featuredIndex, 1)[0]);
+    } else {
+      posts[0].featured = true;
+    }
   }
   return {
     props: {
