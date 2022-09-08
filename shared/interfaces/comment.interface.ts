@@ -1,5 +1,5 @@
-import replyInterface from './reply.interface';
-export default interface CommentInterface {
+import Reply from './reply.interface';
+export default interface Comment {
   _id: string;
   content: string;
   user: {
@@ -9,6 +9,5 @@ export default interface CommentInterface {
   };
   post: string;
   createdAt: string;
-  updatedAt: string;
-  replies: replyInterface[];
+  replies: Reply[];
 }
