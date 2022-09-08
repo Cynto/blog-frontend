@@ -37,14 +37,7 @@ const Create: NextPage = () => {
     const published = data.published || false;
     const featured = data.featured || false;
 
-    console.log({
-      title: title.value,
-      image: image.value,
-      tags: tags.value,
-      published: published.value,
-      featured: featured.value,
-      content,
-    });
+    
 
     const response = await fetch(
       'https://bloggy-api-cynto.herokuapp.com/posts',
@@ -65,7 +58,6 @@ const Create: NextPage = () => {
       }
     );
     const json = await response.json();
-    console.log(json);
 
     if (json.post) {
       router.push(`/${json.post.url}`);
@@ -78,7 +70,7 @@ const Create: NextPage = () => {
   const labelClass = 'text-lg';
 
   useEffect(() => {
-    if (userObj === null) {
+    if (userObj === null || userObj.isAdmin === false) {
       router.push('/');
     }
   }, [userObj]);
