@@ -30,6 +30,7 @@ const FrontMidSection = ({
           gridTemplateColumns: 'repeat(auto-fit, max(18rem))',
           gridTemplateRows: 'min-content',
         }}
+        data-testid="mid-standard-articles"
       >
         {posts.map((post, index) => {
           if (standardArticlesShown < articleNumbers.midStandard) {

@@ -26,6 +26,7 @@ const StandardArticleShowcase = ({
           maxWidth: maxWidth,
         }}
         title={post.title}
+        data-testid="standard-article"
       >
         <div
           className={` mb-4 border-2 dark:border-0 bg-black dark:bg-white rounded-xl relative`}

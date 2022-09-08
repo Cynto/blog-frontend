@@ -15,6 +15,7 @@ const NoPictureArticleShowcase = ({
       <div
         className="mid-right-suggestion grid w-max max-w-[220px] min-w-[180px] h-min overflow-hidden cursor-pointer group"
         title={post.title}
+        data-testid="no-picture-article"
       >
         <h4
           className="frontpage-title text-base font-bold group-hover:text-slate-700  dark:text-slate-100 dark:group-hover:text-slate-300"
