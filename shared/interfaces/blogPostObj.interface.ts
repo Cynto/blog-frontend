@@ -1,3 +1,4 @@
+import Comment from "./comment.interface";
 export default interface blogPostObj {
   _id: string;
   title: string;
@@ -10,7 +11,7 @@ export default interface blogPostObj {
     firstName: string;
     lastName: string;
   };
-  comments: [];
+  comments: Comment[];
   published: boolean;
   featured: boolean;
   createdAt: string;
