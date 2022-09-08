@@ -1,4 +1,3 @@
-require('jest-fetch-mock').enableMocks();
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
@@ -6,6 +5,8 @@ import Login from '../pages/login';
 import { act } from 'react-dom/test-utils';
 import { renderWithProviders } from '../utils/test-utils';
 import * as handlers from '../vanillaTypescript/handlers';
+
+
 
 const userObj = {
   _id: '1',
