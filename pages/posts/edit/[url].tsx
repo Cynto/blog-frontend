@@ -36,7 +36,7 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-const EditForm: NextPage<{
+const EditPost: NextPage<{
   post: blogPostObjInterface;
 }> = ({ post }) => {
   const router = useRouter();
@@ -99,7 +99,12 @@ const EditForm: NextPage<{
     }
   };
 
-  useEffect(() => {}, [post]);
+  useEffect(() => {
+    if (!userObj.initial && !userObj.isAdmin) {
+      console.log('not admin');
+      router.push('/');
+    }
+  }, [userObj]);
 
   return (
     <>
@@ -284,4 +289,4 @@ const EditForm: NextPage<{
   );
 };
 
-export default EditForm;
+export default EditPost;
