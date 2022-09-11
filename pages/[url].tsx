@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import CommentSection from '../components/articlePage/CommentSection';
-
+import UserObjectComponent from '../components/UserObjectComponent';
 const Header = dynamic(() => import('../components/Header'), { ssr: false });
 import NoPictureArticleShowcase from '../components/frontPage/NoPictureArticleShowcase';
 import { useSelector } from 'react-redux';
@@ -34,23 +34,56 @@ export async function getServerSideProps(context: any) {
 
   const posts = await postsData.json();
 
-  return {
+ return {
     props: {
-      post: data.post,
+      postData: data.post.published || data.authorized ? data.post : null,
       posts,
+      url: context.params.url,
     },
   };
 }
 
 const BlogPost: NextPage<{
-  post: blogPostObjInterface;
+  postData: blogPostObjInterface | null;
   posts: blogPostObjInterface[];
-}> = ({ post, posts }) => {
+  url: string;
+}> = ({ postData, posts, url }) => {
+  const router = useRouter();
   const userObj = useSelector((state: any) => state.userObj);
-  
-  return (
+
+  const [post, setPost] = React.useState<blogPostObjInterface | null>(null);
+
+  useEffect(() => {
+    if (!postData && userObj && userObj.isAdmin) {
+      const res = fetch(`http://localhost:4000/posts/${url}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      res
+        .then((data) => data.json())
+        .then((data) => {
+          if (data.post) {
+            setPost(data.post);
+          }
+        });
+    } else if (
+      !postData &&
+      (!userObj || (userObj && !userObj.isAdmin && !userObj.initial))
+    ) {
+      router.push('/404');
+    } else if (postData) {
+      setPost(postData);
+    }
+  }, [postData, userObj]);
+
+  return post ? (
     <>
       <Header />
+      <UserObjectComponent />
 
       <article className="h-full w-full pt-40 pb-0 dark:bg-gray-900 flex flex-col justify-center items-center">
         <div className="max-w-[300px] md:max-w-[500px] grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 break-words">
@@ -141,6 +174,8 @@ const BlogPost: NextPage<{
       </article>
       <CommentSection post={post} userObj={userObj} />
     </>
+  ) : (
+    <UserObjectComponent />
   );
 };
 
