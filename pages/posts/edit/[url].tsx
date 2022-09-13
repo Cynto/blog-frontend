@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import { Editor } from '@tinymce/tinymce-react';
 import { validateCreationForm } from '../../../vanillaTypescript/formValidators';
-const { useRouter } = require('next/router');
+import { useRouter } from 'next/router';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
@@ -89,11 +89,11 @@ const EditPost: NextPage<{
       }
     );
     const dataResponse = await response.json();
-    console.log(dataResponse);
+
     if (dataResponse.errors) {
       setErrors(dataResponse.errors);
     }
-    if (response && response.status === 200) {
+    if (response && response.status === 200 && dataResponse.post) {
       setErrors([]);
       router.push(`/${dataResponse.post.url}`);
     }
@@ -101,7 +101,6 @@ const EditPost: NextPage<{
 
   useEffect(() => {
     if (!userObj.initial && !userObj.isAdmin) {
-      console.log('not admin');
       router.push('/');
     }
   }, [userObj]);
@@ -121,13 +120,16 @@ const EditPost: NextPage<{
           className="z-[1] blur-0 grid shadow lg:w-[700px] xl:w-[800px]  pt-10 px-10 pb-5  bg-white dark:bg-gray-900 text-slate-800 dark:text-slate-100"
           onSubmit={(e) => {
             e.preventDefault();
-            validateCreationForm(e.target, content, handleSubmit, setErrors);
+
+            if (userObj.isAdmin) {
+              validateCreationForm(e.target, content, handleSubmit, setErrors);
+            }
           }}
           method="POST"
         >
           <h2 className="text-4xl font-bold pb-6">Update Blog Post</h2>
           <label htmlFor="title" className={labelClass}>
-            Title <span className="">*</span>
+            Title *
             <input
               type="title"
               id="title"
@@ -137,7 +139,7 @@ const EditPost: NextPage<{
             />
           </label>
           <label htmlFor="image" className={labelClass}>
-            Image URL <span className="">*</span>
+            Image URL *
             <input
               type="text"
               id="image"
@@ -147,7 +149,7 @@ const EditPost: NextPage<{
             />
           </label>
           <label htmlFor="content" className={labelClass}>
-            Content <span className="">*</span>
+            Content *
             <Editor
               id="content"
               textareaName="content"
@@ -164,7 +166,7 @@ const EditPost: NextPage<{
             />
           </label>
           <label htmlFor="tags" className="mt-5">
-            Tags (Seperate tags with a comma and a space)
+            Tags (Seperate tags with a comma and a space) *
             <input
               data-testid="tags-input"
               type="text"
