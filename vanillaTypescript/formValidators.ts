@@ -80,7 +80,7 @@ export const validateCreationForm = (
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'Content must be between 10 and 10000 characters',
+        msg: 'Content must have between 10 and 10000 characters',
         value: '',
         param: 'content',
         location: 'body',
