@@ -137,12 +137,11 @@ export const validateCreationForm = (
   }
 };
 
-export const validateRegistration = (
+export const validateRegistration = async (
   data: any,
   successCallback: Function,
   errorCallback: Function,
-  router: any,
-
+  router: any
 ) => {
   let errorsArr: {
     value: String;
@@ -311,6 +310,6 @@ export const validateRegistration = (
     errorCallback(errorsArr);
   } else {
     errorCallback([]);
-    successCallback(data, router, errorCallback);
+    await successCallback(data, router, errorCallback);
   }
 };
