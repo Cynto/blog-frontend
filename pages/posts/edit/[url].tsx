@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { Editor } from '@tinymce/tinymce-react';
 import { validateCreationForm } from '../../../vanillaTypescript/formValidators';
 import { useRouter } from 'next/router';
+import ProcessingOverlay from '../../../components/ProcessingOverlay';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
@@ -52,6 +53,7 @@ const EditPost: NextPage<{
       }[]
     | []
   >([]);
+  const [processing, setProcessing] = useState<boolean>(false);
 
   const editorRef = useRef(null);
 
@@ -60,6 +62,7 @@ const EditPost: NextPage<{
   const labelClass = 'text-lg';
 
   const handleSubmit = async (data: any) => {
+    setProcessing(true);
     const title = data.title;
     const image = data.image;
     const tags = data.tags;
@@ -92,10 +95,12 @@ const EditPost: NextPage<{
 
     if (dataResponse.errors) {
       setErrors(dataResponse.errors);
+      setProcessing(false);
     }
     if (response && response.status === 200 && dataResponse.post) {
       setErrors([]);
       router.push(`/${dataResponse.post.url}`);
+      setProcessing(false);
     }
   };
 
@@ -107,6 +112,7 @@ const EditPost: NextPage<{
 
   return (
     <>
+      <ProcessingOverlay processing={processing} />
       <Header />
       <main className="relative md:pb-16 md:pt-32 grid justify-center">
         <Image

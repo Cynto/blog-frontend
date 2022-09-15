@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 const Header = dynamic(() => import('../../../components/Header'), {
   ssr: false,
@@ -6,6 +6,7 @@ const Header = dynamic(() => import('../../../components/Header'), {
 import BasicButton from '../../../components/BasicButton';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import ProcessingOverlay from '../../../components/ProcessingOverlay';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
@@ -34,8 +35,10 @@ export async function getServerSideProps(context: any) {
 
 const PostDelete = ({ post }: { post: any }) => {
   const router = useRouter();
+  const [processing, setProcessing] = useState<boolean>(false);
 
   const handleDelete = async () => {
+    setProcessing(true);
     const response = await fetch(`http://localhost:4000/posts/${post._id}`, {
       method: 'DELETE',
       headers: {
@@ -47,6 +50,7 @@ const PostDelete = ({ post }: { post: any }) => {
     if (response.status === 204) {
       router.push('/posts');
     }
+    setProcessing(false);
   };
   const cancel = () => {
     router.back();
@@ -54,6 +58,7 @@ const PostDelete = ({ post }: { post: any }) => {
 
   return (
     <>
+      <ProcessingOverlay processing={processing} />
       <Header />
       <main className="pt-[4.6rem] h-screen flex justify-center items-center relative">
         <Image
