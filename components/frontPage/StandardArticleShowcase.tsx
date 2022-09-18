@@ -18,7 +18,7 @@ const StandardArticleShowcase = ({
   const contentPaddingBottom = mid ? '1rem' : '0.3rem';
 
   return (
-    <Link href={post.url}>
+    <Link href={`/loading/${post.url}`}>
       <div
         className={`mb-6 md:mb-0  group cursor-pointer flex flex-col justify-between items-start`}
         style={{

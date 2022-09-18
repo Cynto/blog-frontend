@@ -11,7 +11,7 @@ const NoPictureArticleShowcase = ({
 }) => {
   const titleFontSize = mid ? '0.9rem' : '1.2rem';
   return (
-    <Link href={post.url}>
+    <Link href={`/loading/${post.url}`}>
       <div
         className="mid-right-suggestion grid w-max max-w-[220px] min-w-[180px] h-min overflow-hidden cursor-pointer group"
         title={post.title}

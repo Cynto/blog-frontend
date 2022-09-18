@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const BottomBigArticle = ({ post }: { post: blogPostObjInterface }) => {
   return (
-    <Link href={post.url}>
+    <Link href={`/loading/${post.url}`}>
       <div
         className="group cursor-pointer max-w-[400px] md:max-w-[800px] min-h-[342px] max-h-[528px]"
         title={post.title}
