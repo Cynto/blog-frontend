@@ -14,7 +14,7 @@ import ProcessingOverlay from '../../../components/ProcessingOverlay';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
-    `https://bloggy-api-cynto.herokuapp.com/posts/${context.params.url}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/posts/${context.params.url}`,
     {
       method: 'GET',
       headers: {
@@ -74,7 +74,7 @@ const EditPost: NextPage<{
     const featured = data.featured || false;
 
     const response = await fetch(
-      `https://bloggy-api-cynto.herokuapp.com/posts/${post._id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/posts/${post._id}`,
       {
         method: 'PUT',
         headers: {
@@ -99,7 +99,7 @@ const EditPost: NextPage<{
     }
     if (response && response.status === 200 && dataResponse.post) {
       setErrors([]);
-      router.push(`/${dataResponse.post.url}`);
+      router.push(`/loading/${dataResponse.post.url}`);
       setProcessing(false);
     }
   };

@@ -33,7 +33,7 @@ const Posts: NextPage = () => {
 
     const data =
       userObj && userObj.isAdmin
-        ? await fetch('https://bloggy-api-cynto.herokuapp.com/posts', {
+        ? await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -42,7 +42,7 @@ const Posts: NextPage = () => {
             },
           })
         : await fetch(
-            'https://bloggy-api-cynto.herokuapp.com/posts/published',
+            `${process.env.NEXT_PUBLIC_API_URL}/posts/published`,
             {
               method: 'GET',
               headers: {

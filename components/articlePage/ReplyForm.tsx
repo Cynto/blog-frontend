@@ -34,7 +34,7 @@ const ReplyForm = ({
     const userReply = data.reply;
 
     const response = await fetch(
-      `https://bloggy-api-cynto.herokuapp.com/posts/${comment.post}/comments/${comment._id}/replies`,
+      `${process.env.NEXT_PUBLIC_API_URL}/posts/${comment.post}/comments/${comment._id}/replies`,
       {
         method: 'POST',
         headers: {

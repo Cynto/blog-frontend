@@ -25,7 +25,7 @@ const CommentForm = ({
     console.log(data.comment.value);
     const userComment = data.comment;
     const response = await fetch(
-      `https://bloggy-api-cynto.herokuapp.com/posts/${post._id}/comments`,
+      `${process.env.NEXT_PUBLIC_API_URL}/posts/${post._id}/comments`,
       {
         method: 'POST',
         headers: {

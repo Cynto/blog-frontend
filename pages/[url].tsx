@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
-    `https://bloggy-api-cynto.herokuapp.com/posts/${context.params.url}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/posts/${context.params.url}`,
     {
       method: 'GET',
       headers: {
@@ -28,13 +28,11 @@ export async function getServerSideProps(context: any) {
     };
   }
 
-  const postsData = await fetch(
-    'https://bloggy-api-cynto.herokuapp.com/posts/published'
-  );
+  const postsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/published`);
 
   const posts = await postsData.json();
 
- return {
+  return {
     props: {
       postData: data.post.published || data.authorized ? data.post : null,
       posts,
@@ -55,7 +53,7 @@ const BlogPost: NextPage<{
 
   useEffect(() => {
     if (!postData && userObj && userObj.isAdmin) {
-      const res = fetch(`http://localhost:4000/posts/${url}`, {
+      const res = fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${url}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -83,11 +81,13 @@ const BlogPost: NextPage<{
   return post ? (
     <>
       <Header />
-      <UserObjectComponent />
 
       <article className="h-full w-full pt-40 pb-0 dark:bg-gray-900 flex flex-col justify-center items-center">
         <div className="max-w-[300px] md:max-w-[500px] grid grid-cols-1 gap-10  justify-center items-center justify-items-center   pb-16 break-words">
-          <h1 className="text-4xl w-full font-header text-center dark:text-slate-100 break-words">
+          <h1
+            className="text-4xl w-full font-header text-center dark:text-slate-100 break-words"
+            data-testid="post-heading"
+          >
             {post.title}
           </h1>
           <div className="h-8  flex gap-x-5 justify-around">
@@ -175,7 +175,7 @@ const BlogPost: NextPage<{
       <CommentSection post={post} userObj={userObj} />
     </>
   ) : (
-    <UserObjectComponent />
+    <Header />
   );
 };
 

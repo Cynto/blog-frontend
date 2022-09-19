@@ -1,10 +1,14 @@
-export const handleLogin = async (data: any, router: any, setErrors: Function) => {
+export const handleLogin = async (
+  data: any,
+  router: any,
+  setErrors: Function
+) => {
   const email = data.email;
   const password = data.password;
   console.log(email.value, password.value);
 
   const response = await fetch(
-    'https://bloggy-api-cynto.herokuapp.com/users/login',
+    `${process.env.NEXT_PUBLIC_API_URL}/users/login`,
     {
       method: 'POST',
       headers: {
@@ -26,27 +30,28 @@ export const handleLogin = async (data: any, router: any, setErrors: Function) =
   }
 };
 
-export const handleRegister = async (data: any, router: any, setErrors: Function) => {
+export const handleRegister = async (
+  data: any,
+  router: any,
+  setErrors: Function
+) => {
   const { firstName, lastName, email, password, confirmPassword, adminCode } =
     data;
 
-  const response = await fetch(
-    'https://bloggy-api-cynto.herokuapp.com/users',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value,
-        password: password.value,
-        confirmPassword: confirmPassword.value,
-        adminCode: adminCode.value ? adminCode.value : null,
-      }),
-    }
-  );
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
+      confirmPassword: confirmPassword.value,
+      adminCode: adminCode.value ? adminCode.value : null,
+    }),
+  });
   const json = await response.json();
 
   if (json.user) {
@@ -55,4 +60,3 @@ export const handleRegister = async (data: any, router: any, setErrors: Function
     setErrors(json.errors);
   }
 };
-

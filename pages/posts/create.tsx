@@ -41,7 +41,7 @@ const Create: NextPage = () => {
     const featured = data.featured || false;
 
     const response = await fetch(
-      'https://bloggy-api-cynto.herokuapp.com/posts',
+      `${process.env.NEXT_PUBLIC_API_URL}/posts`,
       {
         method: 'POST',
         headers: {
@@ -61,7 +61,7 @@ const Create: NextPage = () => {
     const json = await response.json();
 
     if (json.post) {
-      router.push(`/${json.post.url}`);
+      router.push(`/loading/${json.post.url}`);
       setProcessing(false);
     } else {
       setErrors(json.errors);
