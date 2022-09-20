@@ -9,6 +9,7 @@ import UserObjectComponent from '../components/UserObjectComponent';
 const Header = dynamic(() => import('../components/Header'), { ssr: false });
 import NoPictureArticleShowcase from '../components/frontPage/NoPictureArticleShowcase';
 import { useSelector } from 'react-redux';
+import LoadingPostComponent from '../components/LoadingPostComponent';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
@@ -28,7 +29,9 @@ export async function getServerSideProps(context: any) {
     };
   }
 
-  const postsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/published`);
+  const postsData = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/posts/published`
+  );
 
   const posts = await postsData.json();
 
@@ -175,7 +178,10 @@ const BlogPost: NextPage<{
       <CommentSection post={post} userObj={userObj} />
     </>
   ) : (
-    <Header />
+    <>
+      <Header />
+      <LoadingPostComponent />
+    </>
   );
 };
 
