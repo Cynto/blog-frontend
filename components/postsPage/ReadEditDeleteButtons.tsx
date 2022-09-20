@@ -15,7 +15,7 @@ const ReadEditDeleteButtons = ({
   const { width } = useWindowDimensions();
   return (
     <div className="w-full flex justify-between">
-      <Link href={`/${post.url}`}>
+      <Link href={`/loading/${post.url}`}>
         <a>
           <BasicButton callback={() => {}} text={width >= 800 ? 'Read Article' : 'Read'} />
         </a>
