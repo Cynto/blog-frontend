@@ -362,7 +362,7 @@ describe('Edit post page tests', () => {
     );
     await userEvent.click(screen.getByText('Update Post'));
 
-    expect(push).toHaveBeenCalledWith('/test-post');
+    expect(push).toHaveBeenCalledWith('/loading/test-post');
   });
 
   it('push is not called if form is invalid', async () => {

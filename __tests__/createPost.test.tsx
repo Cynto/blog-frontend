@@ -27,7 +27,10 @@ const post = {
   published: false,
   url: 'test-post',
   user: userObj,
+  createdAt: '2021-01-01T00:00:00.000Z',
+  updatedAt: '2021-01-01T00:00:00.000Z',
 };
+
 jest.mock('next/router', () => ({
   useRouter() {
     return {
@@ -49,6 +52,7 @@ jest.mock('next/router', () => ({
 describe('Create post page tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    fetch.resetMocks();
     localStorage.removeItem('token');
 
     jest
@@ -293,7 +297,7 @@ describe('Create post page tests', () => {
     await user.type(tagsInput, tags);
     await user.type(imageUrlInput, imageUrl);
     await user.click(submitButton);
-    expect(push).toHaveBeenCalledWith('/test-post');
+    expect(push).toHaveBeenCalledWith('/loading/test-post');
   });
 
   it('push is called if user is not an admin', async () => {
