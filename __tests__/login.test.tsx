@@ -12,7 +12,7 @@ const userObj = {
   _id: '1',
   firstName: 'John',
   lastName: 'Doe',
-  loggedIn: true,
+  
 };
 
 jest.mock('next/router', () => ({

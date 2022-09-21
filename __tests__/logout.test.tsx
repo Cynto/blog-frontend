@@ -9,7 +9,7 @@ const userObj = {
   _id: '1',
   firstName: 'John',
   lastName: 'Doe',
-  loggedIn: true,
+  
 };
 
 jest.mock('next/router', () => ({
@@ -144,10 +144,9 @@ describe('logout page tests', () => {
     await act(async () => {
       renderWithProviders(<Logout />);
     });
-    
-    await userEvent.click(screen.getByText('Cancel'))
 
-    expect(back).toHaveBeenCalled()
+    await userEvent.click(screen.getByText('Cancel'));
 
+    expect(back).toHaveBeenCalled();
   });
 });
