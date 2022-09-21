@@ -11,7 +11,7 @@ const userObj = {
   _id: '1',
   firstName: 'John',
   lastName: 'Doe',
-  loggedIn: true,
+
   isAdmin: false,
 };
 const adminUser = {
@@ -403,5 +403,31 @@ describe('Edit post page tests', () => {
     expect(
       screen.getByText('Each tag must have between 4 and 20 characters')
     ).toBeInTheDocument();
+  });
+
+  it('renders server error if there is one', async () => {
+    fetch.mockResponseOnce(
+      JSON.stringify({
+        errors: [
+          {
+            msg: 'Server Error',
+          },
+        ],
+      }),
+      { status: 500 }
+    );
+    await act(async () => {
+      renderWithProviders(<EditPost post={post} />, {
+        preloadedState: { userObj: adminUser },
+      });
+    });
+
+    await userEvent.type(
+      screen.getByLabelText('Content *'),
+      'Test Contentttttttttt'
+    );
+
+    await userEvent.click(screen.getByText('Update Post'));
+    expect(screen.getByText('Server Error')).toBeInTheDocument();
   });
 });

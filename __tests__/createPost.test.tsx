@@ -362,4 +362,36 @@ describe('Create post page tests', () => {
       screen.getByText('Each tag must have between 4 and 20 characters')
     ).toBeInTheDocument();
   });
+
+  it('renders server error if there is one', async () => {
+    localStorage.setItem('token', 'test-token');
+    fetch.mockResponseOnce(JSON.stringify({ user: adminUser }));
+    fetch.mockResponseOnce(
+      JSON.stringify({
+        errors: [
+          {
+            msg: 'Server Error',
+          },
+        ],
+      }),
+      { status: 500 }
+    );
+
+    await act(async () => {
+      renderWithProviders(<Create />);
+    });
+
+    await userEvent.type(screen.getByLabelText('Title *'), 'test title');
+    await userEvent.type(screen.getByLabelText('Image URL *'), 'https://i.imgur.com/0vSEb71.jpg');
+    await userEvent.type(screen.getByLabelText('Content *'), 'test content');
+    await userEvent.type(
+      screen.getByLabelText('Tags (Seperate tags with a comma and a space) *'),
+      'test tag'
+    );
+    await userEvent.click(screen.getByTestId('create-post'));
+
+    expect(
+      screen.getByText('Server Error')
+    ).toBeInTheDocument();
+  });
 });
