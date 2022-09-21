@@ -3,5 +3,5 @@ export default interface UserObj {
   firstName: string;
   lastName: string;
   isAdmin: boolean;
-  loggedIn: boolean;
+  
 }
