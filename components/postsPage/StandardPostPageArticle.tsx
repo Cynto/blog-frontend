@@ -35,7 +35,7 @@ const StandardPostPageArticle = ({
         <span className="dark:text-slate-100 mb-4 block font-normal ">
           Written by {post.user.firstName}
         </span>
-        <Link href={`/${post.url}#comments`}>
+        <Link href={`/loading/${post.url}#comments`}>
           <div className="flex items-start h-min cursor-pointer  hover:text-blue-500  dark:hover:text-blue-500">
             <span className="h-min block">{post.comments?.length}</span>
 
