@@ -93,7 +93,7 @@ const BlogPost: NextPage<{
           >
             {post.title}
           </h1>
-          <div className="h-8  flex gap-x-5 justify-around">
+          <div className="h-8  flex gap-x-5 justify-around" data-testid="post-socials">
             <div className="w-8">
               <svg viewBox="0 0 128 128" className="cursor-pointer">
                 <rect
@@ -133,9 +133,9 @@ const BlogPost: NextPage<{
             </div>
           </div>
           <div className="grid justify-items-center">
-            <span className="dark:text-slate-100 font-normal">
+            <span className="dark:text-slate-100 font-normal" data-testid="post-user">
               Article written by: {post.user.firstName}
-              <span className="ml-3">
+              <span className="ml-3" data-testid="post-date">
                 ~{new Date(post.createdAt).toLocaleDateString('en-GB')}
               </span>
             </span>
@@ -156,6 +156,7 @@ const BlogPost: NextPage<{
               objectPosition="top"
               priority
               className="rounded-xl"
+              data-testid="post-image"
             />
           </div>
         </div>
@@ -163,6 +164,7 @@ const BlogPost: NextPage<{
           <div
             className="article-content-container font-normal dark:text-slate-400 max-w-[300px] md:max-w-[500px] break-words [&>*:not(p)]:text-2xl [&>*:not(p)]:font-header [&>*:not(p)]:mb-4 [&>*:not(p)]:dark:text-slate-100 [&>p]:mb-8 "
             dangerouslySetInnerHTML={{ __html: post.content }}
+            data-testid="post-content"
           ></div>
           <div className="hidden lg:grid auto-rows-min gap-y-5 w-full ">
             {posts
