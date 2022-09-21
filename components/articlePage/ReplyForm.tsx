@@ -29,7 +29,7 @@ const ReplyForm = ({
       }
     ]
   >([{ msg: '', value: '', param: '', location: '' }]);
-  console.log(comment);
+  
   const handleSubmit = async (data: any) => {
     const userReply = data.reply;
 
