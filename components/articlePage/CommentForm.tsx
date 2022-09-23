@@ -22,8 +22,7 @@ const CommentForm = ({
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (data: any) => {
-    console.log(data.comment.value);
-    const userComment = data.comment;
+    const userComment = textAreaRef.current!.value;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/posts/${post._id}/comments`,
       {
@@ -33,7 +32,7 @@ const CommentForm = ({
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
-          content: userComment.value,
+          content: userComment,
           post: post._id,
         }),
       }
@@ -41,11 +40,19 @@ const CommentForm = ({
     const json = await response.json();
 
     if (json.comment) {
-      userComment.value = '';
+      setErrors([{ msg: '', value: '', param: '', location: '' }]);
+      textAreaRef.current!.value = '';
       console.log('comment added');
       getComments();
-    } else {
-      setErrors(json.errors);
+    } else if (json.errors) {
+      setErrors([
+        {
+          msg: 'Sorry, something went wrong. Please try again.',
+          value: '',
+          param: '',
+          location: '',
+        },
+      ]);
     }
   };
 
@@ -87,6 +94,9 @@ const CommentForm = ({
           Cancel
         </span>
       </button>
+      {errors[0].msg && (
+        <div className="text-red-500 text-sm">{errors[0].msg}</div>
+      )}
     </form>
   );
 };
