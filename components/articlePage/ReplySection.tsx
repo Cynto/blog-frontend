@@ -43,7 +43,7 @@ const ReplySection = ({
 
   useEffect(() => {
     if (refreshReplies) {
-      console.log(refreshReplies);
+      
       getReplies();
       setRefreshReplies(false);
     }
