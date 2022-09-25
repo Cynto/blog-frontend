@@ -1,4 +1,3 @@
-require('jest-fetch-mock').enableMocks();
 import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import '@testing-library/jest-dom';
@@ -13,23 +12,7 @@ const userObj = {
   lastName: 'Doe',
 };
 
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      route: '/',
-      pathname: '',
-      query: '',
-      asPath: '',
-      push: jest.fn(),
-      events: {
-        on: jest.fn(),
-        off: jest.fn(),
-      },
-      beforePopState: jest.fn(() => null),
-      prefetch: jest.fn(() => null),
-    };
-  },
-}));
+
 const post = {
   _id: '1',
   title: 'Post 1',
