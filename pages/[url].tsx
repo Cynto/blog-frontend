@@ -79,7 +79,10 @@ const BlogPost: NextPage<{
     } else if (postData) {
       setPost(postData);
     }
+    
   }, [postData, userObj]);
+
+  
 
   return post ? (
     <>
@@ -93,7 +96,10 @@ const BlogPost: NextPage<{
           >
             {post.title}
           </h1>
-          <div className="h-8  flex gap-x-5 justify-around" data-testid="post-socials">
+          <div
+            className="h-8  flex gap-x-5 justify-around"
+            data-testid="post-socials"
+          >
             <div className="w-8">
               <svg viewBox="0 0 128 128" className="cursor-pointer">
                 <rect
@@ -133,7 +139,10 @@ const BlogPost: NextPage<{
             </div>
           </div>
           <div className="grid justify-items-center">
-            <span className="dark:text-slate-100 font-normal" data-testid="post-user">
+            <span
+              className="dark:text-slate-100 font-normal"
+              data-testid="post-user"
+            >
               Article written by: {post.user.firstName}
               <span className="ml-3" data-testid="post-date">
                 ~{new Date(post.createdAt).toLocaleDateString('en-GB')}
