@@ -11,13 +11,12 @@ const LoadingPost = () => {
   const url = router.query.url;
 
   useEffect(() => {
-    router.replace(`/${url}`);
+    router.replace(`/${url}${window.location.hash}`);
   }, []);
   return (
     <>
       <Header />
       <LoadingPostComponent />
-      
     </>
   );
 };
