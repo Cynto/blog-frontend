@@ -17,7 +17,7 @@ import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
 
 export async function getServerSideProps() {
   const data = await fetch(
-    'https://bloggy-api-cynto.herokuapp.com/posts/published'
+    `${process.env.NEXT_PUBLIC_API_URL}/posts/published`
   );
 
   const posts: any[] = await data.json();
