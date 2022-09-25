@@ -14,7 +14,7 @@ import useFirstRender from '../../hooks/useFirstRender';
 const Posts: NextPage = () => {
   const firstRender = useFirstRender();
   const router = useRouter();
-  const { query } = useRouter();
+  const { query, isReady } = useRouter();
   const userObj = useSelector((state: any) => state.userObj);
 
   const [posts, setPosts] = useState<blogPostObj[]>([]);
@@ -41,16 +41,13 @@ const Posts: NextPage = () => {
               limit: limitToUse,
             },
           })
-        : await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/posts/published`,
-            {
-              method: 'GET',
-              headers: {
-                sort: sort || '-createdAt',
-                limit: limitToUse,
-              },
-            }
-          );
+        : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/published`, {
+            method: 'GET',
+            headers: {
+              sort: sort || '-createdAt',
+              limit: limitToUse,
+            },
+          });
     const posts = await data.json();
 
     if (posts) {
@@ -60,13 +57,17 @@ const Posts: NextPage = () => {
   };
 
   useEffect(() => {
-    if (!router.query.sort) {
+    if (
+      !router.query.sort &&
+      isReady &&
+      ((userObj && !userObj.initial) || !userObj)
+    ) {
       getPosts();
     }
   }, [userObj]);
 
   useEffect(() => {
-    if (router.query.sort && router.query.sort !== sort && !firstRender) {
+    if (isReady && router.query.sort && router.query.sort !== sort) {
       getPosts();
 
       if (router.query.sort === '-createdAt') {
@@ -76,15 +77,14 @@ const Posts: NextPage = () => {
       } else {
         setSort('comments');
       }
-    } else if (
-      router.query.limit &&
-      router.query.limit !== '12' &&
-      !firstRender
-    ) {
+    } else if (isReady && router.query.limit && router.query.limit !== '12') {
       if (Number(router.query.limit) > Number(limit)) {
         setLimit(router.query.limit.toString());
       }
       getPosts();
+    }
+    if (isReady) {
+      console.log(router.query);
     }
   }, [router.query.sort, router.query.limit]);
 
