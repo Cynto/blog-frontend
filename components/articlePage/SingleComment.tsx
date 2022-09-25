@@ -28,7 +28,10 @@ const SingleComment = ({
         },
       }
     );
-    if (response.status === 204) {
+    const json = await response.json();
+
+    // if comment is deleted, refresh comments
+    if (json.status === 204) {
       console.log('comment deleted');
       getComments();
     }
@@ -41,6 +44,7 @@ const SingleComment = ({
           <button
             className="absolute right-5"
             onClick={() => setDisplayDeleteConfirm(true)}
+            data-testid="delete-comment-initial"
           >
             <span
               className="material-symbols-outlined font-extralight"
@@ -58,6 +62,7 @@ const SingleComment = ({
                 setDisplayDeleteConfirm(false);
                 handleDelete();
               }}
+              data-testid="delete-comment-confirm"
             >
               <span
                 className="material-symbols-outlined font-extralight"

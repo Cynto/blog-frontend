@@ -35,10 +35,11 @@ const SingleReply = ({
         },
       }
     );
-    if (response.status === 204) {
+    const data = await response.json();
+    if (data.status === 204) {
       console.log('reply deleted');
+      getReplies();
     }
-    getReplies();
   };
 
   return (
@@ -47,6 +48,7 @@ const SingleReply = ({
         <button
           className="absolute right-5"
           onClick={() => setDisplayDeleteConfirm(true)}
+          data-testid="delete-reply-initial"
         >
           <span
             className="material-symbols-outlined font-extralight"
@@ -56,7 +58,7 @@ const SingleReply = ({
           </span>
         </button>
       ) : null}
-      {reply.user._id === userObj?._id && displayDeleteConfirm ? (
+      {reply.user._id === userObj?._id && displayDeleteConfirm && (
         <>
           <button
             className="absolute right-5 text-red-600"
@@ -64,6 +66,7 @@ const SingleReply = ({
               setDisplayDeleteConfirm(false);
               handleDelete(reply._id);
             }}
+            data-testid="delete-reply-confirm"
           >
             <span
               className="material-symbols-outlined font-extralight"
@@ -76,7 +79,7 @@ const SingleReply = ({
             <span>Click again to confirm deletion</span>
           </div>
         </>
-      ) : null}
+      )}
 
       <div className="">
         <span className=" font-header mr-3 text-xl">
@@ -100,6 +103,7 @@ const SingleReply = ({
         <button
           className=" mt-3  border-slate-900 dark:border-0 rounded    font-bold"
           onClick={() => setIsReplying(!isReplying)}
+          data-testid="reply-to-reply-button"
         >
           <span className="relative hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
             Reply
@@ -107,7 +111,7 @@ const SingleReply = ({
         </button>
       ) : null}
 
-      {isReplying ? (
+      {isReplying && (
         <ReplyForm
           originalUser={reply.user}
           comment={comment}
@@ -115,7 +119,7 @@ const SingleReply = ({
           setRefreshReplies={setRefreshReplies}
           getComments={getComments}
         />
-      ) : null}
+      )}
     </div>
   );
 };
