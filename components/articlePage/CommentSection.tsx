@@ -27,7 +27,12 @@ const CommentSection = ({
 
   useEffect(() => {
     setComments(post.comments);
+    if (window.location.hash === '#comments') {
+      window.location.hash = '';
+      window.location.hash = 'comments';
+    }
   }, []);
+
   return (
     <div
       id="comments"
