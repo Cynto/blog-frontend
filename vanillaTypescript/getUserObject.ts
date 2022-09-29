@@ -1,7 +1,7 @@
 const getUserObject = async () => {
   try {
     if (localStorage.getItem('token')) {
-      const res = await fetch('https://bloggy-api-cynto.herokuapp.com/user', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
