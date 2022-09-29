@@ -1,4 +1,4 @@
-require('jest-fetch-mock').enableMocks();
+import fetch from 'jest-fetch-mock';
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
@@ -41,7 +41,7 @@ describe('Register page tests', () => {
     jest
       .spyOn(formValidators, 'validateRegistration')
       .mockImplementation(
-        (
+        async (
           data: any,
           successCallback: Function,
           errorCallback: Function,
@@ -220,7 +220,6 @@ describe('Register page tests', () => {
               },
             ];
           }
-          
 
           if (errorsArr.length > 0) {
             errorCallback(errorsArr);
@@ -452,10 +451,15 @@ describe('Register page tests', () => {
     await userEvent.type(screen.getByLabelText('Confirm Password *'), 'b0');
     await userEvent.click(screen.getByText('Create Account'));
 
-    expect(screen.getByText('First name must have more than 2 characters' )).toBeInTheDocument();
-    expect(screen.getByText('Last name must have more than 2 characters')).toBeInTheDocument();
-    expect(screen.getByText('Password must have more than 7 characters')).toBeInTheDocument();
+    expect(
+      screen.getByText('First name must have more than 2 characters')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Last name must have more than 2 characters')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Password must have more than 7 characters')
+    ).toBeInTheDocument();
     expect(screen.getByText('Passwords must match')).toBeInTheDocument();
-    
   });
 });

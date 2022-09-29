@@ -5,7 +5,7 @@ import Login from '../pages/login';
 import { act } from 'react-dom/test-utils';
 import { renderWithProviders } from '../utils/test-utils';
 import * as handlers from '../vanillaTypescript/handlers';
-
+import fetch from 'jest-fetch-mock'
 
 
 const userObj = {

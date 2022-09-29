@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../utils/test-utils';
 import Posts from '../pages/posts';
+import fetch from 'jest-fetch-mock'
 
 const userObj = {
   _id: '1',

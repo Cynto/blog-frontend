@@ -6,6 +6,7 @@ import { renderWithProviders } from '../utils/test-utils';
 import BlogPost from '../pages/[url]';
 import * as formValidators from '../vanillaTypescript/formValidators';
 import { getServerSideProps } from '../pages/[url]';
+import fetch from 'jest-fetch-mock'
 
 const userObj = {
   _id: '1',
@@ -77,7 +78,7 @@ describe('blog post page tests', () => {
     const { props } = await getServerSideProps({
       params: { url: 'test-post' },
     });
-    expect(props.postData).toEqual(post);
+    expect(props!.postData).toEqual(post);
   });
 
   it('getServerSideProps returns 404 if post is not found', async () => {
@@ -94,7 +95,7 @@ describe('blog post page tests', () => {
     const { props } = await getServerSideProps({
       params: { url: 'test-post' },
     });
-    expect(props.postData).toEqual(null);
+    expect(props!.postData).toEqual(null);
   });
 
   it('renders without crashing', async () => {

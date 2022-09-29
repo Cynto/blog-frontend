@@ -6,6 +6,8 @@ import { renderWithProviders } from '../utils/test-utils';
 import EditPost from '../pages/posts/edit/[url]';
 import * as formValidators from '../vanillaTypescript/formValidators';
 import { getServerSideProps } from '../pages/posts/edit/[url]';
+import fetch from 'jest-fetch-mock'
+
 
 const userObj = {
   _id: '1',
@@ -240,7 +242,7 @@ describe('Edit post page tests', () => {
     const { props } = await getServerSideProps({
       params: { url: 'test-post' },
     });
-    expect(props.post).toEqual(post);
+    expect(props!.post).toEqual(post);
   });
   it('getServerSideProps returns 404 if post is not found', async () => {
     fetch.mockResponseOnce(JSON.stringify({ post: null }));

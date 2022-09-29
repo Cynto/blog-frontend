@@ -5,6 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../utils/test-utils';
 import { getServerSideProps } from '../pages/index';
 import Home from '../pages/index';
+import fetch from 'jest-fetch-mock'
+
 
 const userObj = {
   _id: '1',

@@ -4,12 +4,13 @@ import userEvent from '@testing-library/user-event';
 import Logout from '../pages/logout';
 import { act } from 'react-dom/test-utils';
 import { renderWithProviders } from '../utils/test-utils';
+import fetch from 'jest-fetch-mock'
+
 
 const userObj = {
   _id: '1',
   firstName: 'John',
   lastName: 'Doe',
-  
 };
 
 jest.mock('next/router', () => ({
@@ -51,7 +52,8 @@ describe('logout page tests', () => {
     });
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
-      'https://bloggy-api-cynto.herokuapp.com/user',
+      `${process.env.NEXT_PUBLIC_API_URL}/user`,
+
       {
         method: 'GET',
         headers: {

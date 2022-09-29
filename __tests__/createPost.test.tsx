@@ -5,6 +5,8 @@ import { act } from 'react-dom/test-utils';
 import { renderWithProviders } from '../utils/test-utils';
 import Create from '../pages/posts/create';
 import * as formValidators from '../vanillaTypescript/formValidators';
+import fetch from 'jest-fetch-mock'
+
 
 const userObj = {
   _id: '1',

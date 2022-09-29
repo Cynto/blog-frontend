@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import { renderWithProviders } from '../utils/test-utils';
 import CommentSection from '../components/articlePage/CommentSection';
+import fetch from 'jest-fetch-mock'
 
 const userObj = {
   _id: '1',

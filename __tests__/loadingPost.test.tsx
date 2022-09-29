@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import { renderWithProviders } from '../utils/test-utils';
 import LoadingPost from '../pages/loading/[url]';
+import fetch from 'jest-fetch-mock'
 
 describe('loading post page tests', () => {
   beforeEach(() => {
