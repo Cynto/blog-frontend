@@ -14,7 +14,7 @@ import useFirstRender from '../../hooks/useFirstRender';
 const Posts: NextPage = () => {
   const firstRender = useFirstRender();
   const router = useRouter();
-  const { query, isReady } = useRouter();
+  const { query } = useRouter();
   const userObj = useSelector((state: any) => state.userObj);
 
   const [posts, setPosts] = useState<blogPostObj[]>([]);
@@ -51,7 +51,7 @@ const Posts: NextPage = () => {
     const posts = await data.json();
 
     if (posts) {
-      console.log(posts);
+      
       setPosts(posts);
     }
   };
@@ -59,7 +59,7 @@ const Posts: NextPage = () => {
   useEffect(() => {
     if (
       !router.query.sort &&
-      isReady &&
+      router.isReady &&
       ((userObj && !userObj.initial) || !userObj)
     ) {
       getPosts();
@@ -67,7 +67,8 @@ const Posts: NextPage = () => {
   }, [userObj]);
 
   useEffect(() => {
-    if (isReady && router.query.sort && router.query.sort !== sort) {
+    console.log(router.isReady, router.query.sort, sort)
+    if (router.isReady && router.query.sort && router.query.sort !== sort) {
       getPosts();
 
       if (router.query.sort === '-createdAt') {
@@ -77,14 +78,11 @@ const Posts: NextPage = () => {
       } else {
         setSort('comments');
       }
-    } else if (isReady && router.query.limit && router.query.limit !== '12') {
+    } else if (router.isReady && router.query.limit && router.query.limit !== '12') {
       if (Number(router.query.limit) > Number(limit)) {
         setLimit(router.query.limit.toString());
       }
       getPosts();
-    }
-    if (isReady) {
-      console.log(router.query);
     }
   }, [router.query.sort, router.query.limit]);
 
