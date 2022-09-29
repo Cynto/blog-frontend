@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 const Header = dynamic(() => import('../../../components/Header'), {
   ssr: false,
@@ -7,6 +7,7 @@ import BasicButton from '../../../components/BasicButton';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import ProcessingOverlay from '../../../components/ProcessingOverlay';
+import { useSelector } from 'react-redux';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
@@ -36,6 +37,7 @@ export async function getServerSideProps(context: any) {
 const PostDelete = ({ post }: { post: any }) => {
   const router = useRouter();
   const [processing, setProcessing] = useState<boolean>(false);
+  const userObj = useSelector((state: any) => state.userObj);
 
   const handleDelete = async () => {
     setProcessing(true);
@@ -45,9 +47,10 @@ const PostDelete = ({ post }: { post: any }) => {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
+    const json = await response.json();
 
-    console.log(response);
-    if (response.status === 204) {
+    // if post is deleted, redirect to posts page
+    if (json.status === 204) {
       router.push('/posts');
     }
     setProcessing(false);
@@ -55,6 +58,13 @@ const PostDelete = ({ post }: { post: any }) => {
   const cancel = () => {
     router.back();
   };
+
+  useEffect(() => {
+    if (!userObj.initial && !userObj.isAdmin) {
+      router.push('/');
+    }
+  }, [userObj]);
+
 
   return (
     <>
