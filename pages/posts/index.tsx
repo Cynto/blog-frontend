@@ -51,7 +51,6 @@ const Posts: NextPage = () => {
     const posts = await data.json();
 
     if (posts) {
-      
       setPosts(posts);
     }
   };
@@ -67,7 +66,6 @@ const Posts: NextPage = () => {
   }, [userObj]);
 
   useEffect(() => {
-    console.log(router.isReady, router.query.sort, sort)
     if (router.isReady && router.query.sort && router.query.sort !== sort) {
       getPosts();
 
@@ -78,7 +76,11 @@ const Posts: NextPage = () => {
       } else {
         setSort('comments');
       }
-    } else if (router.isReady && router.query.limit && router.query.limit !== '12') {
+    } else if (
+      router.isReady &&
+      router.query.limit &&
+      router.query.limit !== '12'
+    ) {
       if (Number(router.query.limit) > Number(limit)) {
         setLimit(router.query.limit.toString());
       }
