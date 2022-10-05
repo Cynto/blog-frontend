@@ -116,7 +116,7 @@ const Register: NextPage = () => {
           {errors[0]?.msg !== '' ? (
             <ul className="mt-0">
               {errors.map((error, index) => (
-                <li key={index} className="text-red-700 mt-0 mb-1">
+                <li key={index} className="error text-red-700 mt-0 mb-1">
                   {' '}
                   {error.msg}
                 </li>
