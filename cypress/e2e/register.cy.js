@@ -3,7 +3,7 @@
 import Chance from 'chance';
 const chance = new Chance();
 
-describe('register tests', () => {
+describe('register', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/register');
   });

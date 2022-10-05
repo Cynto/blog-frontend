@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-localstorage-commands';
 
-describe('login tests', () => {
+describe('login', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/login');
   });
