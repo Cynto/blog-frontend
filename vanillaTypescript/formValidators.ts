@@ -29,7 +29,7 @@ export const validateCreationForm = (
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'Title must have 75 or less characters',
+        msg: 'Title must not contain more than 75 characters',
         value: '',
         param: 'title',
         location: 'body',
@@ -42,7 +42,7 @@ export const validateCreationForm = (
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'Title must have 5 or more characters',
+        msg: 'Title must contain at least 5 characters',
         value: '',
         param: 'title',
         location: 'body',
@@ -80,7 +80,7 @@ export const validateCreationForm = (
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'Content must have between 10 and 10000 characters',
+        msg: 'Content must contain between 10 and 10000 characters',
         value: '',
         param: 'content',
         location: 'body',
@@ -119,7 +119,7 @@ export const validateCreationForm = (
       errorsArr = [
         ...errorsArr,
         {
-          msg: 'Each tag must have between 4 and 20 characters',
+          msg: 'Each tag must contain between 4 and 20 characters',
           value: '',
           param: 'tags',
           location: 'body',
@@ -163,6 +163,22 @@ export const validateRegistration = async (
       },
     ];
   }
+  // check if first name only contains letters
+  if (
+    !/^[a-zA-Z]+$/.test(firstName.value) &&
+    !errorsArr.find((e) => e.param === 'firstName')
+  ) {
+    errorsArr = [
+      ...errorsArr,
+      {
+        msg: 'First name must contain only letters',
+        value: '',
+        param: 'firstName',
+        location: 'body',
+      },
+    ];
+  }
+
   if (
     firstName.value.length < 3 &&
     !errorsArr.find((e) => e.param === 'firstName')
@@ -170,7 +186,7 @@ export const validateRegistration = async (
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'First name must have more than 2 characters',
+        msg: 'First name must contain at least 3 characters',
         value: '',
         param: 'firstName',
         location: 'body',
@@ -184,13 +200,14 @@ export const validateRegistration = async (
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'First name must have less than 21 characters',
+        msg: 'First name must not contain more than 20 characters',
         value: '',
         param: 'firstName',
         location: 'body',
       },
     ];
   }
+
   if (!lastName.value) {
     errorsArr = [
       ...errorsArr,
@@ -202,6 +219,22 @@ export const validateRegistration = async (
       },
     ];
   }
+  // check if last name only contains letters
+  if (
+    !/^[a-zA-Z]+$/.test(lastName.value) &&
+    !errorsArr.find((e) => e.param === 'lastName')
+  ) {
+    errorsArr = [
+      ...errorsArr,
+      {
+        msg: 'Last name must contain only letters',
+        value: '',
+        param: 'lastName',
+        location: 'body',
+      },
+    ];
+  }
+
   if (
     lastName.value.length < 3 &&
     !errorsArr.find((e) => e.param === 'lastName')
@@ -209,7 +242,7 @@ export const validateRegistration = async (
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'Last name must have more than 2 characters',
+        msg: 'Last name must contain at least 3 characters',
         value: '',
         param: 'lastName',
         location: 'body',
@@ -223,7 +256,7 @@ export const validateRegistration = async (
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'Last name must have less than 21 characters',
+        msg: 'Last name must not contain more than 20 characters',
         value: '',
         param: 'lastName',
         location: 'body',
@@ -274,7 +307,7 @@ export const validateRegistration = async (
     errorsArr = [
       ...errorsArr,
       {
-        msg: 'Password must have more than 7 characters',
+        msg: 'Password must contain at least 8 characters',
         value: '',
         param: 'password',
         location: 'body',
