@@ -11,34 +11,23 @@ describe('register tests', () => {
   it('should have a title', () => {
     cy.title().should('include', 'Register');
   });
-  it('unsuccessful register should stay on register page', () => {
+  
+
+  it('error messages show when info doesnt meet requirements ', () => {
     const email = chance.email();
     const firstName = chance.first();
     const lastName = chance.last();
 
-    cy.get('#firstName').type(firstName);
-    cy.get('#lastName').type(lastName);
-    cy.get('#email').type(email);
+    cy.get('#firstName').type('bo');
+    cy.get('#lastName').type('bo');
+    cy.get('#email').type('bob@gmail.com');
     cy.get('#password').type('SuperSecret');
     cy.get('#confirmPassword').type('SuperSecret2');
     cy.get('[type=submit]').click();
     cy.wait(300);
-    cy.url().should('include', '/register');
-  });
-
-  it('error message should be displayed when passwords do not match', () => {
-    const email = chance.email();
-    const firstName = chance.first();
-    const lastName = chance.last();
-
-    cy.get('#firstName').type(firstName);
-    cy.get('#lastName').type(lastName);
-    cy.get('#email').type(email);
-    cy.get('#password').type('SuperSecret');
-    cy.get('#confirmPassword').type('SuperSecret2');
-    cy.get('[type=submit]').click();
-    cy.wait(300);
-    cy.get('.error').should('contain', 'Passwords do not match.');
+    cy.contains('First name must contain at least 3 characters');
+    cy.contains('Last name must contain at least 3 characters');
+    cy.get('.error').should('contain', 'Passwords must match');
   });
   it('invalid email should result with staying on register page', () => {
     const email = chance.email();
@@ -54,37 +43,24 @@ describe('register tests', () => {
     cy.wait(300);
     cy.url().should('include', '/register');
   });
-  it('error message should be displayed with invalid name', () => {
+
+  it('error should appear if admin code is incorrect', () => {
     const email = chance.email();
     const firstName = chance.first();
     const lastName = chance.last();
 
-    cy.get('#firstName').type('000');
+    cy.get('#firstName').type(firstName);
     cy.get('#lastName').type(lastName);
     cy.get('#email').type(email);
     cy.get('#password').type('SuperSecret');
     cy.get('#confirmPassword').type('SuperSecret');
-    cy.get('[type=submit]').click();
-    cy.wait(300);
-    cy.get('.error').should('contain', 'First name must only include letters.');
-  });
-  it('error message should be displayed with too short of a name', () => {
-    const email = chance.email();
-    const firstName = chance.first();
-    const lastName = chance.last();
+    cy.get('#adminCode').type('wrong');
 
-    cy.get('#firstName').type('a');
-    cy.get('#lastName').type(lastName);
-    cy.get('#email').type(email);
-    cy.get('#password').type('SuperSecret');
-    cy.get('#confirmPassword').type('SuperSecret');
     cy.get('[type=submit]').click();
     cy.wait(300);
-    cy.get('.error').should(
-      'contain',
-      'First name must include at least 3 characters.'
-    );
+    cy.contains('Admin code is incorrect');
   });
+  
   it('successful register should redirect to login', () => {
     const email = chance.email();
     const firstName = chance.first();
