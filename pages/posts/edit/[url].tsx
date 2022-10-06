@@ -11,6 +11,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { validateCreationForm } from '../../../vanillaTypescript/formValidators';
 import { useRouter } from 'next/router';
 import ProcessingOverlay from '../../../components/ProcessingOverlay';
+import Head from 'next/head';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
@@ -105,13 +106,16 @@ const EditPost: NextPage<{
   };
 
   useEffect(() => {
-    if (!userObj.initial && !userObj.isAdmin) {
+    if (userObj === null || userObj.isAdmin === false) {
       router.push('/');
     }
   }, [userObj]);
 
   return (
     <>
+      <Head>
+        <title>Bloggy Edit Post</title>
+      </Head>
       <ProcessingOverlay processing={processing} />
       <Header />
       <main className="relative md:pb-16 md:pt-32 grid justify-center">
@@ -276,7 +280,7 @@ const EditPost: NextPage<{
           {errors[0]?.msg !== '' ? (
             <ul className="mt-0">
               {errors.map((error, index) => (
-                <li key={index} className="text-red-700 mt-0 mb-1">
+                <li key={index} className="error text-red-700 mt-0 mb-1">
                   {' '}
                   {error.msg}
                 </li>
