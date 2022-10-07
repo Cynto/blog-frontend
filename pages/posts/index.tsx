@@ -10,6 +10,7 @@ import StandardPostPageArticle from '../../components/postsPage/StandardPostPage
 import blogPostObj from '../../shared/interfaces/blogPostObj.interface';
 import SortLink from '../../components/postsPage/SortLink';
 import useFirstRender from '../../hooks/useFirstRender';
+import Head from 'next/head';
 
 const Posts: NextPage = () => {
   const firstRender = useFirstRender();
@@ -90,6 +91,9 @@ const Posts: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Bloggy Posts</title>
+      </Head>
       <Header />
       <div className="h-full relative dark:bg-gray-900 dark:text-slate-100 w-full">
         <main className="pt-20 grid auto-rows-min justify-center relative min-h-screen">
@@ -118,7 +122,7 @@ const Posts: NextPage = () => {
               />
             ))}
           </div>
-          {posts.length >= Number(limit) ? (
+          {posts.length >= Number(limit) && (
             <div className="flex justify-center pb-5">
               <Link
                 href={{
@@ -132,6 +136,7 @@ const Posts: NextPage = () => {
                 <button
                   className="flex group relative"
                   onClick={() => setLimit((Number(limit) + 12).toString())}
+                  data-testid="load-more-button"
                 >
                   <span className=" hover:after:scale-x-100 hover:after:origin-bottom-left after:content-{''} after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-slate-900 dark:after:bg-slate-100 after:origin-bottom-right after:transition-transform after:duration-300 after:ease-out">
                     Load More Posts
@@ -143,7 +148,7 @@ const Posts: NextPage = () => {
                 </button>
               </Link>
             </div>
-          ) : null}
+          )}
         </main>
       </div>
     </>
