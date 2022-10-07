@@ -13,7 +13,7 @@ const StandardPostPageArticle = ({
   userObj: false | UserObj | null;
 }) => {
   return (
-    <div className="flex flex-col justify-between">
+    <div className="post flex flex-col justify-between">
       <div className="mb-4 h-60 border-2 dark:border-0 bg-black dark:bg-white rounded-xl relative">
         <Image
           
