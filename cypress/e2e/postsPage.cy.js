@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-localstorage-commands';
 
-describe('posts page', () => {
+describe('posts page normal user', () => {
   beforeEach(() => {
     cy.setLocalStorage(
       'token',
@@ -52,5 +52,42 @@ describe('posts page', () => {
     cy.get('[data-testid="load-more-button"]').click();
 
     cy.get('[data-testid="load-more-button"]').should('not.exist');
+  });
+
+  it('read article button should redirect to post page', () => {
+    cy.wait(1000);
+    cy.contains('This is a test post').parent('div').within(($div) => {
+      cy.get('button').contains('Read Article').click();
+    })
+
+    cy.url().should('include', 'this-is-a-test-post');
+  });
+});
+
+describe('posts page admin user', () => {
+  beforeEach(() => {
+    cy.setLocalStorage(
+      'token',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzNiMDNjZmQzZjVlY2MxMjdjYzhmNWEiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiVGVzdCIsImxhc3ROYW1lIjoiVGVzdCIsInBhc3N3b3JkIjoiJDJhJDEwJG03bUxlZVlEQXF3cDdyV2VhL3BvS2VJNFZuUHlyb3BoeVYuYk5Wekwyb1RoYUdzM1d4T25PIiwiaXNBZG1pbiI6dHJ1ZSwiY3JlYXRlZEF0IjoiMjAyMi0xMC0wM1QxNTo0NjoyMy41ODhaIiwibGFzdExvZ2luIjoiMjAyMi0xMC0wM1QxNTo0NjoyMy41ODhaIiwiX192IjowLCJpYXQiOjE2NjQ5ODY4MjZ9.wbT3ljxh2_YED6qdgjERxr7l9s9ttFTMXJ8lP_WI2ZE'
+    );
+    cy.visit('http://localhost:3000/posts');
+  });
+
+  it('should render posts with edit and delete buttons', () => {
+    cy.wait(1000);
+    cy.get('button span').contains('Edit Article');
+    cy.get('button span').contains('Delete Article');
+  });
+
+  it('edit button should redirect to edit post page', () => {
+    cy.wait(1000);
+    cy.get('button span').contains('Edit Article').click();
+    cy.url().should('include', 'edit');
+  });
+
+  it('delete button should redirect to delete page', () => {
+    cy.wait(1000);
+    cy.get('button span').contains('Delete Article').click();
+    cy.url().should('include', 'delete');
   });
 });
