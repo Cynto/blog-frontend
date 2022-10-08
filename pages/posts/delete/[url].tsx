@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
-    `https://bloggy-api-cynto.herokuapp.com/posts/${context.params.url}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/posts/${context.params.url}`,
     {
       method: 'GET',
       headers: {
@@ -41,7 +41,7 @@ const PostDelete = ({ post }: { post: any }) => {
 
   const handleDelete = async () => {
     setProcessing(true);
-    const response = await fetch(`http://localhost:4000/posts/${post._id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${post._id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
