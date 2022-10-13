@@ -10,6 +10,7 @@ const Header = dynamic(() => import('../components/Header'), { ssr: false });
 import NoPictureArticleShowcase from '../components/frontPage/NoPictureArticleShowcase';
 import { useSelector } from 'react-redux';
 import LoadingPostComponent from '../components/LoadingPostComponent';
+import Head from 'next/head';
 
 export async function getServerSideProps(context: any) {
   const res = await fetch(
@@ -86,6 +87,9 @@ const BlogPost: NextPage<{
 
   return post ? (
     <>
+    <Head>
+      <title>{post.title}</title>
+    </Head>
       <Header />
 
       <article className="h-full w-full pt-40 pb-0 dark:bg-gray-900 flex flex-col justify-center items-center">
@@ -175,7 +179,7 @@ const BlogPost: NextPage<{
             dangerouslySetInnerHTML={{ __html: post.content }}
             data-testid="post-content"
           ></div>
-          <div className="hidden lg:grid auto-rows-min gap-y-5 w-full ">
+          <div className="post-suggestions hidden lg:grid auto-rows-min gap-y-5 w-full ">
             {posts
               ? posts.map((post, index) => {
                   return index < 3 ? (
