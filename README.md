@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bloggy
 
-## Getting Started
+## About
 
-First, run the development server:
+This [Next.js](https://nextjs.org/) website was created to complete the The Odin Project's
+[Blog API](https://www.theodinproject.com/lessons/nodejs-blog-api) lesson.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+You can find the live version of this project [here](https://bloggy.vercel.app/).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This website uses [this](https://github.com/Cynto/express-blog-api) as its backend.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Features
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- Create user accounts
+- Create, edit, and delete posts
+- Create, and delete comments
+- Create, and delete replies
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Installation
 
-## Learn More
+1. Clone this repository
+2. Run `npm install` to install the dependencies
+3. Run `npm run dev` to start the development server
 
-To learn more about Next.js, take a look at the following resources:
+## Dependencies
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Loading](https://www.npmjs.com/package/react-loading)
+- [React Redux](https://react-redux.js.org/)
+- [React Redux Toolkit](https://redux-toolkit.js.org/)
+- [TinyMCE](https://www.tiny.cloud/)
+- [Chance](https://chancejs.com/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Dev Dependencies
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ESLint](https://eslint.org/)
+- [ESLint Config Next](https://www.npmjs.com/package/eslint-config-next)
+- [Prettier](https://prettier.io/)
+- [react-testing-library](https://testing-library.com/docs/react-testing-library/intro/)
+- [react-test-renderer](https://reactjs.org/docs/test-renderer.html)
+- [Jest](https://jestjs.io/)
+- [TS Jest](https://www.npmjs.com/package/ts-jest)
+- [Jest Environment jsdom](https://www.npmjs.com/package/jest-environment-jsdom)
+- [Jest Fetch Mock](https://www.npmjs.com/package/jest-fetch-mock)
+- [sass](https://sass-lang.com/)
+- [Cypress](https://www.cypress.io/)
+- [Cypress localstorage-commands](https://www.npmjs.com/package/cypress-localstorage-commands)
