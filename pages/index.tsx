@@ -14,6 +14,7 @@ const FrontPageMain = dynamic(
   { ssr: false }
 );
 import blogPostObjInterface from '../shared/interfaces/blogPostObj.interface';
+import Footer from '../components/Footer';
 
 export async function getServerSideProps() {
   const data = await fetch(
@@ -47,7 +48,7 @@ const Home: NextPage<{ posts: blogPostObjInterface[] }> = ({ posts }) => {
 
       <Header />
       <div className="h-full relative dark:bg-gray-900 dark:text-slate-100">
-        <main className="min-h-screen h-screen pt-[4.6rem]  flex flex-col justify-start">
+        <main className="min-h-screen  pt-[4.6rem]  flex flex-col justify-start">
           {posts[0] ? (
             <>
               <FeaturedPost posts={posts} />
@@ -56,6 +57,7 @@ const Home: NextPage<{ posts: blogPostObjInterface[] }> = ({ posts }) => {
           ) : null}
         </main>
       </div>
+      <Footer />
     </>
   );
 };
