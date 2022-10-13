@@ -20,7 +20,7 @@ const SingleComment = ({
 
   const handleDelete = async () => {
     const response = await fetch(
-      `https://bloggy-api-cynto.herokuapp.com/posts/${comment.post}/comments/${comment._id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/posts/${comment.post}/comments/${comment._id}`,
       {
         method: 'DELETE',
         headers: {
@@ -39,7 +39,7 @@ const SingleComment = ({
 
   return (
     <>
-      <div className="w-ful max-w-full  border-t-2 p-5 m-b-10 relative">
+      <div className="comment w-ful max-w-full  border-t-2 p-5 m-b-10 relative">
         {comment.user._id === userObj?._id && !displayDeleteConfirm ? (
           <button
             className="absolute right-5"
@@ -103,7 +103,7 @@ const SingleComment = ({
           </button>
         ) : null}
 
-        {isReplying ? (
+        {isReplying && (
           <ReplyForm
             originalUser={comment.user}
             comment={comment}
@@ -111,7 +111,7 @@ const SingleComment = ({
             setRefreshReplies={setRefreshReplies}
             getComments={getComments}
           />
-        ) : null}
+        )}
         {comment.replies[0] ? (
           <ReplySection
             comment={comment}

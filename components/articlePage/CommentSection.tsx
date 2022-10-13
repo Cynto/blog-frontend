@@ -68,7 +68,7 @@ const CommentSection = ({
             </div>
           </div>
         ) : (
-          <div className="w-full p-2">
+          <div className="comment-form-section w-full p-2">
             <span className="block text-xl mb-3">
               You&apos;re signed in, <b>{userObj.firstName}</b>
             </span>
