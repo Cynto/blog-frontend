@@ -2,7 +2,7 @@
 
 ## About
 
-This [Next.js](https://nextjs.org/) website was created to complete the The Odin Project's
+This [Next.js](https://nextjs.org/) website was created to complete The Odin Project's
 [Blog API](https://www.theodinproject.com/lessons/nodejs-blog-api) lesson.
 
 You can find the live version of this project [here](https://bloggy.vercel.app/).
@@ -31,9 +31,8 @@ This website uses [this](https://github.com/Cynto/express-blog-api) as its backe
 - [React Redux Toolkit](https://redux-toolkit.js.org/)
 - [TinyMCE](https://www.tiny.cloud/)
 - [Chance](https://chancejs.com/)
-
-## Dev Dependencies
-
+- [React Area Autosize](https://www.npmjs.com/package/react-textarea-autosize)
+### Dev Dependencies
 - [ESLint](https://eslint.org/)
 - [ESLint Config Next](https://www.npmjs.com/package/eslint-config-next)
 - [Prettier](https://prettier.io/)
