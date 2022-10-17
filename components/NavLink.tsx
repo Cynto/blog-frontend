@@ -20,7 +20,7 @@ const NavLink = (props: { href: string; text: string; menuOpen: boolean }) => {
       );
     }
     if (menuOpen) {
-      setMenuClass('md:first:mt-0 first:mt-10 w-min');
+      setMenuClass('md:first:mt-0 first:mt-10 w-max');
     }
   }, [currentRoute, href, menuOpen]);
 

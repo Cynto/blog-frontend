@@ -52,7 +52,7 @@ const NavBar = (props: {
   return (
     <nav
       className={` md:!opacity-100 md:!items-center md:!bottom-0
-               dark:bg-gray-900 bg-white px-0 py-0 my-0 md:!grid md:!relative grid-flow-col gap-x-8 ${
+               dark:bg-gray-900 bg-white px-0 py-0 my-0 md:!grid md:!relative md:grid-flow-col gap-x-8 ${
                  menuOpen
                    ? 'opacity-100 !grid auto-rows-min gap-10  justify-center justify-items-center fixed !grid-flow-row right-0 bottom-0 left-0 top-[13%]   shadow-lg border-t-2  border-gray-200 dark:border-gray-600 transition-all duration-500 ease-in-out origin-left'
                    : 'opacity-0 absolute bottom-[999px] '
