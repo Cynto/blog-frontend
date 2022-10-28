@@ -31,7 +31,7 @@ export async function getServerSideProps(context: any) {
   }
 
   const postsData = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/posts/published`
+    `${process.env.NEXT_PUBLIC_API_URL}/posts`
   );
 
   const posts = await postsData.json();

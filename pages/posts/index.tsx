@@ -42,7 +42,7 @@ const Posts: NextPage = () => {
               limit: limitToUse,
             },
           })
-        : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/published`, {
+        : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
             method: 'GET',
             headers: {
               sort: sort || '-createdAt',

@@ -18,7 +18,7 @@ import Footer from '../components/Footer';
 
 export async function getServerSideProps() {
   const data = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/posts/published`
+    `${process.env.NEXT_PUBLIC_API_URL}/posts`
   );
 
   const posts: any[] = await data.json();
