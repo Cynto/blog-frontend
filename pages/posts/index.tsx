@@ -40,6 +40,7 @@ const Posts: NextPage = () => {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
               sort: sort || '-createdAt',
               limit: limitToUse,
+              allposts: 'true',
             },
           })
         : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
