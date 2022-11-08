@@ -1,16 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import blogPostObjInterface from '../../shared/interfaces/blogPostObj.interface';
 
 const FeaturedPost = ({ posts }: { posts: blogPostObjInterface[] }) => {
   const post = posts[0];
-  const router = useRouter();
+
   return (
-    <div className=" w-full relative h-[40%] lg:h-[300px]">
+    <div className=" w-full relative h-[40%] lg:h-[300px] flex justify-center">
       <div
-        className="relative w-full h-full grid lg:justify-center items-end pb-5 lg:pb-14 xl:pb-5 px-14"
+        className="relative w-full h-full flex justify-center items-center pb-5 lg:pb-14 xl:pb-5 px-14"
         data-testid="featured-post"
       >
         <div className="absolute w-full h-full">
@@ -25,7 +24,7 @@ const FeaturedPost = ({ posts }: { posts: blogPostObjInterface[] }) => {
           />
         </div>
 
-        <div className=" xl:max-w-[37%] lg:max-w-[50%] md:max-w-[60%] lg:translate-x-[58%]    -translate-x-0  overflow-hidden">
+        <div className="z-10 max-w-[400px] overflow-hidden">
           <h1 className=" text-slate-900 text-xl md:text-4xl font-bold m-0  break-words">
             {post.title}
           </h1>
