@@ -7,8 +7,8 @@
 
 # testing
 /coverage
-/cypress/e2e/1-getting-started
-/cypress/e2e/2-advanced-examples
+/cypress/videos
+/cypress/screenshots
 
 
 # next.js
@@ -36,3 +36,5 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+/.idea
