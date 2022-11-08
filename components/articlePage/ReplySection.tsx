@@ -22,7 +22,7 @@ const ReplySection = ({
 
   const getReplies = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/posts/${comment.post}/comments/${comment._id}/replies`
+      `${process.env.NEXT_PUBLIC_API_URL}/comments/${comment._id}/replies`
     );
     const json = await response.json();
 
@@ -43,7 +43,6 @@ const ReplySection = ({
 
   useEffect(() => {
     if (refreshReplies) {
-      
       getReplies();
       setRefreshReplies(false);
     }
