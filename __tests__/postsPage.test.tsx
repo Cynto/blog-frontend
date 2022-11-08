@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../utils/test-utils';
 import Posts from '../pages/posts';
 import fetch from 'jest-fetch-mock'
@@ -33,11 +32,7 @@ const post = {
   createdAt: '2021-01-01T00:00:00.000Z',
   updatedAt: '2021-01-01T00:00:00.000Z',
 };
-const unpublishedPost = {
-  ...post,
-  _id: '3',
-  published: false,
-};
+
 const post2 = {
   ...post,
   _id: '4',
@@ -71,20 +66,10 @@ const replies = [
     createdAt: '2021-01-01T00:00:00.000Z',
   },
 ];
-const comment = {
-  _id: '3',
-  content: 'Test Comment',
-  user: userObj,
-  post: post._id,
-  replies,
-  createdAt: '2021-01-01T00:00:00.000Z',
-};
+
 
 const publishedPosts = [post, post2, post3, post4, post5];
-const postWithComments = {
-  ...post,
-  comments: [comment, comment],
-};
+
 
 describe('posts', () => {
   beforeEach(() => {
@@ -131,7 +116,7 @@ describe('posts', () => {
 
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
-      `${process.env.NEXT_PUBLIC_API_URL}/posts/published`,
+      `${process.env.NEXT_PUBLIC_API_URL}/posts`,
       {
         method: 'GET',
         headers: {
@@ -165,6 +150,7 @@ describe('posts', () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           sort: '-createdAt',
           limit: '12',
+          allposts: "true"
         },
       }
     );
